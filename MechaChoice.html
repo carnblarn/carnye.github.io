@@ -1,0 +1,271 @@
+<html>
+<head>
+    <title>Mecha Choice</title>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <script src="resources/jquery-2.1.1.min.js"></script>
+    <script src="resources/jcanvas.min.js"></script>
+
+    <style>
+    #canvas{
+        width:800px;
+        display:block;
+        margin: 40px auto;
+
+    }
+    #count{
+        float:right;
+    }
+    #timer{
+        text-align:center;
+    }
+    h5{
+        text-align:center;
+    }
+    .container{
+        width:800px;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 id="count"></h2>
+
+        <h1 id="timer"></h1>
+       <canvas width="800" height="600" id="canvas"></canvas>
+        <h5>HOW TO PLAY: Use the left and right arrow keys</h5>
+    </div>
+    <script>
+        var counter = 0;
+        $('#count').html(counter);
+        var columnWidth = 200;
+        var start = new Date().getTime(), time = 0;
+        var doorHeight = 100;
+        var p1 = {pos:1, y: 200, name:"p1", color: "#36c"};
+        var p2 = {pos:1, y: 300, name:"p2", color: "#f6d"}
+        var p3 = {pos:1, y: 400, name:"p3", color: "#2d2"}
+        var p4 = {pos:1, y: 500, name:"p4", color: "#98d"}
+        // var wrongDoor = Math.floor((Math.random() * 3) + 1);
+        var wrongDoor = 1;
+
+
+
+        initPlayers(p1);
+        initPlayers(p2);
+        initPlayers(p3);
+        initPlayers(p4);
+        initDoors();
+        $('canvas').animateLayerGroup('doors', {y: 200}, 800, 'linear');
+        function initPlayers(player){
+            $('canvas').drawEllipse({
+              layer: true,
+              name: player.name,
+              fillStyle: player.color,
+              x: player.pos*columnWidth, y: player.y,
+              width: 50, height: 50
+            });
+
+        }
+
+        function initDoors(){
+            for(var i = columnWidth; i < columnWidth*4; i += columnWidth){
+                $('canvas').drawLine({
+                    layer:true,
+                    groups:['doors'],
+                    strokeStyle:'#000',
+                    strokeWidth:10,
+                    strokeDash: [5],
+                    strokeDashOffset: 0,
+                    x1: i - 50, y1: doorHeight - 150,
+                      x2: i - 50, y2: doorHeight - 250,
+                      x3: i + 50, y3: doorHeight - 250,
+                      x4: i + 50, y4: doorHeight - 150,
+                })
+                $('canvas').drawLine({
+                      layer:true,
+                      groups: ['doors'],
+                      strokeStyle: '#000',
+                      strokeWidth: 10,
+                      x1: i - 70, y1: - 600,
+                      x2: i - 70, y2: doorHeight - 150,
+
+
+                    });
+                $('canvas').drawLine({
+                      layer:true,
+                      groups: ['doors'],
+                      strokeStyle: '#000',
+                      strokeWidth: 10,
+
+                      x1: i + 70, y1: doorHeight - 150,
+                      x2: i + 70, y2: - 600
+
+                    });
+                if(i/columnWidth == wrongDoor){
+                    $('canvas').drawLine({
+                        layer:true,
+                      groups: ['doors'],
+                      strokeStyle: '#000',
+                      strokeWidth: 10,
+                      x1: i + 75, y1: - 600,
+                      x2: i - 75, y2: - 600
+
+                    });
+
+                }
+
+
+            }
+
+        }
+
+        function shift(player){
+            $('canvas').stopLayer(player.name);
+            $('canvas').animateLayer( player.name, {x: player.pos*columnWidth}, 250, 'swing');
+        }
+
+        function randomMove(player){
+            if(5000 - time < 0){
+                return;
+            }
+            if(player.pos==1){
+                player.pos = 2;
+            }
+            if(player.pos==3){
+                player.pos = 2;
+            }
+            else{
+                if(Math.random() > .5){
+                    player.pos = 3;
+                }
+                else{
+                    player.pos = 1;
+                }
+            }
+            shift(player);
+        }
+
+        function doKeyDown(evt){
+            if(5000 - time<0){
+                return;
+            }
+            switch (evt.keyCode) {
+                case 37:
+                     if (p1.pos==1){
+                          break;
+                     }
+                     if(p1.pos==2){
+                        p1.pos=1;
+                        shift(p1);
+                     }
+                     if(p1.pos==3){
+                        p1.pos=2;
+                        shift(p1);
+                     }
+                break;
+
+                case 39:
+                    if (p1.pos==3){
+                          break;
+                     }
+                     if(p1.pos==2){
+                        p1.pos=3;
+                        shift(p1);
+                     }
+                     if(p1.pos==1){
+                        p1.pos=2;
+                        shift(p1);
+                     }
+                break;
+            }
+        }
+
+        window.addEventListener('keydown',doKeyDown,true);
+
+
+       instance();
+        function instance()
+        {
+            time = new Date().getTime() - start;
+            $('#timer').html(5 - (time - time%1000)/1000);
+            if(Math.floor(Math.random()*100) > 95){
+               randomMove(p2);
+            }
+            if(Math.floor(Math.random()*100) > 93){
+               randomMove(p3);
+            }
+            if(Math.floor(Math.random()*100) > 96){
+               randomMove(p4);
+            }
+            if(5000 - time < 0){
+                $('#timer').html(0);
+                animateTurn();
+                time = 5001;
+                return;
+            }
+            requestAnimationFrame(instance);
+        }
+
+        function animateTurn(){
+
+            if(p1.pos == wrongDoor){
+                $('canvas').animateLayerGroup( 'doors', {y: 700}, 2000, 'linear', preEndGame);
+            }
+            else{
+                $('canvas').animateLayerGroup( 'doors', {y: 1200}, 4000, 'linear');
+                setTimeout(restart, 4000);
+                if(p2.pos == wrongDoor){
+                   setTimeout(botDeath2, 2400);
+                }
+                if(p3.pos == wrongDoor){
+                   setTimeout(botDeath3, 2600);
+                }
+                if(p4.pos == wrongDoor){
+                   setTimeout(botDeath4, 2800);
+                }
+
+            }
+        }
+
+        function botDeath2(){
+            $('canvas').animateLayer('p2', {y: p2.y + 1000}, 4000, 'linear');
+        }
+        function botDeath3(){
+            $('canvas').animateLayer('p3', {y: p3.y + 1000}, 4000, 'linear');
+        }
+        function botDeath4(){
+            $('canvas').animateLayer('p4', {y: p4.y + 1000}, 4000, 'linear');
+        }
+
+        function restart(){
+            $('canvas').removeLayerGroup('doors');
+            wrongDoor = Math.floor((Math.random() * 3) + 1);
+            initDoors();
+            start = new Date().getTime(), time = 0;
+            $('canvas').stopLayerGroup('doors');
+            $('canvas').animateLayerGroup('doors', {y: 200}, 800, 'linear');
+            instance();
+            counter += 1;
+            $('#count').html(counter);
+        }
+
+        function endGame(){
+            $('canvas').clearCanvas();
+            $('canvas').drawText({
+              fillStyle: '#9cf',
+              strokeStyle: '#25a',
+              strokeWidth: 2,
+              x: 150, y: 100,
+              fontSize: 48,
+              fontFamily: 'Verdana, sans-serif',
+              text: 'you lose'
+            });
+        }
+        function preEndGame(){
+            setTimeout(endGame, 1200);
+        }
+
+
+    </script>
+</body>
+</html>
