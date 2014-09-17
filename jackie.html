@@ -184,7 +184,10 @@
 
 
         function gameOverMan(){
-            buzzed.currentTime = 32;
+            turn = 6;
+            $('.timerBar').css('visibility', 'hidden');
+            instance();
+            buzzed.currentTime = 33;
             buzzed.play();
             $('.piece').fadeOut(1000);
             $('.endImage').css('display', 'block');
