@@ -187,7 +187,7 @@
         function instance()
         {
             time = new Date().getTime() - start;
-            $('#timer').html(5 - (time - time%1000)/1000);
+            $('#timer').html(4 - (time - time%1000)/1000);
             if(Math.floor(Math.random()*100) > 95){
                randomMove(p2);
             }
@@ -197,7 +197,7 @@
             if(Math.floor(Math.random()*100) > 96){
                randomMove(p4);
             }
-            if(5000 - time < 0){
+            if(4000 - time < 0){
                 $('#timer').html(0);
                 animateTurn();
                 time = 5001;
@@ -241,7 +241,7 @@
             $('canvas').removeLayerGroup('doors');
             wrongDoor = Math.floor((Math.random() * 3) + 1);
             initDoors();
-            start = new Date().getTime(), time = 0;
+            start = new Date().getTime(), time += 400;
             $('canvas').stopLayerGroup('doors');
             $('canvas').animateLayerGroup('doors', {y: 200}, 800, 'linear');
             instance();

@@ -1,0 +1,203 @@
+<html>
+<head>
+    <title>It's not Jackie Chan</title>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <script src="resources/jquery-2.1.1.min.js"></script>
+
+    <style>
+        .container{
+            width:480px;
+        }
+        .board{
+            position:relative;
+            margin: 20px 0;
+            height:520px;
+        }
+        .piece{
+            height:100px;
+            width:100px;
+            position:absolute;
+            background-size:cover;
+            background-repeat: no-repeat;
+        }
+        .endImage{
+            top:0;
+            left:-200px;
+            display:none;
+            position:absolute;
+            background-size:cover;
+            background-repeat: no-repeat;
+            background-image:url('resources/jackiePhotos/notjackie.jpg');
+        }
+        .timerBar{
+            width:240px;
+            height:30px;
+            background-color:#333;
+        }
+        #timer{
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2 id="timer"></h2>
+        <h1 class="timerBar"></h1>
+        <div class="board">
+             <div class="endImage"></div>
+        </div>
+        <p> HOW TO PLAY: Don't pick Jackie! </p>
+    </div>
+    <script>
+    function makePieces(roundNum){
+        var notJackie = Math.floor(Math.random()*16);
+        var oldRand = 0;
+        for(var i = 0; i < 16; i ++){
+            d = document.createElement('div');
+            $(d).addClass('piece').addClass('piece' + (i+1)).appendTo($('.board')).css('top', (Math.floor(i/4) * 120  )).css('left', (i%4 * 120));
+
+            if(i == notJackie){
+                var url;
+                switch(roundNum){
+                    case 0:
+                        url = 'resources/jackiePhotos/kelsey.jpg';
+                        break;
+                    case 1:
+                        url = 'resources/jackiePhotos/poe.jpg';
+                        break;
+                    case 2:
+                        url = 'resources/jackiePhotos/toothpaste.jpg';
+                        break;
+                    case 3:
+                        url = 'resources/jackiePhotos/pizza.jpg';
+                        break;
+                    case 4:
+                        url = 'resources/jackiePhotos/lamp.jpg';
+                        break;
+                }
+                $(d).css('background-image', 'url(' + url + ')').addClass('notJackie');
+            }
+            else{
+                var jackiePhotos = 11;
+                var rand = Math.floor(Math.random() * jackiePhotos);
+                while(rand == oldRand){
+                    rand = Math.floor(Math.random() * jackiePhotos);
+                }
+                oldRand = rand;
+                var url;
+                switch(rand){
+                    case 0:
+                        url = 'resources/jackiePhotos/jackie.png';
+                        break;
+                    case 1:
+                        url = 'resources/jackiePhotos/jackie2.jpg';
+                        break;
+                    case 2:
+                        url = 'resources/jackiePhotos/jackie3.jpg';
+                        break;
+                    case 3:
+                        url = 'resources/jackiePhotos/jackie4.jpg';
+                        break;
+                    case 4:
+                        url = 'resources/jackiePhotos/jackie5.jpg';
+                        break;
+                    case 5:
+                        url = 'resources/jackiePhotos/jackie6.jpg';
+                        break;
+                    case 6:
+                        url = 'resources/jackiePhotos/jackie7.jpg';
+                        break;
+                    case 7:
+                        url = 'resources/jackiePhotos/jackie8.jpg';
+                        break;
+                    case 8:
+                        url = 'resources/jackiePhotos/jackie9.jpg';
+                        break;
+                    case 9:
+                        url = 'resources/jackiePhotos/jackie10.jpg';
+                        break;
+                    case 10:
+                        url = 'resources/jackiePhotos/jackie11.jpg';
+                        break;
+                }
+                $(d).css('background-image', 'url(' + url + ')');
+            }
+        }
+    }
+
+        var buzzed = new Audio('resources/audio/buzz.mp3');
+        buzzed.load();
+        var start, time;
+        var turn = 0;
+        init();
+        function init(){
+            if(turn == 5){
+                $('.piece').remove();
+                 $('#timer').html("You have bested Jackie");
+                 $('.endImage').height("300px");
+                 $('.endImage').width("400px");
+                 $('.endImage').css('background-image', 'url("resources/jackiePhotos/win.jpg")');
+                 $('.endImage').fadeIn();
+                 $('.timerBar').css('visibility', 'hidden');
+                 turn++;
+                instance();
+                 return;
+            }
+            start = new Date().getTime();
+            time = 0;
+            makePieces(turn);
+
+            $('.piece').click(pieceClick);
+            instance();
+            turn++;
+
+         }
+
+
+
+        function pieceClick(){
+            if($(this).hasClass('notJackie')){
+                init();
+            }
+            else{
+                gameOverMan();
+            }
+        }
+
+        function instance()
+        {
+            if(turn == 6){
+                return;
+            }
+            var timePer = 3600 - 500 * turn;
+            time = new Date().getTime() - start;
+            $('.timerBar').width(240 - time/timePer * 240);
+            if(timePer - time < 0){
+
+                $('#timer').html(0);
+                gameOverMan();
+                return;
+            }
+            requestAnimationFrame(instance);
+        }
+
+
+
+        function gameOverMan(){
+            buzzed.currentTime = 32;
+            //buzzed.play();
+            $('.piece').fadeOut(1000);
+            $('.endImage').css('display', 'block');
+            $('#timer').css('visibility', 'hidden');
+            $('.endImage').animate({
+                height: $(window).height()*3/4,
+                width: $(window).width() *3/4
+            },  10000, function(){
+            });
+        }
+
+
+
+    </script>
+</body>
+</html>
