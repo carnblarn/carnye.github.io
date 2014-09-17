@@ -34,7 +34,15 @@
             height:30px;
             background-color:#333;
         }
-        #timer{
+        .start h1{
+            cursor:pointer;
+            border:4px solid #11AD52;
+            border-radius:3px;
+            padding:2px 8px;
+            display: block;
+            width:100px;
+            margin:160px auto;
+            text-align: center;
         }
     </style>
 </head>
@@ -45,6 +53,7 @@
         <h1 class="timerBar"></h1>
         <div class="board">
              <div class="endImage"></div>
+             <div class="start"><h1>start</h1></div>
         </div>
         <p> HOW TO PLAY: Don't pick Jackie! </p>
     </div>
@@ -78,7 +87,7 @@
                 $(d).css('background-image', 'url(' + url + ')').addClass('notJackie');
             }
             else{
-                var jackiePhotos = 11;
+                var jackiePhotos = 13;
                 var rand = Math.floor(Math.random() * jackiePhotos);
                 while(rand == oldRand){
                     rand = Math.floor(Math.random() * jackiePhotos);
@@ -119,6 +128,12 @@
                     case 10:
                         url = 'resources/jackiePhotos/jackie11.jpg';
                         break;
+                    case 11:
+                        url = 'resources/jackiePhotos/jackie12.jpg';
+                        break;
+                    case 12:
+                        url = 'resources/jackiePhotos/jackie13.jpg';
+                        break;
                 }
                 $(d).css('background-image', 'url(' + url + ')');
             }
@@ -129,7 +144,7 @@
         buzzed.load();
         var start, time;
         var turn = 0;
-        init();
+        $('.start').click(init);
         function init(){
             if(turn == 5){
                 $('.piece').remove();
@@ -143,6 +158,7 @@
                 instance();
                  return;
             }
+            $('.start').hide();
             start = new Date().getTime();
             time = 0;
             makePieces(turn);
@@ -169,7 +185,7 @@
             if(turn == 6){
                 return;
             }
-            var timePer = 3600 - 500 * turn;
+            var timePer = 4000 - 500 * turn;
             time = new Date().getTime() - start;
             $('.timerBar').width(240 - time/timePer * 240);
             if(timePer - time < 0){
