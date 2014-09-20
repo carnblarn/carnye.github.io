@@ -20,14 +20,7 @@ def parseComment(url, t1Score, t1Body, postTitle):
         raise Exception(e)
     for comment in page:
         if comment['kind'] == 't1' and comment['data']['score'] > t1Score + 100 + t1Score/20:
-            commentPairs.append({'postTitle': postTitle, 'comment': t1Body, 'response': comment['data']['body_html']})
-            # print '\n--Parent--------'
-            # print t1Body
-            # print '\n--Reply--------'
-            # print comment['data']['body'].encode('ascii', 'ignore')
-            # print t1Score, ' <  ', comment['data']['score']
-            # print '\n\n'
-
+            commentPairs.append({'postTitle': postTitle, 'comment': t1Body, 'response': comment['data']['body']})
 
 
 def getPage(url, postTitle):
@@ -41,7 +34,7 @@ def getPage(url, postTitle):
     for comment in page:
         if comment['kind'] == 't1':
             if comment['data']['score'] > 50:
-                parseComment(url + comment['data']['id'], comment['data']['score'], comment['data']['body_html'], postTitle)
+                parseComment(url + comment['data']['id'], comment['data']['score'], comment['data']['body'], postTitle)
 
 
 def getPageList(url):
