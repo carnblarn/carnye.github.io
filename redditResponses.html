@@ -11,7 +11,10 @@
 <body ng-controller="MainCtrl">
     <div class="container">
          <div ng-repeat="comment in comments">
-             <h2>{{comment.postTitle}}</h2>
+             <h4>{{comment.postTitle}}</h4>
+             <h5>{{comment.comment}}</h5>
+             <h5>{{comment.response}}</h5>
+             <hr>
          </div>
     </div>
 </body>
