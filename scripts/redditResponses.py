@@ -48,12 +48,11 @@ def getPageList(url):
         getPage("http://www.reddit.com" + i['data']['permalink'], i['data']['title'])
 
 commentPairs = json.load(open('data.txt'))
-getPageList("http://www.reddit.com/r/AskReddit/.json")
-getPageList("http://www.reddit.com/r/Pics/.json")
-getPageList("http://www.reddit.com/r/funny/.json")
-getPageList("http://www.reddit.com/r/todayilearned/.json")
-getPageList("http://www.reddit.com/r/news/.json")
-getPageList("http://www.reddit.com/r/Showerthoughts/.json")
+getPageList("http://www.reddit.com/r/AskReddit/.json?sort=top&t=week")
+getPageList("http://www.reddit.com/r/todayilearned/.json?sort=top&t=week")
+getPageList("http://www.reddit.com/r/Showerthoughts/.json?sort=top&t=week")
+getPageList("http://www.reddit.com/r/Jokes/.json?sort=top&t=week")
+
 print commentPairs
 
 

@@ -10,12 +10,14 @@
 
 <body ng-controller="MainCtrl">
     <div class="container">
-         <div ng-repeat="comment in comments">
-             <h4>{{comment.postTitle}}</h4>
-             <h5>{{comment.comment}}</h5>
-             <h5>{{comment.response}}</h5>
-             <hr>
-         </div>
+        <div class="row">
+            <div ng-repeat="comment in comments">
+                <h6>{{comment.postTitle}}</h6>
+                <h5>{{comment.comment}}</h5>
+                <h5 class="col-xs-10 col-xs-offset-2">{{comment.response}}</h5>
+                <hr>
+            </div>
+        </div>
     </div>
 </body>
 </html>
