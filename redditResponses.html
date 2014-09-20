@@ -1,0 +1,18 @@
+<html ng-app="responses">
+<head>
+    <title>Reddit Responses</title>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <script src="resources/angular.min.js"></script>
+    <script src="resources/redditResponses/controller.js"></script>
+    <style>
+    </style>
+</head>
+
+<body ng-controller="MainCtrl">
+    <div class="container">
+         <div ng-repeat="comment in comments">
+             <h2>{{comment.postTitle}}</h2>
+         </div>
+    </div>
+</body>
+</html>
