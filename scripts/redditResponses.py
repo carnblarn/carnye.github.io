@@ -20,7 +20,7 @@ def parseComment(url, t1Score, t1Body, postTitle):
         raise Exception(e)
     for comment in page:
         if comment['kind'] == 't1' and comment['data']['score'] > t1Score + 100 + t1Score/20:
-            commentPairs.append({'postTitle': postTitle, 'comment': t1Body, 'response': comment['data']['body']})
+            commentPairs.append({'postTitle': postTitle, 'comment': t1Body, 'response': comment['data']['body_html']})
             # print '\n--Parent--------'
             # print t1Body
             # print '\n--Reply--------'
@@ -41,7 +41,7 @@ def getPage(url, postTitle):
     for comment in page:
         if comment['kind'] == 't1':
             if comment['data']['score'] > 50:
-                parseComment(url + comment['data']['id'], comment['data']['score'], comment['data']['body'], postTitle)
+                parseComment(url + comment['data']['id'], comment['data']['score'], comment['data']['body_html'], postTitle)
 
 
 def getPageList(url):
@@ -54,7 +54,7 @@ def getPageList(url):
         print i['data']['title'].encode('ascii', 'ignore')
         getPage("http://www.reddit.com" + i['data']['permalink'], i['data']['title'])
 
-commentPairs = []
+commentPairs = json.load(open('data.txt'))
 getPageList("http://www.reddit.com/r/AskReddit/.json")
 getPageList("http://www.reddit.com/r/Pics/.json")
 getPageList("http://www.reddit.com/r/funny/.json")
