@@ -19,7 +19,7 @@ def parseComment(url, t1Score, t1Body, postTitle):
         print url
         raise Exception(e)
     for comment in page:
-        if comment['kind'] == 't1' and comment['data']['score'] > t1Score + 100 + t1Score/20:
+        if comment['kind'] == 't1' and comment['data']['score'] > t1Score + 100 + t1Score/20 and comment['data']['body'] != "[deleted]":
             commentPairs.append({'postTitle': postTitle, 'comment': t1Body, 'response': comment['data']['body']})
 
 
@@ -51,7 +51,6 @@ commentPairs = json.load(open('data.txt'))
 getPageList("http://www.reddit.com/r/AskReddit/.json?sort=top&t=week")
 getPageList("http://www.reddit.com/r/todayilearned/.json?sort=top&t=week")
 getPageList("http://www.reddit.com/r/Showerthoughts/.json?sort=top&t=week")
-getPageList("http://www.reddit.com/r/Jokes/.json?sort=top&t=week")
 
 print commentPairs
 

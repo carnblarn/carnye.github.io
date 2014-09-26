@@ -11,13 +11,18 @@
 <body ng-controller="MainCtrl">
     <div class="container">
         <div class="row">
+            <p class="lead">One of the best signs of a good Reddit comment is if it has more karma than it's parent comment.
+                I wrote a script to find as many as you can. The requirements were that the original comment has >50 karma, and the response
+                had a significant amount more than that. Whether these are truly enjoyable to read on their own is still up in the air.
+            </p>
+        </div>
+        <div class="row">
             <div ng-repeat="comment in comments">
-                <h6>{{comment.postTitle}}</h6>
+                <h6><b>{{comment.postTitle}}</b></h6>
                 <h5>{{comment.comment}}</h5>
                 <h5 class="col-xs-11 col-xs-offset-1">{{comment.response}}</h5>
                 <div class="clearfix"></div>
                 <hr>
-                <br>
             </div>
         </div>
     </div>
