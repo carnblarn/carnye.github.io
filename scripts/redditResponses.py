@@ -19,8 +19,12 @@ def parseComment(url, t1Score, t1Body, postTitle):
         print url
         raise Exception(e)
     for comment in page:
-        if comment['kind'] == 't1' and comment['data']['score'] > t1Score + 100 + t1Score/20 and comment['data']['body'] != "[deleted]":
-            commentPairs.append({'postTitle': postTitle, 'comment': t1Body, 'response': comment['data']['body']})
+        if comment['kind'] == 't1' and comment['data']['score'] > t1Score + 100 + t1Score/20:
+            if comment['data']['body'] != "[deleted]":
+                commentPairs.append({'postTitle': postTitle, 'comment': t1Body, 'response': comment['data']['body']})
+                print 'Comment Added'
+        else:
+            return
 
 
 def getPage(url, postTitle):
@@ -35,6 +39,11 @@ def getPage(url, postTitle):
         if comment['kind'] == 't1':
             if comment['data']['score'] > 50:
                 parseComment(url + comment['data']['id'], comment['data']['score'], comment['data']['body'], postTitle)
+            else:
+                break
+    with open('data.txt', 'w') as outfile:
+        json.dump(commentPairs, outfile)
+    print 'File Saved'
 
 
 def getPageList(url):
@@ -45,12 +54,24 @@ def getPageList(url):
     page = json.loads(the_page)
     for i in page['data']['children']:
         print i['data']['title'].encode('ascii', 'ignore')
+        if alreadyHave(i['data']['title']):
+            continue
         getPage("http://www.reddit.com" + i['data']['permalink'], i['data']['title'])
 
+def alreadyHave(title):
+    for exists in commentPairs:
+        if exists['postTitle'] == title:
+            return True
+    return False
+
+
 commentPairs = json.load(open('data.txt'))
-getPageList("http://www.reddit.com/r/AskReddit/.json?sort=top&t=week")
-getPageList("http://www.reddit.com/r/todayilearned/.json?sort=top&t=week")
-getPageList("http://www.reddit.com/r/Showerthoughts/.json?sort=top&t=week")
+getPageList("http://www.reddit.com/r/AskReddit/top/.json?sort=top&t=week")
+getPageList("http://www.reddit.com/r/AskReddit/top/.json?sort=top&t=week&count=25&after=t3_2hg5t3")
+getPageList("http://www.reddit.com/r/todayilearned/top/.json?sort=top&t=week")
+getPageList("http://www.reddit.com/r/todayilearned/top/.json?sort=top&t=week&count=25&after=t3_2h8er4")
+getPageList("http://www.reddit.com/r/Showerthoughts/top/.json?sort=top&t=week")
+getPageList("http://www.reddit.com/r/Showerthoughts/top/.json?sort=top&t=week&count=25&after=t3_2h87c0")
 
 print commentPairs
 
