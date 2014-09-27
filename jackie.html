@@ -109,6 +109,16 @@
             }
         }
     }
+        function preloadImage(url)
+        {
+            var img=new Image();
+            img.src=url;
+        }
+        preloadImage('resources/jackiePhotos/kelsey.jpg');
+        preloadImage('resources/jackiePhotos/poe.jpg');
+        preloadImage('resources/jackiePhotos/toothpaste.jpg');
+        preloadImage('resources/jackiePhotos/pizza.jpg');
+        preloadImage('resources/jackiePhotos/lamp.jpg');
 
         var buzzed = new Audio('resources/audio/buzz.mp3');
         buzzed.load();
