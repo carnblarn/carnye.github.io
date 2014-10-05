@@ -20,7 +20,7 @@ def parseComment(url, t1Score, t1Body, postTitle):
         raise Exception(e)
     for comment in page:
         if comment['kind'] == 't1' and comment['data']['score'] > t1Score + 100 + t1Score/20:
-            if comment['data']['body'] != "[deleted]":
+            if comment['data']['body'] != "[deleted]" and len(comment['data']['body']) < 384:
                 commentPairs.append({'postTitle': postTitle, 'comment': t1Body, 'response': comment['data']['body']})
                 print 'Comment Added'
         else:
@@ -37,7 +37,7 @@ def getPage(url, postTitle):
     page = page[1]['data']['children']
     for comment in page:
         if comment['kind'] == 't1':
-            if comment['data']['score'] > 50:
+            if comment['data']['score'] > 50 and len(comment['data']['body']) < 384:
                 parseComment(url + comment['data']['id'], comment['data']['score'], comment['data']['body'], postTitle)
             else:
                 break
@@ -67,14 +67,10 @@ def alreadyHave(title):
 
 commentPairs = json.load(open('data.txt'))
 getPageList("http://www.reddit.com/r/AskReddit/top/.json?sort=top&t=week")
-getPageList("http://www.reddit.com/r/AskReddit/top/.json?sort=top&t=week&count=25&after=t3_2hg5t3")
 getPageList("http://www.reddit.com/r/todayilearned/top/.json?sort=top&t=week")
-getPageList("http://www.reddit.com/r/todayilearned/top/.json?sort=top&t=week&count=25&after=t3_2h8er4")
 getPageList("http://www.reddit.com/r/Showerthoughts/top/.json?sort=top&t=week")
-getPageList("http://www.reddit.com/r/Showerthoughts/top/.json?sort=top&t=week&count=25&after=t3_2h87c0")
 
 print commentPairs
-
 
 with open('data.txt', 'w') as outfile:
   json.dump(commentPairs, outfile)

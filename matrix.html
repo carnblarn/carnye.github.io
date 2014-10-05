@@ -1,0 +1,139 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Matrix</title>
+	<style>
+	body{
+		background-color:black;
+		font-family:Courier New;
+		padding:0;
+		margin:0;
+
+	}
+	.command{
+		display:inline-block;
+		margin: 10px 0;
+	}
+	#c{
+		display:block;
+	}
+	#notC{
+		display:none
+	}
+	</style>
+</head>
+<body>
+		<h2 class="command" style="color:white">Enter a string:</h2>
+		<input type="text" id="string" style="display:inline">
+		<canvas id="notC"></canvas>
+		<canvas style="postion:relative" id="c"></canvas>
+<script>
+
+
+
+	var c = document.getElementById("c");
+	var ctx = c.getContext("2d");
+
+	c.height = window.innerHeight-20;
+	c.width = window.innerWidth-20;
+	var chinese = "田由甲申甴电甶男甸甹町 画甼甽甾甿畀畁畂畃畄畅畆畇 畈畉畊畋 界畍畎畏畐畑";
+	var chineseArray = chinese.split('');
+	var spriteMatrix =document.getElementById("matrix");
+	var font_size = 6;
+	var columns = c.width/font_size;
+
+	var drops = [];
+
+	for(var i = 0; i< columns; i++){
+		drops[i]=Math.random()*c.height;
+	}
+
+	//Image/text drawing
+	//Can get rid of using an image and use a fill text method probably
+
+	var sprite = document.getElementById("matrix");
+	var W = 1000;
+	var H = 200;
+
+	//temporary canvas for pixel processing
+		var tcanvas = document.getElementById("notC");
+	tcanvas.width = W;
+	tcanvas.height = H; //same as the image
+	var tc = tcanvas.getContext("2d");
+	//painting the canvas white before painting the image to deal with pngs
+	tc.fillStyle = "white";
+	tc.fillRect(0, 0, W, H);
+	tc.fillStyle="#000";
+	tc.font = "900 60px Verdana";
+	 //tc.fillRect(0,0, W/3, H);
+	// tc.fillRect(2*W/3, 0, W, H);
+
+
+
+
+	var heightPosition = 300;
+	var widthPosition = c.width/2 - W/2;
+	console.log(c.width);
+	console.log(c.height);
+	var string = document.getElementById("string").value;
+	tc.fillText(string, 0, H);
+	var pixels = tc.getImageData(0, 0, W, H);
+	var colordata = pixels.data;
+	function draw(){
+
+		if(string!= document.getElementById("string").value){
+			string = document.getElementById("string").value;
+			tc.fillStyle = "white";
+			tc.fillRect(0, 0, W, H);
+			tc.fillStyle="#000";
+			tc.font = "900 80px Verdana";
+			tc.fillText(string, 0, H/2);
+			pixels = tc.getImageData(0, 0, W, H);
+			colordata = pixels.data;
+		}
+
+		ctx.fillStyle = "rgba(0,0,0,0.016)";
+		ctx.fillRect(0,0, c.width, c.height);
+
+		ctx.fillStyle="#0F0";
+		ctx.font = font_size + "px Helvetica";
+		ctx.shadowColor = '#0FF';
+     				 ctx.shadowBlur = 0;
+     				 ctx.shadowOffsetX = 0;
+     					 ctx.shadowOffsetY = 0;
+
+		for(var i = 0; i < drops.length;i+=.5){
+			ctx.fillStyle="rgba(0,200,0,.4)";
+			if(drops[Math.floor(i)]*font_size>heightPosition&&drops[Math.floor(i)]*font_size<heightPosition+H&&i*font_size>widthPosition&&i*font_size<widthPosition+W){
+				var height= drops[Math.floor(i)]*font_size-heightPosition;
+				var width = font_size*i-widthPosition;
+				var location = (W*height+width)*4;
+				var r = colordata[location];
+				var g = colordata[location+1];
+					var b = colordata[location+2];
+				//	console.log(r + ", " + g + ", " + b);
+					//converting the pixel into grayscale
+					var gray = r+ g + b;
+
+				if(gray<500){
+					ctx.fillStyle="#2FF";
+					ctx.shadowBlur = 30;
+				}
+
+			}
+			var text = chineseArray[Math.floor(Math.random()*chineseArray.length)];
+			ctx.fillText(text, i*font_size, drops[Math.floor(i)]*font_size);
+			ctx.shadowBlur = 0;
+			if(drops[i]*font_size> c.height&&Math.random()>.955)
+				drops[Math.floor(i)]=0;
+			drops[Math.floor(i)]++;
+		}
+
+
+
+	}
+	setInterval(draw, 30);
+</script>
+</body>
+
+</html>
