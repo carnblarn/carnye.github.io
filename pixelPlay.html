@@ -1,0 +1,182 @@
+<html>
+<head>
+    <title></title>
+<script src="http://thecodeplayer.com/u/js/jquery-1.9.1.min.js" type="text/javascript"></script>
+
+    <style>
+@import url(http://fonts.googleapis.com/css?family=Montserrat);
+* {margin: 0; padding: 0;}
+html, body {min-height: 100%;}
+body {
+    background: #544; /*fallback*/
+    background: linear-gradient(#656196, #5F8572);
+    margin-top:100px;
+}
+
+
+.button{
+
+    width:200px;
+    margin:0 auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    background-color:#544;
+    border-radius:6px;
+    border:2px solid black;
+    color:white;
+    font: bold 12px/36px Montserrat;
+    text-align:center;
+    cursor:pointer;
+}
+
+.grid{
+    margin:0 auto;
+    position:relative;
+}
+img{
+    display:none;
+}
+
+.grid div{
+    position:absolute;
+    display:inline-block;
+    background: url(mario.jpg);
+
+}
+.explanation{
+    width:300px;
+    color:white;
+    margin:0 auto;
+}
+.presets h5{
+  display:inline-block;
+  border-bottom: 3px solid rgba(0,0,0,0);
+
+}
+.presets .active, .presets h5:hover{
+  border-bottom: 3px solid gray;
+}
+.presets{
+  width:600px;
+  margin:0 auto;
+}
+    </style>
+</head>
+<body>
+    <img id="mario" src="images/wustl.jpg">
+<div class="grid">
+</div>
+
+<div class="button" id="tornado">
+        <h3 id="tornado">Tornado</h3>
+    </div>
+    <div class="button" id="spinny">
+        <h3>Spinny</h3>
+    </div>
+    <div class="button" id="inout">
+        <h3>In-n-Out</h3>
+    </div>
+
+
+<div class="explanation">
+    This only works in Chrome
+</div>
+    <script>
+        var heightDivisions = 20;
+        var widthDivisions = 20;
+        $('.grid').width($('#mario').width());
+        $('.grid').height($('#mario').height());
+        var height = $('#mario').height()/heightDivisions;
+        var width = $("#mario").width()/widthDivisions;
+        height = Math.round(height);
+        width = Math.round(width);
+        var img = $('#mario').attr('src');
+        for(var i = 0; i < heightDivisions; i++){
+            for(var j = 0; j < widthDivisions; j++ ){
+                var ele = $('<div>');
+                ele.css('background', 'url('+ img + ')' );
+                $('.grid').append(ele);
+                ele.css("height", height);
+                ele.css("width", width);
+                ele.css("top", i*height);
+                ele.css("left", j*width);
+                ele.css("background-position",  -j*width+ "px " + -i*height + "px");
+            }
+        }
+
+
+        $('.grid div').each(function(){
+              $(this).css('opacity', 0);
+
+          });
+         $('.grid div').each(function(){
+                d = Math.random()*1600;
+                $(this).delay(d).animate({opacity: 1}, {
+                    step: function(n){
+                        //rotating the images on the Y axis from 360deg to 0deg
+                        //translating the images from 1000px to 0px
+                        tz = (1-n)*600;
+                        ry = 360-360*n;
+
+                        //applying the transformation
+                        $(this).css("-webkit-transform", "rotateY("+ry+"deg) translateZ("+tz+"px)");
+                    },
+                    duration: 800,
+                    //some easing fun. Comes from the jquery easing plugin.
+                    easing: 'linear',
+                })
+
+          });
+         $('#tornado.button').click(function(){
+           animation('Y', 'Z');
+
+         });
+         $('#inout.button').click(function(){
+            animation('Y', 'Y');
+         });
+         $('#spinny.button').click(function(){
+          animation('Z', 'Z');
+         });
+        function animation(typeRotate, typeTranslate){
+           $('.grid div').each(function(){
+                    d = Math.random()*1600;
+                   $(this).delay(d).animate({opacity: 0}, {
+                       step: function(n){
+                           //rotating the images on the Y axis from 360deg to 0deg
+                           //translating the images from 1000px to 0px
+                           tz = -(1-n)*600;
+                           ry = 360-360*n;
+
+                           //applying the transformation
+                           $(this).css("-webkit-transform", "rotate" + typeRotate + "("+ry+"deg) translate" + typeTranslate + "("+tz+"px)");
+                       },
+                       duration: 1200,
+                       //some easing fun. Comes from the jquery easing plugin.
+                       easing: 'linear',
+                   });
+                   d = Math.random()*1600;
+                       $(this).delay(d).animate({opacity: 1}, {
+                           step: function(n){
+                               //rotating the images on the Y axis from 360deg to 0deg
+                               //translating the images from 1000px to 0px
+                               tz = (1-n)*600;
+                               ry = 360-360*n;
+
+                               //applying the transformation
+                               $(this).css("-webkit-transform", "rotate"+ typeRotate + "("+ry+"deg) translate" + typeTranslate + "("+tz+"px)");
+                           },
+                           duration: 1200,
+                           //some easing fun. Comes from the jquery easing plugin.
+                           easing: 'linear',
+                       });
+
+
+              });
+
+        }
+
+
+
+    </script>
+</body>
+</html>
