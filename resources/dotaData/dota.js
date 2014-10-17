@@ -13,7 +13,7 @@ $scope.tableParams = new ngTableParams({
             matchId: 'desc'     // initial sorting
         }
     }, {
-        total: 3000, // length of data
+        total: 40000, // length of data
         getData: function($defer, params) {
             // use build-in angular filter
             if(typeof data === 'undefined'){

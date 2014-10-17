@@ -10,31 +10,42 @@
 
 
     <style>
-    .ng-table{
-        width:1000px;
-    }
     .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
         padding:3px;
     }
     table{
-        font-size:10px;
+        font-size:12px;
+    }
+    .pullDown  {
+        margin-top: 30px;
     }
     </style>
 </head>
 
 <body ng-controller="MainCtrl">
     <div class="container">
-          <input ng-model="filter.$" class="" placeholder ="search">
-          <table ng-table="tableParams" class="table">
-          <tr ng-repeat="match in $data">
-              <td data-title="'Match ID'" sortable="'matchId'">{{match.matchId}}</td>
-              <td data-title="'Team 1'" sortable="'teamOne'">{{match.teamOne}}</td>
-              <td data-title="'Team 2'" sortable="'teamTwo'">{{match.teamTwo}}</td>
-              <td data-title="'Winner'" sortable="'winner'">{{match.winner}}</td>
-              <td data-title="'Team 1 Odds'" sortable="'teamOneOdds'">{{match.teamOneOdds}}%</td>
-              <td data-title="'Team 2 Odds'" sortable="'teamTwoOdds'">{{match.teamTwoOdds}}%</td>
-              <td data-title="'People'" sortable="'people'">{{match.people}}</td>
-              <td data-title="'Items'" sortable="'items'">{{match.items}}</td>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Dota2Lounge Data Compiled</h2>
+
+            </div>
+            <div class=" pullDown col-md-3">
+                <h5><a href="resources/dotaData/data.json">Full Data Set</a></h5>
+            </div>
+            <div class="col-md-3 pullDown">
+                <input ng-model="filter.$" class="" placeholder ="filter">
+            </div>
+        </div>
+        <table ng-table="tableParams" class="table">
+        <tr ng-repeat="match in $data">
+            <td data-title="'Match ID'" sortable="'matchId'">{{match.matchId}}</td>
+            <td data-title="'Team 1'" sortable="'teamOne'">{{match.teamOne}}</td>
+            <td data-title="'Team 2'" sortable="'teamTwo'">{{match.teamTwo}}</td>
+            <td data-title="'Winner'" sortable="'winner'">{{match.winner}}</td>
+            <td data-title="'Team 1 Odds'" sortable="'teamOneOdds'">{{match.teamOneOdds}}%</td>
+            <td data-title="'Team 2 Odds'" sortable="'teamTwoOdds'">{{match.teamTwoOdds}}%</td>
+            <td data-title="'Bettors'" sortable="'people'">{{match.people}}</td>
+            <td data-title="'Items Bet'" sortable="'items'">{{match.items}}</td>
     </tr>
     </table>
     </div>
