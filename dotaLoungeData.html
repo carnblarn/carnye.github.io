@@ -21,10 +21,10 @@
 
 <body ng-controller="MainCtrl">
     <p><strong>Filter:</strong> {{tableParams.filter()|json}}
-        <input ng-model="query" class="" placeholder ="search">
+        <input ng-model="filter.$" class="" placeholder ="search">
     <table ng-table="tableParams" class="table">
     <tr ng-repeat="match in $data">
-        <td data-title="'Match ID'" sortable="'matchId'" filter="{'matchId': 'text'}">{{match.matchId}}</td>
+        <td data-title="'Match ID'" sortable="'matchId'">{{match.matchId}}</td>
         <td data-title="'Team 1'" sortable="'teamOne'">{{match.teamOne}}</td>
         <td data-title="'Team 2'" sortable="'teamTwo'">{{match.teamTwo}}</td>
         <td data-title="'Winner'" sortable="'winner'">{{match.winner}}</td>
