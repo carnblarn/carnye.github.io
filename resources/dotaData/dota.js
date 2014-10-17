@@ -6,7 +6,7 @@ controller('MainCtrl', function($scope, $http, ngTableParams) {
         console.log('Found Data');
        $scope.matches = data;
      });
-    scope.tableParams = new ngTableParams({
+    $scope.tableParams = new ngTableParams({
         sorting: {
             matchId: 'desc'     // initial sorting
         }
