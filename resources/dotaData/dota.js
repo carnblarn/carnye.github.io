@@ -13,6 +13,7 @@ $scope.tableParams = new ngTableParams({
             matchId: 'desc'     // initial sorting
         }
     }, {
+        total:data.length,
         getData: function($defer, params) {
             // use build-in angular filter
             if(typeof data === 'undefined'){
@@ -35,8 +36,7 @@ $scope.tableParams = new ngTableParams({
             }
 
 
-        },
-        total:data.length
+        }
     });
 
 })
