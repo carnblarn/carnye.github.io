@@ -26,7 +26,7 @@ class Match(object):
 
 matches = pickle.load(open("fullSave.p", "rb"))
 # matches = []
-def parse(low = 1, high = 2000):
+def parse(low = 1, high = 3000):
     for i in range(low, high):
         if  findExistingMatch(i):
             continue
@@ -42,7 +42,7 @@ def parse(low = 1, high = 2000):
         try:
             firstTeamIndex = the_page.index(str1)
         except ValueError:
-            print "There was an error parsing the match"
+            print "There was an error parsing match", i
             continue
         teamOne =  the_page[firstTeamIndex: the_page.index(str2, firstTeamIndex)]
         teamOneOdds = teamOne[teamOne.index('<i>')+3:teamOne.index('</i>')-1]
