@@ -26,13 +26,15 @@ $scope.tableParams = new ngTableParams({
                                        filteredData;
 
                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                   params.total(data.total);
+                   params.total(orderedData.total);
+                   console.log(orderedData.total);
                  });
             }
             else{
                 var filteredData = $filter('filter')(data, $scope.filter);
                 var orderedData = params.sorting() ? $filter('orderBy')(filteredData, params.orderBy()) : filteredData;
-
+                params.total(orderedData.total);
+                   console.log(orderedData.total);
                 $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
             }
 
