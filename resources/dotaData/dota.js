@@ -2,10 +2,10 @@ var app = angular.module('matches', ['ngTable']).
 controller('MainCtrl', function($scope, $http, ngTableParams) {
 
     $scope.matches = [{"matchId": 1, "teamOne": "TongFu", "people": "177", "items": "0", "winner": "TongFu", "teamTwoOdds": 0, "teamOneOdds": 0, "teamTwo": "MUFC"}];
-    // $http.get('resources/dotaData/data.json').success(function(data) {
-    //     console.log('Found Data');
-    //    $scope.matches = data;
-    //  });
+    $http.get('resources/dotaData/data.json').success(function(data) {
+        console.log('Found Data');
+       $scope.matches = data;
+     });
     $scope.tableParams = new ngTableParams({
         sorting: {
             matchId: 'desc'     // initial sorting
