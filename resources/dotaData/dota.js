@@ -11,7 +11,7 @@ controller('MainCtrl', function($scope, $http, ngTableParams) {
             matchId: 'desc'     // initial sorting
         }
     }, {
-        total: data.length, // length of data
+        total: matches.length, // length of data
         getData: function($defer, params) {
             // use build-in angular filter
             var orderedData = params.sorting() ?
