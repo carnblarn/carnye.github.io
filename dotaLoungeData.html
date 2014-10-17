@@ -11,16 +11,20 @@
 
     <style>
     .ng-table{
-        border:1px solid #111;
-        width:80%;
+        width:1000px;
+    }
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td{
+        padding:3px;
     }
     </style>
 </head>
 
 <body ng-controller="MainCtrl">
+    <p><strong>Filter:</strong> {{tableParams.filter()|json}}
+        <input ng-model="query" class="" placeholder ="search">
     <table ng-table="tableParams" class="table">
     <tr ng-repeat="match in $data">
-        <td data-title="'Match ID'" sortable="'matchId'">{{match.matchId}}</td>
+        <td data-title="'Match ID'" sortable="'matchId'" filter="{'matchId': 'query'}">{{match.matchId}}</td>
         <td data-title="'Team 1'" sortable="'teamOne'">{{match.teamOne}}</td>
         <td data-title="'Team 2'" sortable="'teamTwo'">{{match.teamTwo}}</td>
         <td data-title="'Winner'" sortable="'winner'">{{match.winner}}</td>
