@@ -92,6 +92,9 @@ def findExistingMatch(i):
 
 def makeJson():
     matches = pickle.load(open("fullSave.p", "rb"))
+    for match in matches:
+        match.people = int(match.people)
+        match.items = int(match.items)
     with open('data.json', 'wb') as outfile:
         json.dump([match.__dict__ for match in matches], outfile)
         print len(matches)
