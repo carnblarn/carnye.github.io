@@ -23,7 +23,7 @@
     <p><strong>Filter:</strong> {{tableParams.filter()|json}}
         <input ng-model="query" class="" placeholder ="search">
     <table ng-table="tableParams" class="table">
-    <tr ng-repeat="match in $data|filter:{ match.teamOne: query}">
+    <tr ng-repeat="match in $data">
         <td data-title="'Match ID'" sortable="'matchId'" filter="{'matchId': 'query'}">{{match.matchId}}</td>
         <td data-title="'Team 1'" sortable="'teamOne'">{{match.teamOne}}</td>
         <td data-title="'Team 2'" sortable="'teamTwo'">{{match.teamTwo}}</td>
