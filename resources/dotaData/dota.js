@@ -5,7 +5,7 @@ controller('MainCtrl', function($scope, $http, $filter, ngTableParams) {
 
 $scope.tableParams = new ngTableParams({
         page: 1,            // show first page
-        count: 10,          // count per page
+        count: [],]          // count per page
         sorting: {
             matchId: 'desc'     // initial sorting
         }
