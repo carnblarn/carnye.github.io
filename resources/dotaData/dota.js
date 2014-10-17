@@ -20,7 +20,8 @@ $scope.tableParams = new ngTableParams({
                 $http.get('resources/dotaData/data.json').success(function(incData) {
                 console.log('Found Data');
                data  = incData;
-            }
+            });
+        }
                var filteredData = $filter('filter')(data, $scope.filter);
                var orderedData = params.sorting() ?
                                    $filter('orderBy')(filteredData, params.orderBy()) :
