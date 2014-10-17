@@ -13,14 +13,14 @@
 <body ng-controller="MainCtrl">
     <table ng-table class="table">
         <tr ng-repeat= "match in matches">
-            <td data-title="'matchId'">{{match.matchId}}</td>
-            <td data-title="'teamOne'">{{match.teamOne}}</td>
-            <td data-title="'teamTwo'">{{match.teamTwo}}</td>
-            <td data-title="'winner'">{{match.winner}}</td>
-            <td data-title="'teamOneOdds'">{{match.teamOneOdds}}</td>
-            <td data-title="'teamTwoOdds'">{{match.teamTwoOdds}}</td>
-            <td data-title="'people'">{{match.people}}</td>
-            <td data-title="'items'">{{match.items}}</td>
+            <td sortable = "'matchId'" data-title="'matchId'">{{match.matchId}}</td>
+            <td sortable = "'teamOne'" data-title="'teamOne'">{{match.teamOne}}</td>
+            <td sortable = "'teamTwo'" data-title="'teamTwo'">{{match.teamTwo}}</td>
+            <td sortable = "'winner'" data-title="'winner'">{{match.winner}}</td>
+            <td sortable = "'teamOneOdds'" data-title="'teamOneOdds'">{{match.teamOneOdds}}</td>
+            <td sortable = "'teamTwoOdds'" data-title="'teamTwoOdds'">{{match.teamTwoOdds}}</td>
+            <td sortable = "'people'" data-title="'people'">{{match.people}}</td>
+            <td sortable = "'items'" data-title="'items'">{{match.items}}</td>
          </tr>
 </body>
 </html>
