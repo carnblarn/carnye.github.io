@@ -2,25 +2,26 @@
 <head>
     <title>Dota2Lounge Data</title>
     <link rel="stylesheet" href="resources/bootstrap.min.css">
-    <link rel="stylesheet" href="resources/dotaData/ng-table.min.css">
     <script src="resources/angular.min.js"></script>
-    <script src="resources/dotaData/ng-table.min.js"></script>
+    <script src="resources/dotaData/ui-grid-unstable.js"></script>
+    <link rel="stylesheet" href="resources/dotaData/ui-grid-unstable.css"/>
     <script src="resources/dotaData/dota.js"></script>
+
+
+
     <style>
+    .myGrid {
+        width: 1000px;
+        height: 250px;
+      }
+      .ngHeaderCall{
+        background-color:yellow;
+      }
     </style>
 </head>
 
 <body ng-controller="MainCtrl">
-    <table ng-table class="table">
-        <tr ng-repeat= "match in matches">
-            <td sortable = "'matchId'" data-title="'matchId'">{{match.matchId}}</td>
-            <td sortable = "'teamOne'" data-title="'teamOne'">{{match.teamOne}}</td>
-            <td sortable = "'teamTwo'" data-title="'teamTwo'">{{match.teamTwo}}</td>
-            <td sortable = "'winner'" data-title="'winner'">{{match.winner}}</td>
-            <td sortable = "'teamOneOdds'" data-title="'teamOneOdds'">{{match.teamOneOdds}}</td>
-            <td sortable = "'teamTwoOdds'" data-title="'teamTwoOdds'">{{match.teamTwoOdds}}</td>
-            <td sortable = "'people'" data-title="'people'">{{match.people}}</td>
-            <td sortable = "'items'" data-title="'items'">{{match.items}}</td>
-         </tr>
+    <div ui-grid="{data: matches}" class = "myGrid">
+    </div>
 </body>
 </html>
