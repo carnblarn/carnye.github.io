@@ -10,11 +10,14 @@
 
 
     <style>
+    .ng-table{
+        border:1px solid #111;
+        width:80%;
+    }
     </style>
 </head>
 
 <body ng-controller="MainCtrl">
-    <p><strong>Sorting:</strong> {{tableParams.sorting()|json}}
     <table ng-table="tableParams" class="table">
     <tr ng-repeat="match in $data">
         <td data-title="'Match ID'" sortable="'matchId'">{{match.matchId}}</td>

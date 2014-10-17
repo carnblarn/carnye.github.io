@@ -26,7 +26,7 @@ class Match(object):
 
 matches = pickle.load(open("fullSave.p", "rb"))
 # matches = []
-def parse(low = 1, high = 3000):
+def parse(low = 1, high = 4000):
     for i in range(low, high):
         if  findExistingMatch(i):
             continue
