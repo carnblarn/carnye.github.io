@@ -1,5 +1,5 @@
 var app = angular.module('matches', ['ngTable']).
-controller('MainCtrl', function($scope, $http) {
+controller('MainCtrl', function($scope, $http, ngTableParams) {
 
     $scope.matches;
     $http.get('resources/dotaData/data.json').success(function(data) {
