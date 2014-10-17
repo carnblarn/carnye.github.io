@@ -13,7 +13,7 @@ $scope.tableParams = new ngTableParams({
             matchId: 'desc'     // initial sorting
         }
     }, {
-        total:typeof data === 'undefined' ? 0 : data.length,
+        total:0,
         getData: function($defer, params) {
             // use build-in angular filter
             if(typeof data === 'undefined'){
@@ -26,6 +26,7 @@ $scope.tableParams = new ngTableParams({
                                        filteredData;
 
                    $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                   params.total(data.total);
                  });
             }
             else{
