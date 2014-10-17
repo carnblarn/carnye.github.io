@@ -21,7 +21,7 @@ $scope.tableParams = new ngTableParams({
                                    $filter('orderBy')(data, params.orderBy()) :
                                    data;
                 orderedData = params.filter() ?
-                                   $filter('query')(data, params.filter()) :
+                                   $filter('filter')(data, params.filter()) :
                                    data;
                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
              });
