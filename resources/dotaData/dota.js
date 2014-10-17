@@ -1,7 +1,7 @@
 var app = angular.module('matches', ['ngTable']).
 controller('MainCtrl', function($scope, $http, ngTableParams) {
 
-    $scope.matches;
+    $scope.matches = [{"matchId": 1, "teamOne": "TongFu", "people": "177", "items": "0", "winner": "TongFu", "teamTwoOdds": 0, "teamOneOdds": 0, "teamTwo": "MUFC"}];
     $http.get('resources/dotaData/data.json').success(function(data) {
         console.log('Found Data');
        $scope.matches = data;
@@ -11,7 +11,6 @@ controller('MainCtrl', function($scope, $http, ngTableParams) {
             matchId: 'desc'     // initial sorting
         }
     }, {
-        total: $scope.matches.length, // length of data
         getData: function($defer, params) {
             // use build-in angular filter
             var orderedData = params.sorting() ?
