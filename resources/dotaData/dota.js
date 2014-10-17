@@ -17,12 +17,13 @@ $scope.tableParams = new ngTableParams({
             $http.get('resources/dotaData/data.json').success(function(incData) {
                 console.log('Found Data');
                data  = incData;
-             });
-            var orderedData = params.sorting() ?
-                                $filter('orderBy')(data, params.orderBy()) :
-                                data;
+               var orderedData = params.sorting() ?
+                                   $filter('orderBy')(data, params.orderBy()) :
+                                   data;
 
-            $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+               $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+             });
+
         }
     });
 
