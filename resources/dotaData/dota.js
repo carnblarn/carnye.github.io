@@ -8,7 +8,7 @@ $scope.$watch("filter.$", function(){
 });
 $scope.tableParams = new ngTableParams({
         page: 1,            // show first page
-        count: 10,          // count per page
+        count: 100,          // count per page
         sorting: {
             matchId: 'desc'     // initial sorting
         }
