@@ -26,7 +26,7 @@ class Match(object):
 
 matches = pickle.load(open("fullSave.p", "rb"))
 # matches = []
-def parse(low = 3999, high = 4483):
+def parse(low = 3999, high = 4498):
     for i in range(low, high):
         if  findExistingMatch(i):
             continue
@@ -95,7 +95,7 @@ def makeJson():
     for match in matches:
         match.people = int(match.people)
         match.items = int(match.items)
-    with open('data.json', 'wb') as outfile:
+    with open('../../resources/dotaData/data.json', 'wb') as outfile:
         json.dump([match.__dict__ for match in matches], outfile)
         print len(matches)
 
