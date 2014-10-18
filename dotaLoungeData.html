@@ -43,10 +43,10 @@
         <tr ng-repeat="match in $data">
             <td data-title="'Match ID'" sortable="'matchId'">{{match.matchId}}</td>
             <td data-title="'Team 1'" sortable="'teamOne'" ng-class="{'bold': match.teamOne == match.winner}">{{match.teamOne}}</td>
-            <td data-title="'Team 2'" sortable="'teamTwo'">{{match.teamTwo}}</td>
+            <td data-title="'Team 2'" sortable="'teamTwo'" ng-class="{'bold': match.teamTwo == match.winner}">{{match.teamTwo}}</td>
             <td data-title="'Winner'" sortable="'winner'">{{match.winner}}</td>
-            <td data-title="'Team 1 Odds'" sortable="'teamOneOdds'">{{match.teamOneOdds}}%</td>
-            <td data-title="'Team 2 Odds'" sortable="'teamTwoOdds'">{{match.teamTwoOdds}}%</td>
+            <td data-title="'Team 1 Odds'" sortable="'teamOneOdds'"  ng-class="{'bold': match.teamOne == match.winner}">{{match.teamOneOdds}}%</td>
+            <td data-title="'Team 2 Odds'" sortable="'teamTwoOdds'" ng-class="{'bold': match.teamTwo == match.winner}">{{match.teamTwoOdds}}%</td>
             <td data-title="'Bettors'" sortable="'people'">{{match.people}}</td>
             <td data-title="'Items Bet'" sortable="'items'">{{match.items}}</td>
     </tr>
