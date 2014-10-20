@@ -21,12 +21,10 @@ class Match(object):
         self.winner = winner
         self.people = people
         self.items = items
-    def __str__(self):
-        return self.matchId + ""
 
 matches = pickle.load(open("fullSave.p", "rb"))
 # matches = []
-def parse(low = 3999, high = 4498):
+def parse(low = 3999, high = 4533):
     for i in range(low, high):
         if  findExistingMatch(i):
             continue
