@@ -24,7 +24,7 @@ class Match(object):
 
 matches = pickle.load(open("fullSave.p", "rb"))
 # matches = []
-def parse(low = 3999, high = 4533):
+def parse(low = 3999, high = 4560):
     for i in range(low, high):
         if  findExistingMatch(i):
             continue
@@ -35,6 +35,12 @@ def parse(low = 3999, high = 4533):
         except:
             print "There was an error opening the page"
             continue
+
+
+        endReg = re.compile("\\d+ hours from now")
+        if  endReg.search(the_page):
+            print 'Ended after finding the first match in the future'
+            return
         str1 = ' <div class="team"'
         str2 = ' </a>'
         try:
