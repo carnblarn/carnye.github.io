@@ -24,7 +24,7 @@ class Match(object):
 
 matches = pickle.load(open("fullSave.p", "rb"))
 # matches = []
-def parse(low = 3999, high = 4560):
+def parse(low = 4551, high = 100000):
     for i in range(low, high):
         if  findExistingMatch(i):
             continue
@@ -36,10 +36,9 @@ def parse(low = 3999, high = 4560):
             print "There was an error opening the page"
             continue
 
-
         endReg = re.compile("\\d+ hours from now")
         if  endReg.search(the_page):
-            print 'Ended after finding the first match in the future'
+            print 'End of past matches'
             return
         str1 = ' <div class="team"'
         str2 = ' </a>'
@@ -101,7 +100,7 @@ def makeJson():
         match.items = int(match.items)
     with open('../../resources/dotaData/data.json', 'wb') as outfile:
         json.dump([match.__dict__ for match in matches], outfile)
-        print len(matches)
+        print "Currently tracking", len(matches), "matches"
 
 parse()
 makeJson()
