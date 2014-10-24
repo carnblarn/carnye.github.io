@@ -28,6 +28,7 @@ def parse(low = 4551, high = 100000):
     for i in range(low, high):
         if  findExistingMatch(i):
             continue
+        print i
         req = urllib2.Request('http://dota2lounge.com/match?m=%s' % i)
         try:
             response = urllib2.urlopen(req)
@@ -37,8 +38,9 @@ def parse(low = 4551, high = 100000):
             continue
 
         endReg = re.compile("\\d+ hours from now")
-        if  endReg.search(the_page):
-            print 'End of past matches'
+        otherEndReg = re.compile("\\d+ minutes ago")
+        if  endReg.search(the_page) or otherEndReg.search(the_page):
+            print 'End of past matches',
             return
         str1 = ' <div class="team"'
         str2 = ' </a>'
@@ -84,7 +86,6 @@ def parse(low = 4551, high = 100000):
             teamTwo = teamTwo.strip()
             match = Match(teamOneOdds, teamTwoOdds, teamOne, teamTwo, i, "No Winner", people, items)
             matches.append(match)
-        print i
         pickle.dump(matches, open("fullSave.p", "wb"))
 
 def findExistingMatch(i):
