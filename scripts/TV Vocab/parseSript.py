@@ -51,19 +51,12 @@ showLinks = {
 "http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=cheers": False,
 "http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=modern-family": False,
 "http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=the-cosby-show": False,
-"http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=the-wire": True,
-"http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=psych": True,
+"http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=the-wire": False,
+"http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=psych": False,
 "http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=glee": False,
-"http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=burn-notice": True,
-"http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=burn": True,
-
-
-
-
-
-
-
-
+"http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=burn-notice": False,
+"http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=doctor-who": True,
+"http://www.springfieldspringfield.co.uk/episode_scripts.php?tv-show=pokemon": True,
 
 
 

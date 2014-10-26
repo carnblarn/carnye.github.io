@@ -3,6 +3,7 @@ import os
 from nltk.corpus import PlaintextCorpusReader
 import operator
 
+import json
 length = 80000
 shows = {}
 
@@ -23,6 +24,6 @@ def analyzeShow(root):
 for root in os.walk(".").next()[1]:
     analyzeShow(root)
 
-print sorted(shows.items(), key=operator.itemgetter(1))
+print json.dumps(sorted(shows.items(), key=operator.itemgetter(1)))
 
 
