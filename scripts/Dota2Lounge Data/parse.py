@@ -23,6 +23,7 @@ class Match(object):
         self.items = items
 
 matches = pickle.load(open("fullSave.p", "rb"))
+
 # matches = []
 def parse(low = 4551, high = 100000):
     for i in range(low, high):
