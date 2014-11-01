@@ -2,7 +2,7 @@
 <head>
     <title>CarnBlarn</title>
     <link rel="stylesheet" href="resources/bootstrap.min.css">
-    <script src="resources/angular.min.js"></script>
+    <script src="resources/walkway.min.js"></script>
     <style>
     @font-face{
         font-family:Roboto-Medium;
@@ -60,6 +60,7 @@
     }
     .title{
         font-family:Roboto-Bold, sans-serif;
+        letter-spacing:3px;
     }
     .links p{
         margin-bottom: 4px;
@@ -91,7 +92,7 @@
     .projects h4{
         margin-bottom: 0px;
         position: relative;
-        padding-top: 2px;
+        margin-top: 18px;
     }
     .projects h5{
         margin-top: 2px;
@@ -116,6 +117,21 @@
         font-size:1em;
         cursor:pointer;
     }
+    .projects{
+        position:relative;
+    }
+    .projects .border{
+        position:absolute;
+        top:0;
+        left:0;
+        height:200px;
+        width:200px;
+        border-top:3px solid #555;
+        border-left:3px solid #555;
+    }
+    svg{
+        margin-left: -60px;
+    }
     </style>
 </head>
 
@@ -135,7 +151,19 @@
                     <p><span class="glyphicon glyphicon-chevron-right"></span><a href="resources/resumere.pdf">resume</a></p>
                     <p><span class="glyphicon glyphicon-chevron-right"></span><a href="">contact</a></p>
                 </div>
-                </div>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+     width="350px" height="350px" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
+<path fill="none" stroke="#000000" stroke-width="3" stroke-miterlimit="10" d="M349,105.5c0,0,27.5-53,0-51.5
+    s34.996,23.525-133.5-5c-104-2-137,98.5-119.5,167c-4,68.5,60,47.5,37.5,178.5c0.5,23,82.5,49.5,148.5,5c-1-52,8-48.5,72-48.5
+    c23.5,0,13.5-21.5,12-31.5s6.5-23.5,6.5-23.5l-2.5-7.5l7-3.5l-2.5-21c0,0,50-2.843-5-58.172C361,182.5,367.5,180,371,178
+    S349,105.5,349,105.5z"/>
+</svg>
+
+            </div>
+
             <div class="projects col-sm-4">
                 <h4> <a title="this website revampedly" href="index.html">A Website Revamp </a></h4>
                 <h5 class="tech">HTML/CSS</h5>
@@ -158,17 +186,10 @@
         </div>
     </div>
     <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-56283145-1', 'auto');
-      ga('send', 'pageview');
-
-    </script>
-    <script>
-
+        var svg = new Walkway({
+            selector:"#Layer_1",
+            duration:'3000'});
+        svg.draw();
     </script>
 </body>
 </html>
