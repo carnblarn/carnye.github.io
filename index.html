@@ -73,7 +73,7 @@
         text-decoration: none;
     }
     .links p a:hover{
-        color:#034FAB;
+        color:#5FBFDC;
         text-decoration: none;
         transition-duration:.2s;
 
@@ -105,9 +105,11 @@
     .projects a{
         font-family:Roboto-Bold, sans-serif;
         color:#444;
+        transition-duration:.2s;
+
     }
     .projects a:hover{
-        color:#034FAB;
+        color:#5FBFDC;
         text-decoration: none;
         transition-duration:.2s;
 
@@ -169,7 +171,7 @@
                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          width="360px" height="360px" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
                     <rect x="54.684" y="49.972" fill="none" width="246.328" height="76.836"/>
-                    <path fill="none" stroke="#5FBFDC" stroke-width="4" stroke-linejoin="round" stroke-miterlimit="10" d="M63.158,110.989
+                    <path fill="none" stroke="#5FBFDC" stroke-width="5" stroke-linejoin="round" stroke-miterlimit="10" d="M63.158,110.989
                         c0,0-16.95,20.339-5.65,29.943c7.557,0.302,7.674-15.732,8.573-30.707C66.862,97.213,68.232,85,75.587,85
                         c15.819,0,1.663,26.25-8.337,24.75s16,10.25,22.25,0.75s10.5-21.221,7.75-22.11s-5,20.297-3.25,24.579
                         c5-0.468,11.25-34.718,15.5-26.468c-3.75,11.25,4.75,22,12.25,15c-1.25-9,5-15,12-14.5s6.5,13.25,5.75,15.25s-3,11.187-9.25,10.718
@@ -182,12 +184,12 @@
                     </svg>
                     <svg version="1.1" id="Layer_2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          width="360px" height="360px" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
-                         <path fill="none" stroke="#5FBFDC" stroke-width="4" stroke-linejoin="round" stroke-miterlimit="10" d="M159,72.501
+                         <path fill="none" stroke="#5FBFDC" stroke-width="5" stroke-linejoin="round" stroke-miterlimit="10" d="M159,72.501
                         c0,0-4.333-2.833,4.167-1.833"/>
                         </svg>
                     <svg version="1.1" id="Layer_3" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                          width="360px" height="360px" viewBox="0 0 500 500" enable-background="new 0 0 500 500" xml:space="preserve">
-                         <path fill="none" stroke="#5FBFDC" stroke-width="4" stroke-linejoin="round" stroke-miterlimit="10" d="M220.5,81.501
+                         <path fill="none" stroke="#5FBFDC" stroke-width="5" stroke-linejoin="round" stroke-miterlimit="10" d="M220.5,81.501
                         c0,0,23.501,4,31.834,1.333"/>
                      </svg>
                 </div>
@@ -217,13 +219,15 @@
     <script>
         var svg = new Walkway({
             selector:"#Layer_1",
-            duration:'3000'});
+            duration:'2800',
+            easing: "easein"
+            });
         var svg1 = new Walkway({
             selector:"#Layer_2",
-            duration:'300'});
+            duration:'200'});
         var svg2 = new Walkway({
             selector:"#Layer_3",
-            duration:'400'});
+            duration:'300'});
         svg.draw(function(){
             svg1.draw(function(){
                 svg2.draw();
