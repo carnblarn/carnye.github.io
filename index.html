@@ -133,15 +133,15 @@
     }
     .logo{
         position:relative;
-        height:28px;
+        height:26px;
         margin-top: -30px;
-        margin-left: -22px;
+        margin-left: -20px;
     }
     svg{
         position:absolute;
     }
     hr{
-        margin-bottom: 20px;
+        margin-bottom: 12px;
     }
     </style>
 </head>
@@ -218,15 +218,16 @@
     <script>
         var svg = new Walkway({
             selector:"#Layer_1",
-            duration:'2800',
-            easing: "easein"
+            duration:'2600'
             });
         var svg1 = new Walkway({
             selector:"#Layer_2",
-            duration:'100'});
+            duration:'80',
+            easing: 'linear'});
         var svg2 = new Walkway({
             selector:"#Layer_3",
-            duration:'200'});
+            duration:'200',
+            easing: 'linear'});
         svg.draw(function(){
             svg1.draw(function(){
                 svg2.draw();
