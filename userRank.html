@@ -1,0 +1,61 @@
+<html ng-app="userRank">
+<head>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <script src="resources/angular.min.js"></script>
+    <script src="resources/userRank/controller.js"></script>
+    <script src="resources/jquery-2.1.1.min.js"></script>
+
+    <title>UserRank</title>
+    <style>
+    img{
+        height:360px;
+    }
+    .buttons{
+        margin-top: 60px;
+    }
+    </style>
+</head>
+<body ng-controller="MainCtrl">
+    <div class="container">
+        <div class="row">
+            <h2>wtf is this?</h2>
+            <p >For my tech writing final project I created a new algorithm for ranking user content based on user votes. The crux of the algorithm is that each user's vote has
+                a different weighting based on how their previous voting patterns. </p>
+            <p >Since it's not feasible to create a fully-fledged Reddit clone, and more importantly there wouldn't be anyone using it, I have made this page to serve as a proxy
+                for calibrating a user's vote weight. Each piece of content here has been taken from /r/pics with varying final vote tallys. Further information can be found here:</p>
+            <h4>Your Voting Weight: {{weight}}</h4>
+
+            <hr>
+
+        </div>
+        <div class="row" ng-repeat="piece in pieces">
+            <div class="col-xs-1 buttons">
+                <button ng-click="click(piece.index, 1)" class="btn btn-block btn-success">
+                    Like
+                </button>
+                <button ng-click="click(piece.index, 0)" class="btn btn-block btn-default">
+                    Neutral
+                </button>
+                <button ng-click="click(piece.index, -1)" class="btn btn-block btn-danger">
+                    Dislike
+                </button>
+
+            </div>
+            <div class="col-xs-11">
+                <h4>{{piece.title}}<!--  / {{piece.finalScore}} --></h4>
+                <img src="{{piece.image}}" alt="">
+            </div>
+            <div class="clearfix"></div>
+            <br>
+        </div>
+    </div>
+    <script>
+    $(function(){
+        $("button").click(function() {
+            $(this).siblings().attr("disabled", "disabled");
+        });
+    });
+
+    </script>
+</body>
+</html>

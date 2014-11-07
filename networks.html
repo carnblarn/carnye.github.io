@@ -1,0 +1,74 @@
+<html ng-app="networks">
+<head>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <script src="resources/angular.min.js"></script>
+    <script src="resources/networks/controller.js"></script>
+
+    <title>networks</title>
+    <style>
+        .container{
+            width:600px;
+        }
+        input{
+            width:80px;
+        }
+        .secondRow{
+            margin-top: -30px;
+        }
+    </style>
+</head>
+<body ng-controller="MainCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2">
+                <p>first IP</p>
+            </div>
+            <div class="col-xs-2">
+                <input ng-model="one1"  type="text">
+            </div>
+            <div class="col-xs-2">
+                <input ng-model="two1"  type="text">
+            </div>
+            <div class="col-xs-2">
+                <input ng-model="three1"  type="text">
+            </div>
+            <div class="col-xs-2">
+                <input ng-model="four1"  type="text">
+            </div>
+            <div class="col-xs-2">
+                <input ng-model="five1"  type="text">
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-2">
+                <p>second IP</p>
+            </div>
+            <div class="col-xs-2">
+                <input ng-model="a"  type="text">
+            </div>
+            <div class="col-xs-2">
+                <input ng-model="b"  type="text">
+            </div>
+            <div class="col-xs-2">
+                <input ng-model="c"  type="text">
+            </div>
+            <div class="col-xs-2">
+                <input ng-model="d"  type="text">
+            </div>
+            <div class="col-xs-2">
+                <input ng-model="e"  type="text">
+            </div>
+        </div>
+        <div class="row">
+            <p class="lead" ng-bind="ipOne()"></p>
+        </div>
+        <div class="row secondRow">
+            <p class="lead" ng-bind="ipTwo()"></p>
+        </div>
+    </div>
+    <script>
+
+    </script>
+</body>
+</html>
