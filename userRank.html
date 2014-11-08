@@ -8,7 +8,7 @@
     <title>UserRank</title>
     <style>
     img{
-        height:360px;
+        height:420px;
     }
     .buttons{
         margin-top: 60px;
@@ -19,18 +19,18 @@
     <div class="container">
         <div class="row">
             <h2>wtf is this?</h2>
-            <p >For my tech writing final project I created a new algorithm for ranking user content based on user votes. The crux of the algorithm is that each user's vote has
+            <p >For my tech writing final project I created a new algorithm for ranking user content that incoporates a voting system. The crux of the algorithm is that each user's vote has
                 a different weighting based on how their previous voting patterns. </p>
             <p >Since it's not feasible to create a fully-fledged Reddit clone, and more importantly there wouldn't be anyone using it, I have made this page to serve as a proxy
                 for calibrating a user's vote weight. Each piece of content here has been taken from /r/pics with varying final vote tallys. Further information can be found here:</p>
-            <h4>Your Voting Weight: {{weight}}</h4>
 
             <hr>
+            <h3 style="text-align:center">Your Vote Weight: {{weight}}</h3>
 
         </div>
         <div class="row" ng-repeat="piece in pieces">
             <div class="col-xs-1 buttons">
-                <button ng-click="click(piece.index, 1)" class="btn btn-block btn-success">
+                <button ng-click="click(piece.index, 1)" class="btn btn-block btn-info">
                     Like
                 </button>
                 <button ng-click="click(piece.index, 0)" class="btn btn-block btn-default">
@@ -42,10 +42,11 @@
 
             </div>
             <div class="col-xs-11">
-                <h4>{{piece.title}}<!--  / {{piece.finalScore}} --></h4>
+                <h4>{{piece.title}} /<!--  {{piece.finalScore}} --></h4>
                 <img src="{{piece.image}}" alt="">
             </div>
             <div class="clearfix"></div>
+            <br>
             <br>
         </div>
     </div>
