@@ -25,7 +25,7 @@
             {
                 image:'http://i.imgur.com/6T8gGG1.jpg',
                 title: 'Fall at the great wall',
-                finalScore: 799,
+                finalScore: 867,
                 index: 3
             },
             {
@@ -61,14 +61,14 @@
             {
                 image:'http://i.imgur.com/zQZ6F8I.jpg',
                 title: 'Just Norway, being awesome',
-                finalScore: 805,
+                finalScore: 885,
                 index: 9
             },
 
             {
-                image:'http://max.distractify.com/wp-content/uploads//2014/06//lichtenstein-castle-ryan-wyckoff.jpg',
-                title: 'Lichtenstein Castle in Germany',
-                finalScore: 22,
+                image:'http://i.imgur.com/Oywaoa1.jpg',
+                title: 'The drought in the western US is no joke...',
+                finalScore: 174,
                 index: 10
             },
 
