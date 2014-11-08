@@ -38,8 +38,8 @@ def parse(low = 4551, high = 100000):
             print "There was an error opening the page"
             continue
 
-        endReg = re.compile("\\d+ hours from now")
-        otherEndReg = re.compile("\\d+ minutes ago")
+        endReg = re.compile("\\d+ (hours|minutes) from now")
+        otherEndReg = re.compile("\\d+ (hours|minutes) ago")
         if  endReg.search(the_page) or otherEndReg.search(the_page):
             print 'End of past matches',
             return
