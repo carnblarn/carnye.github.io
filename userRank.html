@@ -23,7 +23,7 @@
                 a different weighting based on how their previous voting patterns. </p>
             <p >Since it's not feasible to create a fully-fledged Reddit clone, and more importantly there wouldn't be anyone using it, I have made this page to serve as a proxy
                 for calibrating a user's vote weight. Each piece of content here has been taken from /r/pics with varying final vote tallys. Further information can be found here:</p>
-
+            <p> <a href="" ng-click="devMode = true">Developer Mode</a></p>
             <hr>
             <h3 style="text-align:center">Your Vote Weight: {{weight}}</h3>
 
@@ -42,7 +42,7 @@
 
             </div>
             <div class="col-xs-11">
-                <h4>{{piece.title}} /<!--  {{piece.finalScore}} --></h4>
+                <h4>{{piece.title}} <span ng-show="devMode">/{{piece.finalScore}}</span> </h4>
                 <img src="{{piece.image}}" alt="">
             </div>
             <div class="clearfix"></div>

@@ -3,6 +3,8 @@
         var app = angular.module('userRank', []);
 
         app.controller('MainCtrl', function($scope, $http, $window) {
+
+            $scope.devMode = false;
             var baseline = 1400;
             $scope.pieces = [{
                 image:'http://i.imgur.com/AWlAV9a.jpg',
