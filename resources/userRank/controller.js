@@ -5,7 +5,7 @@
         app.controller('MainCtrl', function($scope, $http, $window) {
 
             $scope.devMode = false;
-            var baseline = 1400;
+            var baseline = 1000;
             $scope.pieces = [{
                 image:'http://i.imgur.com/AWlAV9a.jpg',
                 title: 'Fall in Virginia',
@@ -87,7 +87,7 @@
                 if(stance == 0){
                     return;
                 }
-                $scope.weight += stance * ($scope.pieces[index].finalScore - baseline) * .3/baseline;
+                $scope.weight += stance * ($scope.pieces[index].finalScore - baseline) * .2/baseline;
                 if($scope.weight <= .1){
                     $scope.weight = .1;
                 }
