@@ -53,6 +53,9 @@
     <script>
     $(function(){
         $("button").click(function() {
+            $(this).siblings.addClass("clicked");
+            $(this).addClass("clicked");
+
             $(this).siblings().attr("disabled", "disabled");
         });
     });

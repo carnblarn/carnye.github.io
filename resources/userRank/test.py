@@ -20,4 +20,4 @@ print confidenceAtVote
 
 # print (.85 - confidence(ups, downs)) * (ups - downs)  / 50
 
-print userWeight + 1.0/(userWeight *2 ) * ((.85 - confidence(ups, downs)) * math.sqrt(ups - downs)  / 20) *  (confidenceAtVote)
+print userWeight + 1.0/(userWeight *2 ) * ((.85 - confidence(ups, downs))/.85 * math.sqrt(ups - downs)  / 20) *  (confidenceAtVote)

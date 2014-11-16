@@ -84,6 +84,7 @@
 
             ];
             $scope.click = function(index, stance){
+
                 if(stance == 0){
                     return;
                 }
