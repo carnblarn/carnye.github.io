@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>inta</title>
+    <script src="resources/jquery-2.1.1.min.js"></script>
+    <script src="resources/instagram.js"></script>
+
+</head>
+<body>
+
+    <div class="instagram"></div>
+
+<script>
+jQuery(function($) {
+  $('.instagram').on('willLoadInstagram', function(event, options) {
+    console.log(options);
+  });
+  $('.instagram').on('didLoadInstagram', function(event, response) {
+    console.log(response);
+  });
+  $('.instagram').instagram({
+    hash: 'love',
+    clientId: '08e6f375a77d4a519a811c8a9e9a1b51'
+  });
+});
+</script>
+</body>
+</html>
