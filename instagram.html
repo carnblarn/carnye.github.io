@@ -8,7 +8,6 @@
 <body>
 
     <div class="instagram"></div>
-
 <script>
 jQuery(function($) {
   $('.instagram').on('willLoadInstagram', function(event, options) {
@@ -16,11 +15,33 @@ jQuery(function($) {
   });
   $('.instagram').on('didLoadInstagram', function(event, response) {
     console.log(response);
+     for (var i = 0; i < response.data.length; i ++ ){
+        if(response.data[i].videos){
+            var img = $('<video controls>');
+            img.attr('src', response.data[i].videos.standard_resolution.url);
+            img.attr('type', 'video/mp4');
+            img.appendTo('.instagram');
+        }
+        else{
+            var img = $('<img >');
+            img.attr('src', response.data[i].images.standard_resolution.url);
+            img.appendTo('.instagram');
+        }
+
+                    var h4 = $('<h4>');
+                        h4.text(response.data[i].caption.text);
+                        h4.insertAfter(img);
+     }
+
+
   });
   $('.instagram').instagram({
-    hash: 'love',
+    count:50,
+    hash: 'juggling',
     clientId: '08e6f375a77d4a519a811c8a9e9a1b51'
   });
+
+
 });
 </script>
 </body>
