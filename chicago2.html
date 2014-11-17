@@ -169,18 +169,8 @@
         var svg = new Walkway({
             selector:"#Layer_1",
             duration:'6000',
+            easing: 'easeOutCubic'
             });
-        function animate(){
-            var top = $('svg').css("top");
-            $('svg').animate({
-
-
-                height:"0%",
-                top: "340px",
-                left: "600px",
-                easing: 'swing'
-            }, 3000);
-        }
 
         svg.draw(function(){
         });
