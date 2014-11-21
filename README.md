@@ -1,16 +1,12 @@
 carnblarn.github.io
 ====================
 
-## Hello world!
+## Hey there
 
-This is my first try at github!
 
-My Github user page is at: 
+My Github user page is at:
 https://github.com/carnblarn/
 
-My Github Pages repo can be found at:  
-https://github.com/carnblarn/carnblarn.github.io/
-
-And, soon, you can see my customized homepage at:
+A list of the all the projects I've been working on recently:
 
 http://carnblarn.github.io/

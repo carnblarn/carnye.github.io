@@ -1,0 +1,18 @@
+<html>
+<head>
+    <title>spot</title>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <script src="resources/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<script>
+     $.ajax({
+      url:"http://charts.spotify.com/api/",
+      dataType:"json",
+      clientId: "163c13cfb77c433a9a348cec114e0416",
+      success: function(response) {
+        console.log(response);
+      }});
+</script>
+</body>
+</html>
