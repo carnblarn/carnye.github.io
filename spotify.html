@@ -6,10 +6,12 @@
 </head>
 <body>
 <script>
+    var accessToken = "163c13cfb77c433a9a348cec114e0416";
      $.ajax({
-      url:"http://charts.spotify.com/api/",
-      dataType:"json",
-      clientId: "163c13cfb77c433a9a348cec114e0416",
+      url:"https://api.spotify.com/v1/browse/featured-playlists?country=SE",
+      headers: {
+             'Authorization': 'Bearer ' + accessToken
+         },
       success: function(response) {
         console.log(response);
       }});
