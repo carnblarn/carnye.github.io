@@ -59,7 +59,9 @@ def customRanking():
         json.dump(rankings, the_file)
 
 
-# most weekly streams
+
+
+# biggest week over week gain
 def fastestGain():
     path = 'top/'
     listing = os.listdir(path)
@@ -70,28 +72,38 @@ def fastestGain():
             for i in range(0, 10):
                 track = trackList[i]
                 if track['track_name'] in biggest:
-                    if biggest[track['track_name']] < track['num_streams']:
-                        biggest[track['track_name']] = track['num_streams']
+                    if biggest[track['track_name']][1] < track['num_streams']:
+                        biggest[track['track_name']] = [track['artist_name'], track['num_streams']]
                 else:
-                    biggest[track['track_name']] = track['num_streams']
-                print track['track_name']
-    sorted_top = sorted(biggest.items(), key=operator.itemgetter(1))
-    pp.pprint(sorted_top)
+                    biggest[track['track_name']] = [track['artist_name'], track['num_streams']]
+    sorted_x = sorted(biggest.items(), key=lambda x: x[1][1], reverse = True)[0:20]
+    newRankings = []
+
+    for item in sorted_x:
+        newRankings.append([item[0], item[1][0], item[1][1]])
+    with open('../../resources/spotify/fasestGain.json', 'wb') as the_file:
+        json.dump(newRankings, the_file)
+    pp.pprint(newRankings)
 
 # number of streams per week
 def mostPopularWeeks():
     path = 'top/'
     listing = os.listdir(path)
-    weeks = {}
+    weeks = []
+    streamNums = {}
     for infile in listing:
         with open('top/' + infile, 'rb') as the_file:
             trackList = json.loads(the_file.read())
         sum_streams = 0
         for i in range(0, 50):
             sum_streams += trackList[i]['num_streams']
-        weeks[infile] = sum_streams
-    sorted_top = sorted(weeks.items(), key=operator.itemgetter(1))
-    pp.pprint(sorted_top)
+        topTrack = trackList[0]
+        weeks.append([infile, sum_streams, topTrack['track_name'], topTrack['artist_name']] )
+        streamNums[sum_streams] = (topTrack['track_name'] + " by " +  topTrack['artist_name'])
+    with open('../../resources/spotify/weeks.json', 'wb') as the_file:
+        json.dump(weeks, the_file)
+    pp.pprint(weeks)
+    print streamNums
 
 # change in streams per week for the latest
 def tracksLeavingLatest():
@@ -116,11 +128,16 @@ def mostConsistent():
         for i in range(0, 50):
             track = trackList[i]
             if track['track_name'] in tracks:
-                tracks[track['track_name']] += 1
+                tracks[track['track_name']][1] += 1
             else:
-                tracks[track['track_name']] = 1
-    sorted_top = sorted(tracks.items(), key=operator.itemgetter(1))
-    pp.pprint(sorted_top)
+                tracks[track['track_name']] = [track['artist_name'], 1]
+    sorted_x = sorted(tracks.items(), key=lambda x: x[1][1], reverse = True)[0:20]
+    newRankings = []
+    for item in sorted_x:
+        newRankings.append([item[0], item[1][0], item[1][1]])
+    with open('../../resources/spotify/consistent.json', 'wb') as the_file:
+        json.dump(newRankings, the_file)
+    pp.pprint(newRankings)
 
 # biggest negative change from one week to the next
 def leastConsistent():
@@ -130,7 +147,6 @@ def leastConsistent():
     with open('top/2014-01-05.txt' , 'rb') as the_file:
         oldList = json.loads(the_file.read())
     for infile in range(1, len(listing) - 1):
-        print listing[infile]
         with open('top/' + listing[infile], 'rb') as the_file:
             trackList = json.loads(the_file.read())
         for i in range(0, 50):
@@ -141,12 +157,16 @@ def leastConsistent():
                 streamDiff = track['num_streams'] - oldStreams
                 if trackName in tracks:
                     if streamDiff < tracks[trackName]:
-                        tracks[trackName] = streamDiff
+                        tracks[trackName] = [tracks[trackName][0], streamDiff]
                 else:
-                    tracks[trackName] = streamDiff
+                    tracks[trackName] = [track['artist_name'], streamDiff]
         oldList = trackList
-    sorted_top = sorted(tracks.items(), key=operator.itemgetter(1))
-    pp.pprint(sorted_top)
+    sorted_x = sorted(tracks.items(), key=lambda x: x[1][1])[0:20]
+    newRankings = []
+    for item in sorted_x:
+        newRankings.append([item[0], item[1][0], item[1][1]])
+    with open('../../resources/spotify/leastConsistent.json', 'wb') as the_file:
+        json.dump(newRankings, the_file)
+    pp.pprint(newRankings)
 
-getDailyLatest()
-customRanking()
+mostPopularWeeks()
