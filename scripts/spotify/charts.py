@@ -45,9 +45,19 @@ def customRanking():
         male55 = newStreams * track["percent_male"] * 1.0/100 * track['percent_age_group_55_plus'] * 1.0/100
         female55 = newStreams * (100 - track["percent_male"]) * 1.0/100 * track['percent_age_group_55_plus'] * 1.0/100
         rankings[track['track_name']] = [track['artist_name'], male0, female0, male18, female18, male25, female25, male30, female30, male35, female35, male45, female45, male55, female55]
-    sorted_x = sorted(rankings.items(), key=operator.itemgetter(1))
+
+    for i in range(1, 14):
+        sorted_x = sorted(rankings.items(), key=lambda x: x[1][i], reverse = True)[0:40]
+        newRankings = []
+
+        for item in sorted_x:
+            print item[1][i]
+            newRankings.append([item[0], item[1][0]])
+        with open('../../resources/spotify/customTracks' + str(i) + '.json', 'wb') as the_file:
+            json.dump(newRankings, the_file)
     with open('../../resources/spotify/customTracks.json', 'wb') as the_file:
         json.dump(rankings, the_file)
+
 
 # most weekly streams
 def fastestGain():

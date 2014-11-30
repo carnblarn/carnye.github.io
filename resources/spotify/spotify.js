@@ -3,16 +3,18 @@ controller('MainCtrl', function($scope, $http) {
   $scope.gender;
   $scope.age;
   $scope.customTrackList = {};
-  function initCustom(){
-    $http.get('customTracks.json.json').
-    success(function(data, status, headers, config) {
-      $scope.customTrackList = data;
-      console.log(data);
-    }).
-    error(function(data, status, headers, config) {
-      // log error
-    });
-  }
-  initCustom();
+  $scope.customizedTracks;
+  $scope.$watch('age', function(){
+    if(($scope.age !== undefined) && ($scope.gender !== undefined)){
+      $http.get('customTracks' + (age + gender) + 'json').
+      success(function(data, status, headers, config) {
+        $scope.customTrackList = data;
+        console.log(data);
+      }).
+      error(function(data, status, headers, config) {
+        // log error
+      });
+    }
+  });
 
 });
