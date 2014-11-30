@@ -4,16 +4,13 @@ controller('MainCtrl', function($scope, $http) {
   $scope.age;
   $scope.customTrackList = {};
   function initCustom(){
-    var responsePromise = $http.get("resources/spotify/customTracks.json");
-    responsePromise.success(function(data, status, headers, config) {
-        $scope.customTrackList = data;
-        console.log(data);
-        for(var i = 0; i < $scope.customTrackList; i++){
-          console.log($scope.customTrackList[i][0]);
-        }
-    });
-    responsePromise.error(function(data, status, headers, config) {
-       console.log("AJAX failed!");
+    $http.get('customTracks.json.json').
+    success(function(data, status, headers, config) {
+      $scope.customTrackList = data;
+      console.log(data);
+    }).
+    error(function(data, status, headers, config) {
+      // log error
     });
   }
   initCustom();
