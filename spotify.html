@@ -31,7 +31,7 @@
       <h4 ng-click="gender = 1">Female</h4>
       <h4 ng-click="age = 1">0-17</h4>
       <h4 ng-click="age = 3">18-24</h4>
-      <p ng-repeat="track in customTracks"></p>
+      <p ng-repeat="track in customTrackList">{{track[0]}} by {{track[1]}}</p>
     </div>
   </div>
 <script>
