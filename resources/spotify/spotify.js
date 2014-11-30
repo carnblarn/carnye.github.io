@@ -1,4 +1,4 @@
-var app = angular.module('spotify').
+var app = angular.module('spotify', []).
 controller('MainCtrl', function($scope, $http) {
   $scope.gender;
   $scope.age;
