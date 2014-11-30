@@ -7,8 +7,8 @@ controller('MainCtrl', function($scope, $http) {
     var responsePromise = $http.get("resources/spotify/customTracks.json");
     responsePromise.success(function(data, status, headers, config) {
         $scope.customTrackList = data;
-        for each (track in customTrackList ){
-          console.log(track[0]);
+        for(var i = 0; i < $scope.customTrackList; i++){
+          console.log($scope.customTrackList[i][0]);
         }
     });
     responsePromise.error(function(data, status, headers, config) {
