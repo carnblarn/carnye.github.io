@@ -3,18 +3,35 @@
     <title>spot</title>
     <link rel="stylesheet" href="resources/bootstrap.min.css">
     <script src="resources/jquery-2.1.1.min.js"></script>
+    <script src="resources/angular.min.js"></script>
+    <script src="resources/spotify/spotify.js"></script>
+    <style>
+    @font-face{
+        font-family:Roboto-Light;
+        src:url(resources/fonts/Roboto-Light.ttf);
+    }
+    body{
+      font-family:Roboto-Light;
+    }
+    .title{
+      text-align:center;
+      text-transform: uppercase;
+    }
+    </style>
 </head>
 <body>
+  <div class="container">
+    <div class="row title"><h1>analyzing the spotify charts</h1></div>
+    <div class="row">
+      <p>
+        I recently stumbled upon the Spotify Charts API, separated and tucked away from the main API. There's a lot of cool
+        data to be had. Here's some of my analysis:
+      </p>
+      <h5>Custom Top 40:</h5>
+    </div>
+  </div>
 <script>
-    var accessToken = "163c13cfb77c433a9a348cec114e0416";
-     $.ajax({
-      url:"https://api.spotify.com/v1/browse/featured-playlists?country=SE",
-      headers: {
-             'Authorization': 'Bearer ' + accessToken
-         },
-      success: function(response) {
-        console.log(response);
-      }});
+
 </script>
 </body>
 </html>
