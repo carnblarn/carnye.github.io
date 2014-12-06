@@ -188,3 +188,4 @@ def dataForTrack(trackName):
         weeks.append(infile)
     print(streams)
 getDailyLatest()
+customRanking()

@@ -12,7 +12,7 @@
     }
     @font-face{
         font-family:Roboto-Bold;
-        src:url(resources/fonts/RobotoCondensed-Bold.ttf.ttf);
+        src:url(resources/fonts/RobotoCondensed-Bold.ttf);
     }
     body{
       font-family:Roboto-Light;
@@ -57,12 +57,12 @@
       </p>
       <div class="row">
         <div class="col-sm-3 genderAge">
-          <h3 class=""><small>Gender:</small></h3>
+          <h3 class=""><small><i>Your Gender:</i></small></h3>
           <h4 ng-class="{clicked: gender == 0}" ng-click="gender = 0">Male</h4>
           <h4 ng-class="{clicked: gender == 1}" ng-click="gender = 1">Female</h4>
         </div>
         <div class="col-sm-3 genderAge">
-          <h3 class=""><small>Age:</small></h3>
+          <h3 class=""><small><i>Your Age:</i></small></h3>
           <h4 ng-class="{clicked: age == 1}" ng-click="age = 1">0-17</h4>
           <h4 ng-class="{clicked: age == 3}" ng-click="age = 3">18-24</h4>
           <h4 ng-class="{clicked: age == 5}" ng-click="age = 5">25-29</h4>
