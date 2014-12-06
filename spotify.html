@@ -17,9 +17,6 @@
       text-align:center;
       text-transform: uppercase;
     }
-    .container{
-      width:800px;
-    }
     .table{
       font-size:.9em;
       width:600px;
@@ -40,11 +37,16 @@
       background-color:#444;
       color:white;
     }
+    .artist{
+      font-size:1.1em;
+      font-weight:bold;
+    }
+
     </style>
 </head>
 <body ng-controller="MainCtrl">
   <div class="container">
-    <div class="row title"><h1>Creating an Individual top 40</h1></div>
+    <div class="row title"><h1>Creating a Custom top 40</h1></div>
     <div class="row custom">
       <p>
        In a dark and dusty corner of the Spotify website I recently discovered the Spotify Charts API. There's a lot of cool
@@ -68,7 +70,7 @@
         </div>
       </div>
       <div class="col-sm-5">
-        <p ng-repeat="track in customTrackList">{{track[0]}} by {{track[1]}}</p>
+        <p ng-repeat="track in customTrackList">{{$index + 1}}. {{track[0]}} by {{track[1]}}</p>
       </div>
     </div>
 
