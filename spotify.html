@@ -37,7 +37,7 @@
       background-color:#444;
       color:white;
     }
-    .artist{
+    .trackName{
       font-size:1.1em;
       font-weight:bold;
     }
@@ -68,9 +68,9 @@
           <h4 ng-class="{clicked: age == 11}" ng-click="age = 11">45-54</h4>
           <h4 ng-class="{clicked: age == 13}" ng-click="age = 13">55+</h4>
         </div>
-      </div>
       <div class="col-sm-5">
-        <p ng-repeat="track in customTrackList">{{$index + 1}}. {{track[0]}} by {{track[1]}}</p>
+        <p ng-repeat="track in customTrackList">{{$index + 1}}. <span class="trackName">{{track[0]}}</span> by {{track[1]}}</p>
+      </div>
       </div>
     </div>
 
