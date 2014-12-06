@@ -169,4 +169,22 @@ def leastConsistent():
         json.dump(newRankings, the_file)
     pp.pprint(newRankings)
 
-mostPopularWeeks()
+def dataForTrack(trackName):
+    path = 'top/'
+    listing = os.listdir(path)
+    weeks = []
+    streams = []
+    for infile in listing:
+        with open('top/' + infile, 'rb') as the_file:
+            trackList = json.loads(the_file.read())
+        found = False
+        for i in range(0, 50):
+            track = trackList[i]
+            if track['track_name'] == trackName:
+                streams.append(track['num_streams'])
+                found = True
+        if not found:
+            streams.append(0)
+        weeks.append(infile)
+    print(streams)
+getDailyLatest()

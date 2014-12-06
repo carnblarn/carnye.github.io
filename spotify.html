@@ -17,110 +17,60 @@
       text-align:center;
       text-transform: uppercase;
     }
+    .container{
+      width:800px;
+    }
+    .table{
+      font-size:.9em;
+      width:600px;
+    }
+    .genderAge h4{
+      cursor:pointer;
+      padding:4px;
+      margin: 0;
+    }
+    .genderAge h4:hover{
+      background-color:#444;
+      color:white;
+    }
+    td{
+      padding:1px;
+    }
+    .clicked{
+      background-color:#444;
+      color:white;
+    }
     </style>
 </head>
 <body ng-controller="MainCtrl">
   <div class="container">
-    <div class="row title"><h1>analyzing the spotify charts</h1></div>
+    <div class="row title"><h1>Creating an Individual top 40</h1></div>
     <div class="row custom">
       <p>
        In a dark and dusty corner of the Spotify website I recently discovered the Spotify Charts API. There's a lot of cool
-        data to be had. This is my take on the music trends of 2014
+        data to be had. Here's one example:
       </p>
-      <h5>Custom Top 40:</h5>
-      <h4 ng-click="gender = 0">Male</h4>
-      <h4 ng-click="gender = 1">Female</h4>
-      <h4 ng-click="age = 1">0-17</h4>
-      <h4 ng-click="age = 3">18-24</h4>
-      <h4 ng-click="age = 5">25-29</h4>
-      <h4 ng-click="age = 7">30-34</h4>
-      <h4 ng-click="age = 9">35-44</h4>
-      <h4 ng-click="age = 11">45-54</h4>
-      <h4 ng-click="age = 13">55-</h4>
-      <p ng-repeat="track in customTrackList">{{track[0]}} by {{track[1]}}</p>
+      <div class="row">
+        <div class="col-sm-3 genderAge">
+          <h3 class=""><small>Gender:</small></h3>
+          <h4 ng-class="{clicked: gender == 0}" ng-click="gender = 0">Male</h4>
+          <h4 ng-class="{clicked: gender == 1}" ng-click="gender = 1">Female</h4>
+        </div>
+        <div class="col-sm-3 genderAge">
+          <h3 class=""><small>Age:</small></h3>
+          <h4 ng-class="{clicked: age == 1}" ng-click="age = 1">0-17</h4>
+          <h4 ng-class="{clicked: age == 3}" ng-click="age = 3">18-24</h4>
+          <h4 ng-class="{clicked: age == 5}" ng-click="age = 5">25-29</h4>
+          <h4 ng-class="{clicked: age == 7}" ng-click="age = 7">30-34</h4>
+          <h4 ng-class="{clicked: age == 9}" ng-click="age = 9">35-44</h4>
+          <h4 ng-class="{clicked: age == 11}" ng-click="age = 11">45-54</h4>
+          <h4 ng-class="{clicked: age == 13}" ng-click="age = 13">55+</h4>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <p ng-repeat="track in customTrackList">{{track[0]}} by {{track[1]}}</p>
+      </div>
     </div>
-  <div class="row fastestGain">
-   <h5>Most Streams in a Week</h5>
-      <table class="table table-condensed">
-        <thead>
-          <tr>
-            <th>Song</th>
-            <th>Number of Streams</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="track in trackListGains">
-            <td>{{track[0]}} by {{track[1]}}</td>
-            <td>{{track[2]}}</td>
-          </tr>
-        </tbody>
-      </table>
-  </div>
-  <div class="row consistent">
-    <h5>Most Consistent Tracks</h5>
-      <table class="table table-condensed">
-        <thead>
-          <tr>
-            <th>Song</th>
-            <th>Number of Weeks on the Charts</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="track in trackListConsistent">
-            <td>{{track[0]}} by {{track[1]}}</td>
-            <td>{{track[2]}}</td>
-          </tr>
-        </tbody>
-      </table>
-  </div>
-  <div class="row notConsistent">
-    <h5>Least Consistent Tracks</h5>
-      <table class="table table-condensed">
-        <thead>
-          <tr>
-            <th>Song</th>
-            <th>Biggest Week-To-Week Drop</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="track in trackListNotConsistent">
-            <td>{{track[0]}} by {{track[1]}}</td>
-            <td>{{track[2]}}</td>
-          </tr>
-        </tbody>
-      </table>
-  </div>
-  <div class="row weeks">
-    <h5>Spotify Throughout the Year</h5>
-    <canvas id="myChart" width="800" height="400"></canvas>
-  </div>
-</div>
-<script>
 
-var data = {
-    labels: ['01/05', '01/12', '01/19', '01/26', '02/02', '02/09', '02/16', '02/23', '03/02', '03/09', '03/16', '03/23', '03/30', '04/06', '04/13', '04/20', '04/27', '05/04', '05/11', '05/18', '05/25', '06/01', '06/08', '06/15', '06/22', '06/29', '07/06', '07/13', '07/20', '07/27', '08/03', '08/10', '08/17', '08/24', '08/31', '09/07', '09/14', '09/21', '09/28', '10/05', '10/12', '10/19', '10/26', '11/02', '11/09', '11/16', 'latest'],
-    datasets: [
-        {
-            label: "My First dataset",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: [119613859, 123300548, 127038155, 132014056, 143174555, 142860244, 141490986, 143966486, 149679399, 153895752, 155520449, 158512456, 160344450, 164830532, 170273082, 165427974, 171056411, 181105036, 182824496, 187913268, 193684033, 198652923, 199627646, 194073239, 191722426, 192764867, 190636430, 195834541, 201533805, 202253382, 204044804, 208075105, 212179829, 219450496, 228514176, 237853420, 249907904, 250749494, 255900699, 251863218, 254228797, 253691626, 251520561, 251119996, 245011465, 247238843, 246623563]
-        },
-
-    ]
-};
-var options = {
-
-    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-    pointHitDetectionRadius : 4,
-
-};
-var ctx = document.getElementById("myChart").getContext("2d");
-var myNewChart = new Chart(ctx).Line(data, options);
-</script>
 </body>
 </html>

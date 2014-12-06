@@ -1,0 +1,347 @@
+<html ng-app="spotify">
+<head>
+    <title>spot</title>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <script src="resources/angular.min.js"></script>
+    <script src="resources/spotify/spotify.js"></script>
+    <script src="resources/chart.js"></script>
+    <style>
+    @font-face{
+        font-family:Roboto-Light;
+        src:url(resources/fonts/Roboto-Light.ttf);
+    }
+    body{
+      font-family:Roboto-Light;
+    }
+    .title{
+      text-align:center;
+      text-transform: uppercase;
+    }
+    .container{
+      width:800px;
+    }
+    .table{
+      font-size:.9em;
+      width:600px;
+    }
+    .genderAge h4{
+      cursor:pointer;
+      padding:4px;
+      margin: 0;
+    }
+    .genderAge h4:hover{
+      background-color:#999;
+    }
+    td{
+      padding:1px;
+    }
+    </style>
+</head>
+<body ng-controller="MainCtrl">
+  <div class="container">
+    <div class="row title"><h1>analyzing the spotify charts</h1></div>
+    <div class="row custom">
+      <p>
+       In a dark and dusty corner of the Spotify website I recently discovered the Spotify Charts API. There's a lot of cool
+        data to be had. This is my take on the music trends of 2014
+      </p>
+      <h3>Custom Top 40:</h3>
+      <div class="row">
+        <div class="col-sm-3 genderAge">
+          <h3 class=""><small>Gender</small></h3>
+          <h4 ng-click="gender = 0">Male</h4>
+          <h4 ng-click="gender = 1">Female</h4>
+        </div>
+        <div class="col-sm-3 genderAge">
+          <h3 class=""><small>Age</small></h3>
+          <h4 ng-click="age = 1">0-17</h4>
+          <h4 ng-click="age = 3">18-24</h4>
+          <h4 ng-click="age = 5">25-29</h4>
+          <h4 ng-click="age = 7">30-34</h4>
+          <h4 ng-click="age = 9">35-44</h4>
+          <h4 ng-click="age = 11">45-54</h4>
+          <h4 ng-click="age = 13">55+</h4>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <p ng-repeat="track in customTrackList">{{track[0]}} by {{track[1]}}</p>
+      </div>
+    </div>
+  <div class="row fastestGain">
+   <h5>Most Streams in a Week</h5>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th>Song</th>
+            <th>Number of Streams</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="track in trackListGains">
+            <td>{{track[0]}} by {{track[1]}}</td>
+            <td>{{track[2]}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="row consistent">
+    <h5>Most Consistent Tracks</h5>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th>Song</th>
+            <th>Number of Weeks on the Charts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="track in trackListConsistent">
+            <td>{{track[0]}} by {{track[1]}}</td>
+            <td>{{track[2]}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="row notConsistent">
+    <h5>Least Consistent Tracks</h5>
+      <table class="table table-condensed">
+        <thead>
+          <tr>
+            <th>Song</th>
+            <th>Biggest Week-To-Week Drop</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="track in trackListNotConsistent">
+            <td>{{track[0]}} by {{track[1]}}</td>
+            <td>{{track[2]}}</td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="row weeks">
+    <h5>Spotify Throughout the Year</h5>
+    <canvas id="myChart" width="1000" height="400"></canvas>
+  </div>
+  .<row class="test">
+    <canvas id="songChart" width="1000" height="400"></canvas>
+  </row>
+</div>
+<script>
+
+Chart.defaults.global = {
+    // Boolean - Whether to animate the chart
+    animation: true,
+
+    // Number - Number of animation steps
+    animationSteps: 60,
+
+    // String - Animation easing effect
+    animationEasing: "easeOutQuart",
+
+    // Boolean - If we should show the scale at all
+    showScale: true,
+
+    // Boolean - If we want to override with a hard coded scale
+    scaleOverride: false,
+
+    // ** Required if scaleOverride is true **
+    // Number - The number of steps in a hard coded scale
+    scaleSteps: null,
+    // Number - The value jump in the hard coded scale
+    scaleStepWidth: null,
+    // Number - The scale starting value
+    scaleStartValue: null,
+
+    // String - Colour of the scale line
+    scaleLineColor: "rgba(0,0,0,.1)",
+
+    // Number - Pixel width of the scale line
+    scaleLineWidth: 1,
+
+    // Boolean - Whether to show labels on the scale
+    scaleShowLabels: true,
+
+    // Interpolated JS string - can access value
+    scaleLabel: "<%=value%>",
+
+    // Boolean - Whether the scale should stick to integers, not floats even if drawing space is there
+    scaleIntegersOnly: true,
+
+    // Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+    scaleBeginAtZero: true,
+
+    // String - Scale label font declaration for the scale label
+    scaleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+    // Number - Scale label font size in pixels
+    scaleFontSize: 12,
+
+    // String - Scale label font weight style
+    scaleFontStyle: "normal",
+
+    // String - Scale label font colour
+    scaleFontColor: "#666",
+
+    // Boolean - whether or not the chart should be responsive and resize when the browser does.
+    responsive: false,
+
+    // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+    maintainAspectRatio: true,
+
+    // Boolean - Determines whether to draw tooltips on the canvas or not
+    showTooltips: true,
+
+    // Array - Array of string names to attach tooltip events
+    tooltipEvents: ["mousemove", "touchstart", "touchmove"],
+
+    // String - Tooltip background colour
+    tooltipFillColor: "rgba(0,0,0,0.8)",
+
+    // String - Tooltip label font declaration for the scale label
+    tooltipFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+    // Number - Tooltip label font size in pixels
+    tooltipFontSize: 14,
+
+    // String - Tooltip font weight style
+    tooltipFontStyle: "normal",
+
+    // String - Tooltip label font colour
+    tooltipFontColor: "#fff",
+
+    // String - Tooltip title font declaration for the scale label
+    tooltipTitleFontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+
+    // Number - Tooltip title font size in pixels
+    tooltipTitleFontSize: 14,
+
+    // String - Tooltip title font weight style
+    tooltipTitleFontStyle: "bold",
+
+    // String - Tooltip title font colour
+    tooltipTitleFontColor: "#fff",
+
+    // Number - pixel width of padding around tooltip text
+    tooltipYPadding: 6,
+
+    // Number - pixel width of padding around tooltip text
+    tooltipXPadding: 6,
+
+    // Number - Size of the caret on the tooltip
+    tooltipCaretSize: 8,
+
+    // Number - Pixel radius of the tooltip border
+    tooltipCornerRadius: 6,
+
+    // Number - Pixel offset from point x to tooltip edge
+    tooltipXOffset: 10,
+
+    // String - Template string for single tooltips
+    tooltipTemplate: "<%if (label){%><%=label%>: <%}%><%= value %>",
+
+    // String - Template string for single tooltips
+    multiTooltipTemplate: "<%= value %>",
+
+    // Function - Will fire on animation progression.
+    onAnimationProgress: function(){},
+
+    // Function - Will fire on animation completion.
+    onAnimationComplete: function(){}
+}
+var data = {
+    labels: ['01/05', '01/12', '01/19', '01/26', '02/02', '02/09', '02/16', '02/23', '03/02', '03/09', '03/16', '03/23', '03/30', '04/06', '04/13', '04/20', '04/27', '05/04', '05/11', '05/18', '05/25', '06/01', '06/08', '06/15', '06/22', '06/29', '07/06', '07/13', '07/20', '07/27', '08/03', '08/10', '08/17', '08/24', '08/31', '09/07', '09/14', '09/21', '09/28', '10/05', '10/12', '10/19', '10/26', '11/02', '11/09', '11/16', 'latest'],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [119613859, 123300548, 127038155, 132014056, 143174555, 142860244, 141490986, 143966486, 149679399, 153895752, 155520449, 158512456, 160344450, 164830532, 170273082, 165427974, 171056411, 181105036, 182824496, 187913268, 193684033, 198652923, 199627646, 194073239, 191722426, 192764867, 190636430, 195834541, 201533805, 202253382, 204044804, 208075105, 212179829, 219450496, 228514176, 237853420, 249907904, 250749494, 255900699, 251863218, 254228797, 253691626, 251520561, 251119996, 245011465, 247238843, 246623563]
+        },
+
+    ]
+};
+var songData = {
+    labels: ['01/05', '01/12', '01/19', '01/26', '02/02', '02/09', '02/16', '02/23', '03/02', '03/09', '03/16', '03/23', '03/30', '04/06', '04/13', '04/20', '04/27', '05/04', '05/11', '05/18', '05/25', '06/01', '06/08', '06/15', '06/22', '06/29', '07/06', '07/13', '07/20', '07/27', '08/03', '08/10', '08/17', '08/24', '08/31', '09/07', '09/14', '09/21', '09/28', '10/05', '10/12', '10/19', '10/26', '11/02', '11/09', '11/16', 'latest'],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2087168, 2951144, 3551089, 4293984, 4513407, 5405117, 7504054, 8350015, 8884812, 9191540, 9482413, 9317203, 8977491, 8640815, 8373380, 7744410, 7719908, 7580961, 7386485, 7150922, 6957628, 6562592, 6236408, 5978407, 5811382, 5575594, 5092487, 4810393, 4499934, 4198734, 4074499, 3955931, 3831520, 3973259, 3680001, 3655516]
+        },
+
+        {
+            label: "Dark Horse",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [2244974, 2718038, 3303491, 3990369, 5803797, 6496112, 6894532, 7261280, 7855565, 7952065, 7791521, 7629679, 7382313, 7162933, 7042704, 6756864, 6552477, 6479674, 5982051, 5623477, 5430942, 5343874, 5054079, 4635863, 4436719, 4141228, 3960482, 3797187, 3937710, 3714978, 3488667, 3436052, 3368717, 3289375, 3255059, 3226574, 3039751, 2889998, 2735474]
+        },
+        {
+            label: "Dark Horse",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [6968180, 6887463, 6942790, 6899689, 6741361, 6598788, 6410660, 6281428, 6177960, 6008127, 5761262, 5531455, 5285551, 5124252, 5091171, 4955293, 4880012, 4724043, 4301298, 4096495, 4013895, 4023606, 3887753, 3670903, 3533452, 3301768, 3094112, 3016311, 2832097, 2782090, 2739472, 2635951, 2531952, 2535614, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        },
+        {
+            label: "Dark Horse",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 6289726, 7472242, 7938111, 7989504, 8145578, 8439169, 8282417, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5511607, 5303568, 5346290, 5272575, 5304971, 5393622, 5474960, 5464656, 5541596, 5495616, 5580611, 5456907, 5351841, 5304665, 5333487, 5210346, 5117981, 5067007, 4954782, 4708292, 4603232, 4429558]
+        },
+        {
+            label: "Dark Horse",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2574787, 3212363, 3910297, 4675613, 5457424, 6598048, 7604593, 8388941, 8889159, 9060720, 9344879, 9786082, 9710397, 9682651, 9445503, 9066149, 8804609, 7933395, 7354482, 7006167, 6741311, 6421296, 6056010, 5798178, 5438414]
+        },
+         {
+            label: "Dark Horse",
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3503667, 10129872, 11317106, 11924637, 11628200, 11393140, 11347427, 0, 0, 0]
+        }
+
+
+    ]
+};
+var options = {
+
+    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+    pointHitDetectionRadius : 6,
+
+};
+var ctx = document.getElementById("myChart").getContext("2d");
+var myNewChart = new Chart(ctx).Line(data, options);
+var ctx2 = document.getElementById("songChart").getContext("2d");
+var myOldChart = new Chart(ctx2).Line(songData, options);
+</script>
+</body>
+</html>
