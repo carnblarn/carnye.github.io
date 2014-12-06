@@ -9,6 +9,7 @@ controller('MainCtrl', function($scope, $http) {
       success(function(data, status, headers, config) {
         $scope.customTrackList = data;
         console.log(data);
+        console.log($scope.age + $scope.gender);
       }).
       error(function(data, status, headers, config) {
         // log error
