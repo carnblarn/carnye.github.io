@@ -51,7 +51,6 @@ def customRanking():
         newRankings = []
 
         for item in sorted_x:
-            print item[1][i]
             newRankings.append([item[0], item[1][0]])
         with open('../../resources/spotify/customTracks' + str(i) + '.json', 'wb') as the_file:
             json.dump(newRankings, the_file)
