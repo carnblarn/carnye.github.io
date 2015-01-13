@@ -21,6 +21,8 @@ class Match(object):
         self.winner = winner
         self.people = people
         self.items = items
+    def addYear(self, year):
+        self.year = year
 
 matches = pickle.load(open("fullSave.p", "rb"))
 
@@ -103,7 +105,22 @@ def makeJson():
     with open('../../resources/dotaData/data.json', 'wb') as outfile:
         json.dump([match.__dict__ for match in matches], outfile)
         print "Currently tracking", len(matches), "matches"
+# 1834
+# 5368
+def addYears():
+    matches = pickle.load(open("fullSave.p", "rb"))
+    for match in matches:
+        if match.matchId < 1834:
+            match.addYear(2013)
+        elif match.matchId < 5368:
+            match.addYear(2014)
+        else:
+            match.addYear(2015)
+    with open('../../resources/dotaData/data.json', 'wb') as outfile:
+        json.dump([match.__dict__ for match in matches], outfile)
+        print "Currently tracking", len(matches), "matches"
 
 parse()
+addYears()
 makeJson()
 

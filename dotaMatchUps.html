@@ -1,0 +1,39 @@
+<html>
+<head>
+    <title>How have the Odds Changed?</title>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <link rel="stylesheet" href="resources/c3.min.css">
+    <style>
+    #chart{
+    }
+    </style>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js" type="text/javascript"></script>
+    <script src="resources/c3.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <div id="chart"></div>
+
+</body>
+<script>
+   var chart = c3.generate({
+    data: {
+        columns: [
+            ['Secret', 30, 50, 53, 60, 71, 69],
+            ['Alliance', 100, 100, 100],
+        ],
+          types: {
+        }
+
+    },
+
+        axis:{
+            y:{
+                max:50,
+                min:-50,
+                padding: {top: 0, bottom:0 }
+            }
+        }
+
+});
+</script>
+</html>
