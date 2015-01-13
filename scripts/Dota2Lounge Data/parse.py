@@ -102,6 +102,7 @@ def makeJson():
     for match in matches:
         match.people = int(match.people)
         match.items = int(match.items)
+        match.year = int(match.year)
     with open('../../resources/dotaData/data.json', 'wb') as outfile:
         json.dump([match.__dict__ for match in matches], outfile)
         print "Currently tracking", len(matches), "matches"
@@ -116,9 +117,7 @@ def addYears():
             match.addYear(2014)
         else:
             match.addYear(2015)
-    with open('../../resources/dotaData/data.json', 'wb') as outfile:
-        json.dump([match.__dict__ for match in matches], outfile)
-        print "Currently tracking", len(matches), "matches"
+    pickle.dump(matches, open("fullSave.p", "wb"))
 
 parse()
 addYears()
