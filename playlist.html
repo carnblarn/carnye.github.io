@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="playlists">
+<head>
+	<title>Playlists</title>
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+
+</head>
+<body ng-controller="Main">
+	<div class="container" style="margin-top:120px">
+		<input style="margin-top:40px" ng-change="playlistSearch()" ng-model="search" id="search" class="col-md-3">
+		<div class="col-md-4">
+			<div><h4 ng-repeat="playlist  in chosenPlaylists track by $index" ng-click="fillSongs($index)">{{playlist.n}}</h4></div>
+		</div>
+		<div class="col-md-5">
+			<h5>{{chosenPlaylist}}</h5>
+			<div class="h6" ng-repeat="song in chosenSongs track by $index"><b>{{song.n}}</b>  -  <i>{{song.a}} </i></div>
+		</div>
+	</div>
+<script type="text/javascript">
+	var app = angular.module('playlists', []).controller("Main", function($scope, $http){
+		$scope.chosenPlaylists;
+		$http.get('resources/playlists/data.json').success(function(incData){
+			$scope.playlists = incData;
+		})
+		$scope.chosenSongs;
+		$scope.fillSongs = function(index){
+			$scope.chosenSongs = [];
+			$scope.chosenPlaylist = $scope.chosenPlaylists[index].n;
+			for (var i = 0; i < $scope.chosenPlaylists[index].t.length; i++){
+				$scope.chosenSongs.push($scope.chosenPlaylists[index].t[i]);
+			}
+		}
+		$scope.playlistSearch = function(){
+			if(!$scope.search)
+				return
+			$scope.chosenPlaylists = [];
+			$scope.chosenSongs = [];
+			for(var i = 0; i < $scope.playlists.length; i ++ ){
+				for(var j = 0; j< $scope.playlists[i].t.length; j++){
+					if ($scope.playlists[i].t[j].n.toLowerCase().indexOf($scope.search.toLowerCase()) > -1){
+						$scope.chosenPlaylists.push($scope.playlists[i]);
+						break;
+					}
+				}
+			}
+		}
+	});
+</script>
+</body>
+</html>

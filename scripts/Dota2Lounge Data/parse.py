@@ -110,16 +110,26 @@ def makeJson():
 # 5368
 def addYears():
     matches = pickle.load(open("fullSave.p", "rb"))
+    odds = []
     for match in matches:
-        if match.matchId < 1834:
-            match.addYear(2013)
-        elif match.matchId < 5368:
-            match.addYear(2014)
-        else:
-            match.addYear(2015)
-    pickle.dump(matches, open("fullSave.p", "wb"))
 
-parse()
+        if match.teamOne == "Na'Vi":
+            if match.teamTwo == "EG":
+                obj = {}
+                obj['winner'] = True if match.winner == "Na'Vi" else False
+                obj['year'] = match.year
+                odds.append(obj)
+                obj['odds'] = match.teamOneOdds
+        if match.teamTwo == "Na'Vi":
+            if match.teamOne == "EG":
+                obj = {}
+                obj['winner'] = True if match.winner == "Na'Vi" else False
+                obj['year'] = match.year
+                odds.append(obj)
+                obj['odds'] = match.teamTwoOdds
+    print json.dumps(odds)
+
+# parse()
 addYears()
-makeJson()
+# makeJson()
 
