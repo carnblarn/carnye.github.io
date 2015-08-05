@@ -1,8 +1,30 @@
 var app = angular.module('matcher', []).controller('MainCtrl', function($scope) {
 
-  $scope.leftString;
-  $scope.rightString;
+  // $scope.leftString = "25.82, 377.16, -1074.97, 87.49, 26.4, 27.98, 216.22, 958.9, 475.42, 26.39, 74.0, 19.95, 170.82, 619.75, 223.64, 243.99, 166.35, 109.16, 23.44, 171.84, 719.0, 107.76, 187.16, -30.0, 10.0, 179.41, 134.78, 25.0, 469.56, 107.92, 82.35, 169.49, 109.98, 201.98, 89.97, 25.0, 25.0, 25.0, -7.94, 187.01, 133.19, 541.29, 159.96, 86.21, 51.34";
+  $scope.leftString = "243.99, 166.35";
+  $scope.rightString = "377.16, 1175.12, 501.82, 87.49, 27.98, 26.39, 25.82, 790.57, 74.0, 19.99, 410.34, 107.76, -791.95, 10.0, 100.0, 516.17, -30.0, 187.16, 82.35, 1209.84, 169.49, 89.97, 107.92, 109.98, 379.36, 187.01, 137.55, 550.85, 502.2, 44.11, 428.94, 6.98, 16.17";
   $scope.exact = [];
+  // damn floats
+  var equals = function(a, b){
+    return Math.abs(a - b) < .01
+  }
+
+  var printString = function(result){
+    var string = "";
+    if(result[0].constructor === Array){
+      for(var i = 0; i < result[0].length; i++){
+        string += result[0][i] + " + "
+      }
+      string += " : " + result[1];
+    }
+    else if(result[1].constructor === Array){
+      string += result[0] + " : ";
+      for(var i = 0; i < result[1].length; i++){
+        string += result[1][i] + " + "
+      }
+    }
+    return string;
+  }
 
   $scope.match = function(){
 
@@ -41,7 +63,7 @@ var app = angular.module('matcher', []).controller('MainCtrl', function($scope) 
     var usedForBank = [];
     var usedForReceipt = [];
     //fancy black magic for testing every combination
-    for(var range = 2; range < 6; range++){
+    for(var range = 2; range < 5; range++){
       var combos = itertools.list(itertools.combinations(banks, range));
       for(var k = 0; k < combos.length; k++){
         var total = 0;
@@ -49,21 +71,22 @@ var app = angular.module('matcher', []).controller('MainCtrl', function($scope) 
         for(var l = 0; l < combo.length; l++ ){
           total += combo[l];
         }
+        console.log(total);
         for(var l = 0; l < receipts.length; l++){
-          if(receipts[l] === total){
+          if(equals(receipts[l], total)){
             var numList = [];
             for(var m = 0; m < combo.length; m++){
               usedForBank.push(combo[m]);
               numList.push(combo[m]);
             }
-            usedForReceipt.push(total);
-            $scope.bankResults.push([numList, total]);
+            usedForReceipt.push(receipts[l]);
+            $scope.bankResults.push([numList, receipts[l]]);
           }
         }
       }
     }
 
-    for(var range = 2; range < 6; range++){
+    for(var range = 2; range < 5; range++){
       var combos = itertools.list(itertools.combinations(receipts, range));
       for(var k = 0; k < combos.length; k++){
         var total = 0;
@@ -72,19 +95,18 @@ var app = angular.module('matcher', []).controller('MainCtrl', function($scope) 
           total += combo[l];
         }
         for(var l = 0; l < banks.length; l++){
-          if(banks[l] === total){
+          if(equals(banks[l], total)){
             var numList = [];
             for(var m = 0; m < combo.length; m++){
               usedForReceipt.push(combo[m]);
               numList.push(combo[m]);
             }
-            usedForBank.push(total);
-            $scope.receiptResults.push([total,numList]);
+            usedForBank.push(receipts[l]);
+            $scope.receiptResults.push([receipts[l],numList]);
           }
         }
       }
     }
-
     //finding the results that couldn't find a match on the left and the right side side
     $scope.unmatchedBank = [];
     for(var i = 0; i < banks.length; i ++){
@@ -100,14 +122,11 @@ var app = angular.module('matcher', []).controller('MainCtrl', function($scope) 
     }
     usedForBank = usedForBank.sort();
     usedForReceipt = usedForReceipt.sort();
-    console.log(usedForBank);
-    console.log(usedForReceipt);
     //finding the conflicting results, where numbers are used more than once
 
     var findDuplicate = function(value, array){
       for(var i = 0; i < array.length -1; i++){
         if(array[i+1] === array[i]){
-          console.log(array[i])
           return true;
         }
       }
@@ -117,16 +136,15 @@ var app = angular.module('matcher', []).controller('MainCtrl', function($scope) 
     for(var i = 0; i < $scope.bankResults.length; i ++){
       var foundDup = false;
       for(var j = 0; j < $scope.bankResults[i].length; j++){
-        console.log($scope.bankResults[i][j]);
         if(findDuplicate($scope.bankResults[i][j], usedForBank)){
           foundDup = true;
         }
        }
       if(foundDup){
-        $scope.conflicted.push($scope.bankResults[i])
+        $scope.conflicted.push(printString($scope.bankResults[i]))
       }
       else{
-        $scope.unique.push($scope.bankResults[i]);
+        $scope.unique.push(printString($scope.bankResults[i]));
       }
 
     }
@@ -134,16 +152,15 @@ var app = angular.module('matcher', []).controller('MainCtrl', function($scope) 
     for(var i = 0; i < $scope.receiptResults.length; i ++){
       var foundDup = false;
       for(var j = 0; j < $scope.receiptResults[i].length; j++){
-        console.log($scope.receiptResults[i][j]);
         if(findDuplicate($scope.receiptResults[i][j], usedForReceipt)){
           foundDup = true;
         }
        }
       if(foundDup){
-        $scope.conflicted.push($scope.receiptResults[i])
+        $scope.conflicted.push(printString($scope.receiptResults[i]));
       }
       else{
-        $scope.unique.push($scope.receiptResults[i]);
+        $scope.unique.push(printString($scope.receiptResults[i]));
       }
 
     }
