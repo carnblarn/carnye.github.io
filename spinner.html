@@ -1,0 +1,66 @@
+<html>
+<head>
+    <title>Spinner</title>
+    <style>
+    html,
+    body {
+        margin: 0;
+        overflow: hidden;
+        height: 100%;
+    }
+    canvas[resize] {
+        width: 100%;
+        height: 100%;
+    }
+    </style>
+    <script src="bower_components/paper/dist/paper-full.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/midi/build/midi.min.js"></script>
+    <script type="text/paperscript" canvas="myCanvas">
+
+    var BALL_SIZE = 8;
+      var centerPoint = new Point(500, 400);
+      var centerCircle = new Path.Circle(centerPoint, BALL_SIZE);
+      centerCircle.fillColor = '#FFF';
+      centerCircle.strokeColor = '#CC00000';
+
+      var circles = [];      
+        for(var i = 1; i < 60; i++){  
+          var startPoint = new Point(centerPoint.x + 40 + i*4, centerPoint.y);
+          var circle = new Path.Circle(startPoint, BALL_SIZE + i*.06);
+          circle.radius = 100;
+          circle.fillColor = 'rgb(102, 163, 255)';
+          circle.fillColor.saturation = .8;
+          circle.rotateSpeed =  i/24.0;
+          circle.rotated = 0;
+          circle.fillColor.alpha = .6 + .005 * i;          
+          circles.push(circle);
+        }
+      function onFrame(event){
+        for(var j = 0; j < circles.length; j ++){
+          var circle = circles[j];
+          circle.rotate(circle.rotateSpeed, centerPoint);
+          circle.rotated = (circle.rotated + circle.rotateSpeed) % 360;
+
+            circle.fillColor.hue = circle.rotated ;
+          }
+        }
+
+      MIDI.loadPlugin({
+        soundfontUrl: "./bower_components/midi/examples/soundfont/",
+        instrument: "acoustic_grand_piano",
+        onsuccess: function() {
+          var delay = 0; // play one note every quarter second
+          var note = 50; // the MIDI note
+          var velocity = 127; // how hard the note hits
+          // play the note
+          MIDI.setVolume(0, 127);
+          MIDI.noteOn(0, note, velocity, delay);
+          // MIDI.noteOff(0, note, delay + 0.75);
+        }
+      });
+    </script>
+</head>
+<body>
+  <canvas id="myCanvas" resize="true"></canvas>
+</body>
+</html>
