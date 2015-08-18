@@ -42,7 +42,7 @@
         for(var j = 0; j < circles.length; j ++){
           var circle = circles[j];
           circle.rotate(circle.rotateSpeed, centerPoint);
-          if(circle.rotated + (circle.rotated + circle.rotateSpeed) > 360){
+          if(circle.rotated + (circle.rotateSpeed) > 360){
             MIDI.noteOn(0, 50, 127, 0);
           }
           circle.rotated = (circle.rotated + circle.rotateSpeed) % 360;
