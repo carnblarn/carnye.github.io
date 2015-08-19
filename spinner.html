@@ -60,7 +60,7 @@ background-image: linear-gradient(to bottom, #DE9688 0%, #F0E6C8 100%);
           var circle = circles[j];
           circle.rotate(circle.rotateSpeed, centerPoint);
           if(circle.rotated + (circle.rotateSpeed * 1.5) > 360){
-            // MIDI.noteOn(0, notes[j], 180 - j*2 , 0);
+            MIDI.noteOn(0, notes[j], 180 - j*2 , 0);
           }
           circle.rotated = (circle.rotated + circle.rotateSpeed) % 360;
           circle.fillColor.hue = circle.rotated  ;
