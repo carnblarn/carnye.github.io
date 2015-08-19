@@ -108,7 +108,7 @@ canvas {
           var circle = circles[j];
           circle.rotate(circle.rotateSpeed, centerPoint);
           if(circle.rotated + (circle.rotateSpeed * 1.5) > 360){
-            // MIDI.noteOn(0, circle.note, circle.volume , 0);
+            MIDI.noteOn(0, circle.note, circle.volume , 0);
           }
           if(circle.rotated > 0 && circle.rotated < 40){
             circle.radius = (40 - circle.rotated)/3 + circle.originalSize;
