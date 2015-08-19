@@ -47,6 +47,8 @@ background-image: linear-gradient(to bottom, #EDEBDF 0%, #EBD2C8 100%);
           var circle = new Shape.Circle(startPoint, BALL_SIZE + i*.1);
           circle.fillColor = 'rgb(102, 163, 255)';
           circle.fillColor.saturation = .8;
+          circle.strokeColor = '#666';
+          circle.strokeWidth = 1;
           circle.rotateSpeed =  i/24.0;
           circle.rotated = 0;
           circle.fillColor.alpha = .9;        
