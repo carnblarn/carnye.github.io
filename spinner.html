@@ -7,6 +7,20 @@
         margin: 0;
         overflow: hidden;
         height: 100%;
+background-image: -webkit-gradient(
+  linear,
+  left top,
+  left bottom,
+  color-stop(0, #DE9688),
+  color-stop(1, #F0E6C8)
+);
+background-image: -o-linear-gradient(bottom, #DE9688 0%, #F0E6C8 100%);
+background-image: -moz-linear-gradient(bottom, #DE9688 0%, #F0E6C8 100%);
+background-image: -webkit-linear-gradient(bottom, #DE9688 0%, #F0E6C8 100%);
+background-image: -ms-linear-gradient(bottom, #DE9688 0%, #F0E6C8 100%);
+background-image: linear-gradient(to bottom, #DE9688 0%, #F0E6C8 100%);
+
+
     }
     canvas[resize] {
         width: 100%;
@@ -20,48 +34,43 @@
     <script src="bower_components/midi/inc/shim/WebAudioAPI.js" type="text/javascript"></script>
     <script type="text/paperscript" canvas="myCanvas">
 
-    var BALL_SIZE = 8;
+    var BALL_SIZE = 14;
       var centerPoint = new Point(500, 400);
-      var centerCircle = new Path.Circle(centerPoint, BALL_SIZE);
-      centerCircle.fillColor = '#FFF';
-      centerCircle.strokeColor = '#CC00000';
+      var centerCircle = new Path.Circle(centerPoint, 24);
+      var centerPath = new Path.Line(centerPoint, new Point(centerPoint.x, 1000));
+      centerCircle.fillColor = '#42674E';
+      centerPath.strokeWidth = 6;
+      centerPath.strokeColor = '#42674E'
 
       var circles = [];      
-        for(var i = 1; i < 60; i++){  
-          var startPoint = new Point(centerPoint.x + 40 + i*4, centerPoint.y);
-          var circle = new Path.Circle(startPoint, BALL_SIZE + i*.06);
-          circle.radius = 100;
+        for(var i = 1; i < 64; i++){  
+          var startPoint = new Point(centerPoint.x, centerPoint.y + 30 + i*4);
+          var circle = new Shape.Circle(startPoint, BALL_SIZE + i*.1);
           circle.fillColor = 'rgb(102, 163, 255)';
           circle.fillColor.saturation = .8;
           circle.rotateSpeed =  i/24.0;
           circle.rotated = 0;
-          circle.fillColor.alpha = .6 + .005 * i;          
+          circle.fillColor.alpha = .9;        
           circles.push(circle);
         }
+        var notes = [ 11, 12, 14, 16, 17, 19, 21, 23, 24, 26, 28, 29, 31, 33, 35, 36, 38, 40, 41, 43, 45, 47, 48, 50, 52, 53, 55, 57, 59, 60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 79, 81, 83, 84, 86, 88, 89, 91, 93, 95, 96, 98, 100, 101, 103, 105, 107, 108, 110, 112, 113, 115, 117, 119, 120, 122, 124, 125, 127];
+        console.log(notes.length);
       function onFrame(event){
         for(var j = 0; j < circles.length; j ++){
           var circle = circles[j];
           circle.rotate(circle.rotateSpeed, centerPoint);
           if(circle.rotated + (circle.rotateSpeed * 1.5) > 360){
-            MIDI.noteOn(0, 40 + j, 150, 0);
+            // MIDI.noteOn(0, notes[j], 180 - j*2 , 0);
           }
           circle.rotated = (circle.rotated + circle.rotateSpeed) % 360;
-            circle.fillColor.hue = circle.rotated ;
+          circle.fillColor.hue = circle.rotated  ;
           }
         }
 
       MIDI.loadPlugin({
         soundfontUrl: "./bower_components/midi/examples/soundfont/",
         instrument: "acoustic_grand_piano",
-        onsuccess: function() {
-          var delay = 0; // play one note every quarter second
-          var note = 50; // the MIDI note
-          var velocity = 127; // how hard the note hits
-          // play the note
-          MIDI.setVolume(0, 127);
-          MIDI.noteOn(0, note, velocity, delay);
-          // MIDI.noteOff(0, note, delay + 0.75);
-        }
+       
       });
     </script>
 </head>
