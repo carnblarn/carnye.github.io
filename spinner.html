@@ -61,6 +61,12 @@ background-image: linear-gradient(to bottom, #EDEBDF 0%, #EBD2C8 100%);
           if(circle.rotated + (circle.rotateSpeed * 1.5) > 360){
             MIDI.noteOn(0, notes[j], 180 - j*2 , 0);
           }
+          if(circle.rotated > 0 && circle.rotated < 40){
+            circle.radius = (40 - circle.rotated)/3 + BALL_SIZE + j*.1;
+          }
+          else{
+            circle.radius = BALL_SIZE + j*.1
+          }
           circle.rotated = (circle.rotated + circle.rotateSpeed) % 360;
           circle.fillColor.hue = circle.rotated  ;
           }
