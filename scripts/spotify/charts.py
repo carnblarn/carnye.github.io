@@ -13,9 +13,10 @@ pp = pprint.PrettyPrinter(indent=4)
 # latest day is the 27th
 
 def getDailyLatest():
-    content = json.loads(urllib2.urlopen("http://charts.spotify.com/api/tracks/most_streamed/global/daily/latest").read())
-    with open('dailyTop/latest.txt', 'wb') as write_file:
-        json.dump(content['tracks'], write_file)
+    content = json.loads(urllib2.urlopen("http://charts.spotify.com/api/tracks/most_streamed/global/weekly").read())
+    pp.pprint (content)
+    # with open('dailyTop/latest.txt', 'wb') as write_file:
+        # json.dump(content['tracks'], write_file)
 
 def oldListContains(trackName, oldList):
     for track in oldList:
@@ -187,4 +188,4 @@ def dataForTrack(trackName):
         weeks.append(infile)
     print(streams)
 getDailyLatest()
-customRanking()
+# mostPopularWeeks()

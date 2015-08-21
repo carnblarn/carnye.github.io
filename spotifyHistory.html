@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="bower_components/c3/c3.min.js"></script>
+	<script src="bower_components/d3/d3.min.js"></script>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <link rel="stylesheet" href="bower_components/c3/c3.min.css">
+    <style>
+   
+	#chart{
+		height:480px;
+	}
+	.tool{
+		background:white;
+		border: 1px solid #444;
+		height:124px;
+	}
+	.toolImage{
+		width: 120px;
+		height:120px;
+		float:left;
+		margin:1px;
+	}
+	.toolText{
+		fill:#393b79;
+	}
+	.summer{
+		fill:#5254a3;
+		
+	}.fourfive{
+		fill:#6b6ecf;
+		
+	}.timber{
+		fill:#9c9ede;
+		
+	}.dark{
+		fill:#637939;
+		
+	}.royals{
+		fill:#8ca252;
+		
+	}.rude{
+		fill:#b5cf6b;
+		
+	}.shake{
+		fill:#cedb9c;
+		
+	}.blame{
+		fill:#8c6d31;
+		
+	}.rather{
+		fill:#bd9e39;
+		
+	}.thinking{
+		fill:#e7ba52;
+		
+	}.take{
+		fill:#e7cb94;
+
+	}.uptown{
+		fill:#843c39;
+
+	}.monster{
+		fill:#ad494a;
+
+	}
+
+	/*class:"wrecking"}, //wrecking ball
+        {start: '2013-10-20', end: '2013-11-03', class:"royals"},//royals 
+        {start: '2013-11-03', end: '2013-12-22', class:"monster"}, //monster
+        {start: '2013-12-22', end: '2014-02-09', class:"timber"}, //timber
+        {start: '2014-02-09', end: '2014-03-09', class:"dark"}, //dark horse
+        {start: '2014-03-09', end: '2014-05-04', class:"rather"}, //rather be
+        {start: '2014-05-04', end: '2014-07-06', class:"summer"}, //summer
+        {start: '2014-07-06', end: '2014-09-07', class:"rude"}, //rude
+        {start: '2014-09-07', end: '2014-09-28', class:"blame"}, //blame
+        {start: '2014-09-28', end: '2014-11-02', class:"shake"}, //shakeItOff
+        {start: '2014-11-02', end: '2014-11-09', class:"blame"}, //blame
+        {start: '2014-11-09', end: '2014-11-30', class:"thinking"}, //thinking out louad
+        {start: '2014-11-30', end: '2014-12-28', class:"take"}, //take me to church
+        {start: '2014-12-28', end: '2015-03-01', class:"uptown"}, //uptown funk
+        {start: '2015-03-01', end: '2015-03-08', class:"fourfive"}, //fourfive*/
+	</style>
+<body>
+	<div class="container">
+		<h1>Spotify's Popularity by it's Most Popular Song</h1>
+		<h5></h5>
+		<div id="chart">
+		</div>
+
+	</div>
+	<script>
+var mapping = {14790912: {'album':'http://o.scdn.co/300/95f7f3bff78df3fbf5402ee304c9344aaec52890', 'track':'Uptown Funk', 'artist':'Mark Ronson'}, 8439169: {'album':'http://o.scdn.co/300/a1babd2524962d4703a6c1aa9dfddcc2018713fd', 'track':'Rather Be (feat. Jess Glynne)', 'artist':'Clean Bandit'}, 15120899: {'album':'http://o.scdn.co/300/95f7f3bff78df3fbf5402ee304c9344aaec52890', 'track':'Uptown Funk', 'artist':'Mark Ronson'}, 8373380: {'album':'http://o.scdn.co/300/ca67ba1425e4308104ecae9fc493f3ef96ceb72a', 'track':'Summer', 'artist':'Calvin Harris'}, 16027911: {'album':'http://o.scdn.co/300/430d7afebf738c788ccadc1b2488ab956465236f', 'track':'FourFiveSeconds', 'artist':'Rihanna'}, 14971784: {'album':'http://o.scdn.co/300/95f7f3bff78df3fbf5402ee304c9344aaec52890', 'track':'Uptown Funk', 'artist':'Mark Ronson'}, 5360907: {'album':'http://o.scdn.co/300/40a96e848394e93b32bd84ded8e66a6ceab8be1d', 'track':'Wrecking Ball', 'artist':'Miley Cyrus'}, 5095008: {'album':'http://o.scdn.co/300/40a96e848394e93b32bd84ded8e66a6ceab8be1d', 'track':'Wrecking Ball', 'artist':'Miley Cyrus'}, 11332754: {'album':'http://o.scdn.co/300/1b3d284043805b7363906062f057a21d30abe56a', 'track':'Blame', 'artist':'Calvin Harris'}, 9448084: {'album':'http://o.scdn.co/300/b11977c0f3a022953938ec5bfda995dcc63ed89f', 'track':'The Monster', 'artist':'Eminem'}, 10826392: {'album':'http://o.scdn.co/300/1b3d284043805b7363906062f057a21d30abe56a', 'track':'Blame', 'artist':'Calvin Harris'}, 6598788: {'album':'http://o.scdn.co/300/c25a072611fe2dfdc8771174136e9592ac1ba026', 'track':'Timber', 'artist':'Pitbull'}, 7744410: {'album':'http://o.scdn.co/300/ca67ba1425e4308104ecae9fc493f3ef96ceb72a', 'track':'Summer', 'artist':'Calvin Harris'}, 8640815: {'album':'http://o.scdn.co/300/ca67ba1425e4308104ecae9fc493f3ef96ceb72a', 'track':'Summer', 'artist':'Calvin Harris'}, 11924637: {'album':'http://o.scdn.co/300/b7f4de75a197f2d01218d225e438cc39b28250a0', 'track':'Shake It Off', 'artist':'Taylor Swift'}, 8438175: {'album':'http://o.scdn.co/300/a1babd2524962d4703a6c1aa9dfddcc2018713fd', 'track':'Rather Be feat. Jess Glynne', 'artist':'Clean Bandit'}, 5961292: {'album':'http://o.scdn.co/300/40a96e848394e93b32bd84ded8e66a6ceab8be1d', 'track':'Wrecking Ball', 'artist':'Miley Cyrus'}, 7791521: {'album':'http://o.scdn.co/300/96fb8b4d972bba2ac566820985437aa39109b512', 'track':'Dark Horse', 'artist':'Katy Perry'}, 6741361: {'album':'http://o.scdn.co/300/c25a072611fe2dfdc8771174136e9592ac1ba026', 'track':'Timber', 'artist':'Pitbull'}, 13212580: {'album':'http://o.scdn.co/300/0080bec0581fe6edb83293c14d3a0d01942b1798', 'track':'Take Me To Church', 'artist':'Hozier'}, 8282417: {'album':'http://o.scdn.co/300/a1babd2524962d4703a6c1aa9dfddcc2018713fd', 'track':'Rather Be (feat. Jess Glynne)', 'artist':'Clean Bandit'}, 11628200: {'album':'http://o.scdn.co/300/b7f4de75a197f2d01218d225e438cc39b28250a0', 'track':'Shake It Off', 'artist':'Taylor Swift'}, 8145578: {'album':'http://o.scdn.co/300/a1babd2524962d4703a6c1aa9dfddcc2018713fd', 'track':'Rather Be (feat. Jess Glynne)', 'artist':'Clean Bandit'}, 9482413: {'album':'http://o.scdn.co/300/ca67ba1425e4308104ecae9fc493f3ef96ceb72a', 'track':'Summer', 'artist':'Calvin Harris'}, 7861764: {'album':'http://o.scdn.co/300/b11977c0f3a022953938ec5bfda995dcc63ed89f', 'track':'The Monster', 'artist':'Eminem'}, 14562845: {'album':'http://o.scdn.co/300/95f7f3bff78df3fbf5402ee304c9344aaec52890', 'track':'Uptown Funk', 'artist':'Mark Ronson'}, 5272240: {'album':'http://o.scdn.co/300/6138be9e917d0dcafd1fa0e707c3c8c2a0fae6cb', 'track':'Royals', 'artist':'Lorde'}, 8995848: {'album':'http://o.scdn.co/300/1b3d284043805b7363906062f057a21d30abe56a', 'track':'Blame', 'artist':'Calvin Harris'}, 15350322: {'album':'http://o.scdn.co/300/95f7f3bff78df3fbf5402ee304c9344aaec52890', 'track':'Uptown Funk', 'artist':'Mark Ronson'}, 5638003: {'album':'http://o.scdn.co/300/40a96e848394e93b32bd84ded8e66a6ceab8be1d', 'track':'Wrecking Ball', 'artist':'Miley Cyrus'}, 6033827: {'album':'http://o.scdn.co/300/40a96e848394e93b32bd84ded8e66a6ceab8be1d', 'track':'Wrecking Ball', 'artist':'Miley Cyrus'}, 9191540: {'album':'http://o.scdn.co/300/ca67ba1425e4308104ecae9fc493f3ef96ceb72a', 'track':'Summer', 'artist':'Calvin Harris'}, 9296442: {'album':'http://o.scdn.co/300/1b3d284043805b7363906062f057a21d30abe56a', 'track':'Blame', 'artist':'Calvin Harris'}, 13388603: {'album':'http://o.scdn.co/300/95f7f3bff78df3fbf5402ee304c9344aaec52890', 'track':'Uptown Funk', 'artist':'Mark Ronson'}, 11917372: {'album':'http://o.scdn.co/300/1b3d284043805b7363906062f057a21d30abe56a', 'track':'Blame', 'artist':'Calvin Harris'}, 9710397: {'album':'http://o.scdn.co/300/c36fb878b1a2c0c258a7b2808c0b2ea635978d24', 'track':'Rude', 'artist':'MAGIC!'}, 8350015: {'album':'http://o.scdn.co/300/ca67ba1425e4308104ecae9fc493f3ef96ceb72a', 'track':'Summer', 'artist':'Calvin Harris'}, 10299073: {'album':'http://o.scdn.co/300/646e9619750dfa3d1eadbbea959dc6f528a9109e', 'track':'Thinking Out Loud', 'artist':'Ed Sheeran'}, 6894532: {'album':'http://o.scdn.co/300/96fb8b4d972bba2ac566820985437aa39109b512', 'track':'Dark Horse', 'artist':'Katy Perry'}, 6942790: {'album':'http://o.scdn.co/300/c25a072611fe2dfdc8771174136e9592ac1ba026', 'track':'Timber', 'artist':'Pitbull'}, 8889159: {'album':'http://o.scdn.co/300/c36fb878b1a2c0c258a7b2808c0b2ea635978d24', 'track':'Rude', 'artist':'MAGIC!'}, 6968180: {'album':'http://o.scdn.co/300/c25a072611fe2dfdc8771174136e9592ac1ba026', 'track':'Timber', 'artist':'Pitbull'}, 7081929: {'album':'http://o.scdn.co/300/b11977c0f3a022953938ec5bfda995dcc63ed89f', 'track':'The Monster', 'artist':'Eminem'}, 5864882: {'album':'http://o.scdn.co/300/b11977c0f3a022953938ec5bfda995dcc63ed89f', 'track':'The Monster', 'artist':'Eminem'}, 8884812: {'album':'http://o.scdn.co/300/ca67ba1425e4308104ecae9fc493f3ef96ceb72a', 'track':'Summer', 'artist':'Calvin Harris'}, 8388941: {'album':'http://o.scdn.co/300/c36fb878b1a2c0c258a7b2808c0b2ea635978d24', 'track':'Rude', 'artist':'MAGIC!'}, 7989504: {'album':'http://o.scdn.co/300/a1babd2524962d4703a6c1aa9dfddcc2018713fd', 'track':'Rather Be (feat. Jess Glynne)', 'artist':'Clean Bandit'}, 12294095: {'album':'http://o.scdn.co/300/1b3d284043805b7363906062f057a21d30abe56a', 'track':'Blame', 'artist':'Calvin Harris'}, 8977491: {'album':'http://o.scdn.co/300/ca67ba1425e4308104ecae9fc493f3ef96ceb72a', 'track':'Summer', 'artist':'Calvin Harris'}, 9795668: {'album':'http://o.scdn.co/300/646e9619750dfa3d1eadbbea959dc6f528a9109e', 'track':'Thinking Out Loud', 'artist':'Ed Sheeran'}, 11350999: {'album':'http://o.scdn.co/300/0080bec0581fe6edb83293c14d3a0d01942b1798', 'track':'Take Me To Church', 'artist':'Hozier'}, 7952065: {'album':'http://o.scdn.co/300/96fb8b4d972bba2ac566820985437aa39109b512', 'track':'Dark Horse', 'artist':'Katy Perry'}, 9682651: {'album':'http://o.scdn.co/300/c36fb878b1a2c0c258a7b2808c0b2ea635978d24', 'track':'Rude', 'artist':'MAGIC!'}, 14921820: {'album':'http://o.scdn.co/300/95f7f3bff78df3fbf5402ee304c9344aaec52890', 'track':'Uptown Funk', 'artist':'Mark Ronson'}, 8761530: {'album':'http://o.scdn.co/300/b11977c0f3a022953938ec5bfda995dcc63ed89f', 'track':'The Monster', 'artist':'Eminem'}, 7261280: {'album':'http://o.scdn.co/300/96fb8b4d972bba2ac566820985437aa39109b512', 'track':'Dark Horse', 'artist':'Katy Perry'}, 9786082: {'album':'http://o.scdn.co/300/c36fb878b1a2c0c258a7b2808c0b2ea635978d24', 'track':'Rude', 'artist':'MAGIC!'}, 11347427: {'album':'http://o.scdn.co/300/b7f4de75a197f2d01218d225e438cc39b28250a0', 'track':'Shake It Off', 'artist':'Taylor Swift'}, 7719908: {'album':'http://o.scdn.co/300/ca67ba1425e4308104ecae9fc493f3ef96ceb72a', 'track':'Summer', 'artist':'Calvin Harris'}, 11469158: {'album':'http://o.scdn.co/300/0080bec0581fe6edb83293c14d3a0d01942b1798', 'track':'Take Me To Church', 'artist':'Hozier'}, 7426151: {'album':'http://o.scdn.co/300/b11977c0f3a022953938ec5bfda995dcc63ed89f', 'track':'The Monster', 'artist':'Eminem'}, 8491112: {'album':'http://o.scdn.co/300/a1babd2524962d4703a6c1aa9dfddcc2018713fd', 'track':'Rather Be feat. Jess Glynne', 'artist':'Clean Bandit'}, 7938111: {'album':'http://o.scdn.co/300/a1babd2524962d4703a6c1aa9dfddcc2018713fd', 'track':'Rather Be (feat. Jess Glynne)', 'artist':'Clean Bandit'}, 6887463: {'album':'http://o.scdn.co/300/c25a072611fe2dfdc8771174136e9592ac1ba026', 'track':'Timber', 'artist':'Pitbull'}, 9344879: {'album':'http://o.scdn.co/300/c36fb878b1a2c0c258a7b2808c0b2ea635978d24', 'track':'Rude', 'artist':'MAGIC!'}, 9060720: {'album':'http://o.scdn.co/300/c36fb878b1a2c0c258a7b2808c0b2ea635978d24', 'track':'Rude', 'artist':'MAGIC!'}, 7604593: {'album':'http://o.scdn.co/300/c36fb878b1a2c0c258a7b2808c0b2ea635978d24', 'track':'Rude', 'artist':'MAGIC!'}, 9317203: {'album':'http://o.scdn.co/300/ca67ba1425e4308104ecae9fc493f3ef96ceb72a', 'track':'Summer', 'artist':'Calvin Harris'}, 11393140: {'album':'http://o.scdn.co/300/b7f4de75a197f2d01218d225e438cc39b28250a0', 'track':'Shake It Off', 'artist':'Taylor Swift'}, 14682997: {'album':'http://o.scdn.co/300/95f7f3bff78df3fbf5402ee304c9344aaec52890', 'track':'Uptown Funk', 'artist':'Mark Ronson'}, 6899689: {'album':'http://o.scdn.co/300/c25a072611fe2dfdc8771174136e9592ac1ba026', 'track':'Timber', 'artist':'Pitbull'}, 7987476: {'album':'http://o.scdn.co/300/b11977c0f3a022953938ec5bfda995dcc63ed89f', 'track':'The Monster', 'artist':'Eminem'}, 7855565: {'album':'http://o.scdn.co/300/96fb8b4d972bba2ac566820985437aa39109b512', 'track':'Dark Horse', 'artist':'Katy Perry'}, 12029947: {'album':'http://o.scdn.co/300/0080bec0581fe6edb83293c14d3a0d01942b1798', 'track':'Take Me To Church', 'artist':'Hozier'}, 7081549: {'album':'http://o.scdn.co/300/b11977c0f3a022953938ec5bfda995dcc63ed89f', 'track':'The Monster', 'artist':'Eminem'}, 12940927: {'album':'http://o.scdn.co/300/0080bec0581fe6edb83293c14d3a0d01942b1798', 'track':'Take Me To Church', 'artist':'Hozier'}}
+	var chart = c3.generate({
+    data: {
+        x: 'date',
+        columns: [
+            ['date', '2015-03-08', '2015-03-01', '2015-02-22', '2015-02-15', '2015-02-08', '2015-02-01', '2015-01-25', '2015-01-18', '2015-01-11', '2015-01-04', '2014-12-28', '2014-12-21', '2014-12-14', '2014-12-07', '2014-11-30', '2014-11-23', '2014-11-16', '2014-11-09', '2014-11-02', '2014-10-26', '2014-10-19', '2014-10-12', '2014-10-05', '2014-09-28', '2014-09-21', '2014-09-14', '2014-09-07', '2014-08-31', '2014-08-24', '2014-08-17', '2014-08-10', '2014-08-03', '2014-07-27', '2014-07-20', '2014-07-13', '2014-07-06', '2014-06-29', '2014-06-22', '2014-06-15', '2014-06-08', '2014-06-01', '2014-05-25', '2014-05-18', '2014-05-11', '2014-05-04', '2014-04-27', '2014-04-20', '2014-04-13', '2014-04-06', '2014-03-30', '2014-03-23', '2014-03-16', '2014-03-09', '2014-03-02', '2014-02-23', '2014-02-16', '2014-02-09', '2014-02-02', '2014-01-26', '2014-01-19', '2014-01-12', '2014-01-05', '2013-12-29', '2013-12-22', '2013-12-15', '2013-12-08', '2013-12-01', '2013-11-24', '2013-11-17', '2013-11-10', '2013-11-03', '2013-10-27', '2013-10-20', '2013-10-13', '2013-10-06', '2013-09-29', '2013-09-22'],
+            ['Streams of the Number One Song on Spotify', 16027911,14562845,14971784,14921820,14682997,15120899,15350322,14790912,13388603,12029947,11350999,13212580,12940927,11469158,10299073,9795668,8995848,9296442,11347427,11393140,11628200,11924637,11332754,11917372,12294095,10826392,9682651,9710397,9786082,9344879,9060720,8889159,8388941,7604593,7719908,7744410,8373380,8640815,8977491,9317203,9482413,9191540,8884812,8350015,8491112,8438175,8282417,8439169,8145578,7989504,7938111,7791521,7952065,7855565,7261280,6894532,6598788,6741361,6899689,6942790,6887463,6968180,5864882,7081929,7081549,7426151,7861764,8761530,9448084,7987476,5272240,5095008,5360907,6033827,5638003,5961292,]
+        ]
+    },
+    axis: {
+        x: {
+            type: 'timeseries',
+            tick: {
+	            format: '%m/%d/%y',
+            }
+        },
+        y: {
+        	min: 0,
+        	padding : {
+        		bottom: 0
+        	},
+            tick: {
+	            format: function (d) { return d /1000000; },
+            },
+            label: {
+            	text:"Number of Streams per Week (millions)",
+            position: 'outer-middle'
+            }
+            
+        }
+    },
+    tooltip: {
+
+    	 contents: function (point) {
+    	 	// var date = point[o].x.getYear() + "-" + 
+            return "<div class='tool'>" + "<img class='toolImage' src='" + mapping[point[0].value].album + "''>" + "<div class='toolText'>" + "Week: " + point[0].x.toDateString() +   "</div>" + "<div class='toolText'>" +  Math.round(point[0].value/100000)/10 + " million" +  "</div>" + "</div>";
+        },
+    	format: {
+            value: function (value, ratio, id) {
+
+                return Math.round(value/100000)/10 + " million";
+            }
+    	}
+   
+   },
+    regions: [
+        {start: '2013-09-22', end: '2013-10-20', class:"wrecking"}, //wrecking ball
+        {start: '2013-10-20', end: '2013-11-03', class:"royals"},//royals 
+        {start: '2013-11-03', end: '2013-12-22', class:"monster"}, //monster
+        {start: '2013-12-22', end: '2014-02-09', class:"timber"}, //timber
+        {start: '2014-02-09', end: '2014-03-09', class:"dark"}, //dark horse
+        {start: '2014-03-09', end: '2014-05-04', class:"rather"}, //rather be
+        {start: '2014-05-04', end: '2014-07-06', class:"summer"}, //summer
+        {start: '2014-07-06', end: '2014-09-07', class:"rude"}, //rude
+        {start: '2014-09-07', end: '2014-09-28', class:"blame"}, //blame
+        {start: '2014-09-28', end: '2014-11-02', class:"shake"}, //shakeItOff
+        {start: '2014-11-02', end: '2014-11-09', class:"blame"}, //blame
+        {start: '2014-11-09', end: '2014-11-30', class:"thinking"}, //thinking out louad
+        {start: '2014-11-30', end: '2014-12-28', class:"take"}, //take me to church
+        {start: '2014-12-28', end: '2015-03-01', class:"uptown"}, //uptown funk
+        {start: '2015-03-01', end: '2015-03-08', class:"fourfive"}, //fourfive
+    ]
+});</script>
+</body>
+</html>
