@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Top Playlists on Spotify</title>
+	<script src="scripts/spotify/topPlaylists/webData.js"></script>
+	<link rel="stylesheet" href="bower_components/bootstrap-new/dist/css/bootstrap.min.css">
+	<style>
+	.playlist{
+		margin-bottom: 20px;
+	}
+	.title{
+		text-align:center;
+		margin-top: 20px;
+		height:160px;
+	}
+	.lead{
+		text-align: center
+	}
+	.playlistInfo{
+		margin-top: 20px;
+	}
+	a{
+		color:#373A3C;
+	}
+	a:hover{
+		text-decoration:none;
+	}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="title">
+		<h1 class="display-1">MOST POPULAR PLAYLISTS ON SPOTIFY</h1>
+		<div class="lead">Number of Followers, as of 9/25/15</div>
+		
+	</div>
+	<div id="playlists">
+	</div>
+</div>
+
+	<script type="text/javascript" src="bower_components/react/react.min.js"></script>
+	<script type="text/javascript" src="bower_components/react/JSXTransformer.js"></script>
+<script type="text/jsx">
+var PlaylistTable = React.createClass({
+	getInitialState: function() {
+		return {
+			data: data 
+		};
+	},
+	render: function(){
+		var rows = this.state.data.map(function(playlist, i){
+			return <Playlist data = {playlist} reactKey={i} key={i}/>
+		})
+		return <div>{rows}</div>
+	}
+})
+
+var Playlist = React.createClass({
+	render: function(){
+		var imageLink = "scripts/spotify/topPlaylists/" + this.props.data.image;
+		var description =  { __html: this.props.data.description}
+		return (<div className="row playlist">
+					<a href={this.props.data.link} ><img src={imageLink} className="col-md-3" /> </a>
+					<div className=" playlistInfo  col-md-9">
+						<h3> <a href={this.props.data.link} >{this.props.reactKey +1}. {this.props.data.name} - {this.props.data.followers} followers </a></h3>
+
+						<h4><small className="text-muted" dangerouslySetInnerHTML={description}></small></h4>
+					</div>
+				</div>);
+	}
+})
+
+ React.render(<PlaylistTable />, document.getElementById('playlists'));
+</script>
+</body>
+</html>
