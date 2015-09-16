@@ -14,125 +14,200 @@
 		display:inline-block;
 		margin: 10px 0;
 	}
-	#c{
+	#canvas{
 		display:block;
 	}
-	#notC{
+	#tempCanvas{
 		display:none
+	}
+	video{
+		position:absolute;
+		visibility: hidden;
+
 	}
 	</style>
 </head>
 <body>
-		<h2 class="command" style="color:white">Enter a string:</h2>
-		<input type="text" id="string" style="display:inline">
-		<canvas id="notC"></canvas>
-		<canvas style="postion:relative" id="c"></canvas>
+		<video id='v'></video>
+		<canvas id="tempCanvas"></canvas>
+		<canvas style="postion:relative" id="canvas"></canvas>
 <script>
 
+	navigator.getUserMedia = 
+	  navigator.getUserMedia || 
+	  navigator.webkitGetUserMedia ||
+	  navigator.mozGetUserMedia ||
+	  navigator.msGetUserMedia;
 
+	 window.requestAnimationFrame =
+	   window.requestAnimationFrame ||
+	   window.webkitRequestAnimationFrame ||
+	   window.mozRequestAnimationFrame ||
+	   window.oRequestAnimationFrame ||
+	   window.msRequestAnimationFrame;
 
-	var c = document.getElementById("c");
-	var ctx = c.getContext("2d");
+   var video = document.getElementById('v');
+   if (navigator.getUserMedia) {
 
-	c.height = window.innerHeight-20;
-	c.width = window.innerWidth-20;
+      navigator.getUserMedia(
+         {
+            video:true,
+            audio:false
+         },        
+         function(localMediaStream) {
+
+            video.src = window.URL.createObjectURL(localMediaStream);
+            video.play();
+			window.requestAnimationFrame(draw);
+
+         },
+         function(error) {
+            alert('Something went wrong. (error code ' + error.code + ')');
+         }
+      );
+   }
+   else {
+      alert('Sorry, the browser you are using doesn\'t support getUserMedia');
+   }
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+
+	canvas.height = window.innerHeight;
+	canvas.width = window.innerWidth;
 	var chinese = "田由甲申甴电甶男甸甹町 画甼甽甾甿畀畁畂畃畄畅畆畇 畈畉畊畋 界畍畎畏畐畑";
+	var chars = ['~', ':', '*', 'V',  '0', '町', '畂' ]
 	var chineseArray = chinese.split('');
-	var spriteMatrix =document.getElementById("matrix");
-	var font_size = 6;
-	var columns = c.width/font_size;
+	var font_size = 16;
+	var columns = canvas.width/font_size;
 
 	var drops = [];
+	var secondDrops = [];
 
 	for(var i = 0; i< columns; i++){
-		drops[i]=Math.random()*c.height;
+		drops[i]=Math.random()*canvas.height;
+		secondDrops[i]=Math.random()*canvas.height;
 	}
 
 	//Image/text drawing
 	//Can get rid of using an image and use a fill text method probably
 
-	var sprite = document.getElementById("matrix");
-	var W = 1000;
-	var H = 200;
 
 	//temporary canvas for pixel processing
-		var tcanvas = document.getElementById("notC");
-	tcanvas.width = W;
-	tcanvas.height = H; //same as the image
-	var tc = tcanvas.getContext("2d");
-	//painting the canvas white before painting the image to deal with pngs
-	tc.fillStyle = "white";
-	tc.fillRect(0, 0, W, H);
-	tc.fillStyle="#000";
-	tc.font = "900 60px Verdana";
-	 //tc.fillRect(0,0, W/3, H);
-	// tc.fillRect(2*W/3, 0, W, H);
-
-
-
-
-	var heightPosition = 300;
-	var widthPosition = c.width/2 - W/2;
-	console.log(c.width);
-	console.log(c.height);
-	var string = document.getElementById("string").value;
-	tc.fillText(string, 0, H);
-	var pixels = tc.getImageData(0, 0, W, H);
-	var colordata = pixels.data;
-	function draw(){
-
-		if(string!= document.getElementById("string").value){
-			string = document.getElementById("string").value;
-			tc.fillStyle = "white";
-			tc.fillRect(0, 0, W, H);
-			tc.fillStyle="#000";
-			tc.font = "900 80px Verdana";
-			tc.fillText(string, 0, H/2);
-			pixels = tc.getImageData(0, 0, W, H);
-			colordata = pixels.data;
+	var tempCanvas = document.getElementById("tempCanvas");
+	tempCanvas.width = canvas.width;
+	tempCanvas.height = canvas.height; //same as the image
+	var tempContext = tempCanvas.getContext("2d");
+	ctx.translate(tempCanvas.width, 0);
+	ctx.scale(-1, 1);
+	ctx.font = font_size + "px Helvetica";
+			ctx.shadowColor = '#0FF';
+	     				 ctx.shadowBlur = 0;
+	     				 ctx.shadowOffsetX = 0;
+	     					 ctx.shadowOffsetY = 0;
+	// tempContext.scale(-1, 1);
+	// var pixels = tempContext.getImageData(0, 0, canvas.width, canvas.height);
+	// var colordata = pixels.data;
+	function getCharacter(gray){
+		if(Math.random() > .8){
+			return " ";
 		}
+		if (gray > 250) {
+            return "'"; //almost white
+        } else if (gray > 230) {
+            return "~";
+        } else if (gray > 200) {
+            return ":";
+        } else if (gray > 175) {
+            return "*";
+        } else if (gray > 150) {
+            return "1";
+        } else if (gray > 125) {
+            return "V";
+        }
+        else if(gray > 112){
+        	return "W"
+        }
+         else if (gray > 100) {
+            return "W";
+        } 
+        else if(gray > 75){
+        	return "田";
+        }
+        else if(gray > 62){
+        	return "甼"
+        }
+        else if(gray > 50){
+        	return "畁";
+        }
+        else if(gray > 37){
+        	return "畎"
+        }
+        else if(gray > 25){
+        	return "畅";	
+        }
+        else {
+            return "畍"; //almost black
+        }
+	}
 
-		ctx.fillStyle = "rgba(0,0,0,0.016)";
-		ctx.fillRect(0,0, c.width, c.height);
-
-		ctx.fillStyle="#0F0";
-		ctx.font = font_size + "px Helvetica";
-		ctx.shadowColor = '#0FF';
-     				 ctx.shadowBlur = 0;
-     				 ctx.shadowOffsetX = 0;
-     					 ctx.shadowOffsetY = 0;
-
-		for(var i = 0; i < drops.length;i+=.5){
-			ctx.fillStyle="rgba(0,200,0,.4)";
-			if(drops[Math.floor(i)]*font_size>heightPosition&&drops[Math.floor(i)]*font_size<heightPosition+H&&i*font_size>widthPosition&&i*font_size<widthPosition+W){
-				var height= drops[Math.floor(i)]*font_size-heightPosition;
-				var width = font_size*i-widthPosition;
-				var location = (W*height+width)*4;
+	function draw(){
+		tempContext.drawImage(video, 0, 0, canvas.width, canvas.height);
+		var pixels = tempContext.getImageData(0, 0, canvas.width, canvas.height);
+		var colordata = pixels.data;
+		for(var i = 0; i < drops.length; i ++ ){
+			for(var j = 0; j < canvas.height; j+= font_size){
+				var height= j;
+				var width = font_size*i;
+				var location = (canvas.width*height+width)*4;
 				var r = colordata[location];
 				var g = colordata[location+1];
-					var b = colordata[location+2];
-				//	console.log(r + ", " + g + ", " + b);
-					//converting the pixel into grayscale
-					var gray = r+ g + b;
+				var b = colordata[location+2];
+				var percentGray = Math.max(r, g, b) / (255 *5);
+				percentGray = percentGray < .05 ? .05 : percentGray;
+				percentGray = percentGray > .16 ? .16 : percentGray;
+				ctx.fillStyle = "rgba(0,200,0," + percentGray + ")";
 
-				if(gray<500){
-					ctx.fillStyle="#2FF";
-					ctx.shadowBlur = 30;
-				}
-
+				var text = getCharacter(255 - Math.max(r, g, b));
+				// var text = chineseArray[Math.floor(Math.random()*chineseArray.length)];
+				ctx.fillText(text, width, height);
 			}
-			var text = chineseArray[Math.floor(Math.random()*chineseArray.length)];
-			ctx.fillText(text, i*font_size, drops[Math.floor(i)]*font_size);
-			ctx.shadowBlur = 0;
-			if(drops[i]*font_size> c.height&&Math.random()>.955)
-				drops[Math.floor(i)]=0;
-			drops[Math.floor(i)]++;
 		}
 
 
+		ctx.fillStyle = "rgba(0,0,0,0.08)";
+		ctx.fillRect(0,0, canvas.width, canvas.height);
+
+
+
+
+		for(var i = 0; i < drops.length;i+=.5){
+
+			//first drop line
+			var height= drops[Math.floor(i)]*(font_size);
+			var width = font_size*i;
+			var location = (canvas.width*height+width)*4;
+			var r = colordata[location];
+			var g = colordata[location+1];
+			var b = colordata[location+2];
+			// turn it into a percentage
+			var percentGray =Math.max(r, g, b)/ 255 ;
+			percentGray = percentGray < .6 ? .6 : percentGray;
+			// 0.21 R + 0.72 G + 0.07 B.
+			ctx.fillStyle = "rgba(0,220,0," + percentGray  + ")";
+			var text = getCharacter(255 - Math.max(r, g, b));
+			ctx.fillText(text, width, height);
+
+
+
+			if(drops[i]*font_size> canvas.height&&Math.random()>.955)
+				drops[Math.floor(i)]=0;
+			drops[Math.floor(i)]++;
+
+		}
+
+		window.requestAnimationFrame(draw);
 
 	}
-	setInterval(draw, 30);
 </script>
 </body>
 
