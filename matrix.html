@@ -10,10 +10,6 @@
 		margin:0;
 
 	}
-	.command{
-		display:inline-block;
-		margin: 10px 0;
-	}
 	#canvas{
 		display:block;
 	}
@@ -111,9 +107,7 @@
 		if(Math.random() > .8){
 			return " ";
 		}
-		if (gray > 250) {
-            return "'"; //almost white
-        } else if (gray > 230) {
+		 if (gray > 230) {
             return "~";
         } else if (gray > 200) {
             return ":";
@@ -122,16 +116,16 @@
         } else if (gray > 150) {
             return "1";
         } else if (gray > 125) {
-            return "V";
+            return "c";
         }
         else if(gray > 112){
-        	return "W"
+        	return "0"
         }
          else if (gray > 100) {
             return "W";
         } 
         else if(gray > 75){
-        	return "田";
+        	return "申";
         }
         else if(gray > 62){
         	return "甼"
@@ -163,7 +157,7 @@
 				var g = colordata[location+1];
 				var b = colordata[location+2];
 				var percentGray = Math.max(r, g, b) / (255 *5);
-				percentGray = percentGray < .05 ? .05 : percentGray;
+				percentGray = percentGray < .06 ? .06 : percentGray;
 				percentGray = percentGray > .16 ? .16 : percentGray;
 				ctx.fillStyle = "rgba(0,200,0," + percentGray + ")";
 
@@ -174,7 +168,7 @@
 		}
 
 
-		ctx.fillStyle = "rgba(0,0,0,0.08)";
+		ctx.fillStyle = "rgba(0,0,0,0.086)";
 		ctx.fillRect(0,0, canvas.width, canvas.height);
 
 
