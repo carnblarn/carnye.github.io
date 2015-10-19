@@ -6,7 +6,7 @@
 
     <style>
         .container{
-            width:480px;
+            width:540px;
         }
         .board{
             position:relative;
@@ -14,8 +14,8 @@
             height:520px;
         }
         .piece{
-            height:100px;
-            width:100px;
+            height:120px;
+            width:120px;
             position:absolute;
             background-size:cover;
             background-repeat: no-repeat;
@@ -48,9 +48,6 @@
         .isJackie img{
             width:100%;
         }
-        .hardMode{
-            background-color: #a94442;
-        }
     </style>
 </head>
 
@@ -67,8 +64,9 @@
                  <div><h1>It's not Jackie Chan!</h1></div>
                 
                  <h5>Win by picking the one piece that isn't Jackie</h5>
-                 <button  type="button" class="startButton start btn btn-success">Begin</button>
-                 <button  type="button" class="hardMode btn " disabled>Hard Mode</button>
+                 <button  type="button" class="startButton start btn btn-success">Regular</button>
+                 <button  type="button" class="hardMode btn btn-warning " disabled>Hard</button>
+                 <button  type="button" class="extremeMode btn btn-danger" disabled>Extreme</button>
                 <div class="row">
                  <div class="isJackie col-md-6">
                      <h6>Jackie </h6>
@@ -84,6 +82,32 @@
         </div>
     </div>
     <script>
+
+        var urls = ['resources/jackiePhotos/jackie.png',
+                'resources/jackiePhotos/jackie2.jpg',
+                'resources/jackiePhotos/jackie3.jpg',
+                'resources/jackiePhotos/jackie4.jpg',
+                'resources/jackiePhotos/jackie5.jpg',
+                'resources/jackiePhotos/jackie6.jpg',
+                'resources/jackiePhotos/jackie7.jpg',
+                'resources/jackiePhotos/jackie8.jpg',
+                'resources/jackiePhotos/jackie9.jpg',
+                'resources/jackiePhotos/jackie10.jpg',
+                'resources/jackiePhotos/jackie11.jpg',
+                'resources/jackiePhotos/jackie12.jpg',
+                'resources/jackiePhotos/jackie13.jpg',
+                'resources/jackiePhotos/jackie14.jpg',
+                'resources/jackiePhotos/jackie15.jpg',
+                'resources/jackiePhotos/jackie16.jpg',
+                'resources/jackiePhotos/jackie17.jpg',
+                'resources/jackiePhotos/jackie18.jpg',
+                'resources/jackiePhotos/jackie19.jpg',
+                'resources/jackiePhotos/jackie20.jpg',
+                'resources/jackiePhotos/jackie21.jpg',
+                'resources/jackiePhotos/jackie22.jpg',
+                'resources/jackiePhotos/jackie23.jpg',
+                'resources/jackiePhotos/jackie24.jpg',
+    ];
     var gameOver = false;
     function setUp(){
         $('.timerBar').css('visibility', 'hidden');
@@ -93,7 +117,14 @@
         $('.notjackieTut').click(function(){
             alert('nice one');
         });
-        if(localStorage.getItem('levelsUnlocked') == 2){
+        if(localStorage.getItem('levelsUnlocked') == 3){
+             $('.extremeMode').prop("disabled", false);
+            $('.extremeMode').click(function(){
+                    level = 3;
+                    init();
+                 });
+        }
+        if(localStorage.getItem('levelsUnlocked') >= 2){
              $('.hardMode').prop("disabled", false);
             $('.hardMode').click(function(){
                     level = 2;
@@ -105,7 +136,29 @@
                     level = 1;
                     init();
                  });
+        function preloadImage(url)
+        {
+            var img=new Image();
+            img.src=url;
+        }
+        preloadImage('resources/jackiePhotos/kelsey.jpg');
+        preloadImage('resources/jackiePhotos/poe.jpg');
+        preloadImage('resources/jackiePhotos/toothpaste.jpg');
+        preloadImage('resources/jackiePhotos/pizza.jpg');
+        preloadImage('resources/jackiePhotos/lamp.jpg');
+        preloadImage('resources/jackiePhotos/bruce.jpg');
+        preloadImage('resources/jackiePhotos/john.jpg');
+        preloadImage('resources/jackiePhotos/ken.jpg');
+        preloadImage('resources/jackiePhotos/xi.jpg');
+        preloadImage('resources/jackiePhotos/yao.jpg');
+        
+        for(var i = 0; i < urls.length; i++){
+            preloadImage(urls[i]);
+        }
 
+        $('.refresh').click(function(){
+                    location.reload();
+                });
     }
     setUp();
 
@@ -138,76 +191,37 @@
                     return 'resources/jackiePhotos/bruce.jpg';
             }
         }
+        if(level === 3){
+            console.log(Math.floor(Math.random()* 4), Math.floor(Math.random()* 2));
+            return getNotJackieImage(Math.floor(Math.random()* 4), Math.floor(Math.random()* 2)); 
+        }
+
     }
 
     function makePieces(roundNum, level){
-        var notJackie = Math.floor(Math.random()*16);
+        var copyArray = urls.slice();
+        var squareSize = 4;
+        if(level === 3){
+            squareSize = 5;
+        }
+        var notJackie = Math.floor(Math.random()*squareSize*squareSize);
         var oldRand = 0;
-        var urls = ['resources/jackiePhotos/jackie.png',
-                    'resources/jackiePhotos/jackie2.jpg',
-                    'resources/jackiePhotos/jackie3.jpg',
-                    'resources/jackiePhotos/jackie4.jpg',
-                    'resources/jackiePhotos/jackie5.jpg',
-                    'resources/jackiePhotos/jackie6.jpg',
-                    'resources/jackiePhotos/jackie7.jpg',
-                    'resources/jackiePhotos/jackie8.jpg',
-                    'resources/jackiePhotos/jackie9.jpg',
-                    'resources/jackiePhotos/jackie10.jpg',
-                    'resources/jackiePhotos/jackie11.jpg',
-                    'resources/jackiePhotos/jackie12.jpg',
-                    'resources/jackiePhotos/jackie13.jpg',
-                    'resources/jackiePhotos/jackie14.jpg',
-                    'resources/jackiePhotos/jackie15.jpg'
-        ];
-        for(var i = 0; i < 16; i ++){
+        for(var i = 0; i < squareSize*squareSize; i ++){
             d = document.createElement('div');
-            $(d).addClass('piece').addClass('piece' + (i+1)).appendTo($('.board')).css('top', (Math.floor(i/4) * 120  )).css('left', (i%4 * 120));
+            $(d).addClass('piece').addClass('piece' + (i+1)).appendTo($('.board')).css('top', (Math.floor(i/squareSize) * 140  )).css('left', (i%squareSize * 140));
 
             if(i == notJackie){
                 var url = getNotJackieImage(roundNum, level);
                 $(d).css('background-image', 'url(' + url + ')').addClass('notJackie');
             }
             else{
-                var rand = Math.floor(Math.random() * urls.length);
-                url = urls.splice(rand, 1);
+                var rand = Math.floor(Math.random() * copyArray.length);
+                url = copyArray.splice(rand, 1);
                 $(d).css('background-image', 'url(' + url + ')');
             }
         }
     }
-        function preloadImage(url)
-        {
-            var img=new Image();
-            img.src=url;
-        }
-        preloadImage('resources/jackiePhotos/kelsey.jpg');
-        preloadImage('resources/jackiePhotos/poe.jpg');
-        preloadImage('resources/jackiePhotos/toothpaste.jpg');
-        preloadImage('resources/jackiePhotos/pizza.jpg');
-        preloadImage('resources/jackiePhotos/lamp.jpg');
-        preloadImage('resources/jackiePhotos/bruce.jpg');
-        preloadImage('resources/jackiePhotos/john.jpg');
-        preloadImage('resources/jackiePhotos/ken.jpg');
-        preloadImage('resources/jackiePhotos/xi.jpg');
-        preloadImage('resources/jackiePhotos/yao.jpg');
-        var urls = ['resources/jackiePhotos/jackie.png',
-                    'resources/jackiePhotos/jackie2.jpg',
-                    'resources/jackiePhotos/jackie3.jpg',
-                    'resources/jackiePhotos/jackie4.jpg',
-                    'resources/jackiePhotos/jackie5.jpg',
-                    'resources/jackiePhotos/jackie6.jpg',
-                    'resources/jackiePhotos/jackie7.jpg',
-                    'resources/jackiePhotos/jackie8.jpg',
-                    'resources/jackiePhotos/jackie9.jpg',
-                    'resources/jackiePhotos/jackie10.jpg',
-                    'resources/jackiePhotos/jackie11.jpg',
-                    'resources/jackiePhotos/jackie12.jpg',
-                    'resources/jackiePhotos/jackie13.jpg',
-                    'resources/jackiePhotos/jackie14.jpg',
-                    'resources/jackiePhotos/jackie15.jpg'
-        ];
-        for(var i = 0; i < urls.length; i++){
-            preloadImage(urls[i]);
-        }
+
         var start, time;
         var turn = 0;
         var level = 1;
@@ -219,17 +233,25 @@
                 $('.piece').remove();
                 $('.titleContainer').hide();
                 $('.winContainer').show();
-                $('.refresh').click(function(){
-                    location.reload();
-                });
+                
                 if(level == 1){
 
                     $('#timer').html("You have bested Jackie. <h5>Congratulations, you have unlocked hard mode!</h5>");
+                    if(localStorage.getItem('levelsUnlocked') === 2){
+                     localStorage.setItem('levelsUnlocked', '2');
+                    }
                 }
                 if(level === 2){
-                    $('#timer').html("WOW");
+
+                    $('#timer').html("Your discerning eyes were too strong. <h5>Congratulations, you have unlocked extreme mode!</h5> ");
+                     localStorage.setItem('levelsUnlocked', '3');
+
                 }
-                 localStorage.setItem('levelsUnlocked', '2');
+                if(level === 2){
+
+                    $('#timer').html("You've reached the end of the journey. ");
+
+                }
                  $('.endImage').height("300px");
                  $('.endImage').width("400px");
                  $('.endImage').css('background-image', 'url("resources/jackiePhotos/win.jpg")');
@@ -270,10 +292,12 @@
                 return;
             }
             var timePer = 4200 - 420 * turn;
+            if(level === 3){
+                timerPer = 6000 - 420*turn;
+            }
             time = new Date().getTime() - start;
             $('.timerBar').width(460 - time/timePer * 460);
             if(timePer - time < 0){
-
                 $('#timer').html(0);
                 gameOverMan();
                 return;
@@ -284,6 +308,7 @@
 
 
         function gameOverMan(){
+            $('.winContainer').show();
             gameOver = true;
             turn = 6;
             $('.timerBar').css('visibility', 'hidden');
