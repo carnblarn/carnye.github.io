@@ -11,7 +11,7 @@
         .board{
             position:relative;
             margin: 20px 0;
-            height:520px;
+            height:560px;
         }
         .piece{
             height:120px;
@@ -293,7 +293,7 @@
             }
             var timePer = 4200 - 420 * turn;
             if(level === 3){
-                timerPer = 6000 - 420*turn;
+                timerPer = 6900 - 420*turn;
             }
             time = new Date().getTime() - start;
             $('.timerBar').width(460 - time/timePer * 460);
