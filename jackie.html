@@ -34,15 +34,22 @@
             height:30px;
             background-color:#333;
         }
-        .start h1{
-            cursor:pointer;
-            border:4px solid #11AD52;
-            border-radius:3px;
-            padding:2px 8px;
-            display: block;
-            width:100px;
-            margin:160px auto;
-            text-align: center;
+       
+        .titleContainer{
+            text-align:center;
+        }
+        .titleContainer .btn{
+            margin-bottom: 20px;
+            margin-top:20px;
+            margin-right: 20px;
+            color:white;
+            padding: 8px 16px;
+        }
+        .isJackie img{
+            width:100%;
+        }
+        .hardMode{
+            background-color: #a94442;
         }
     </style>
 </head>
@@ -52,13 +59,88 @@
         <h2 id="timer"></h2>
         <h1 class="timerBar"></h1>
         <div class="board">
-             <div class="endImage"></div>
-             <div class="start"><h1>start</h1></div>
+             <div style="display:none" class="winContainer">
+                 <div class="endImage"></div>
+                <button  type="button" style="margin-top:-50px;" class=" refresh btn btn-success">Play Again</button>
+             </div>
+             <div class="titleContainer">
+                 <div><h1>It's not Jackie Chan!</h1></div>
+                
+                 <h5>Win by picking the one piece that isn't Jackie</h5>
+                 <button  type="button" class="startButton start btn btn-success">Begin</button>
+                 <button  type="button" class="hardMode btn " disabled>Hard Mode</button>
+                <div class="row">
+                 <div class="isJackie col-md-6">
+                     <h6>Jackie </h6>
+                     <img  class="jackieTut" src="resources/jackiePhotos/jackieStart.jpg" />
+                 </div>
+                 <div class="isJackie col-md-6">
+                     <h6>NOT Jackie </h6>
+                     <img class="notJackieTut" src="resources/jackiePhotos/tommy.png" />
+                 </div>
+                    
+                </div>
+            </div>
         </div>
-        <p> HOW TO PLAY: Don't pick Jackie! </p>
     </div>
     <script>
-    function makePieces(roundNum){
+    var gameOver = false;
+    function setUp(){
+        $('.timerBar').css('visibility', 'hidden');
+        $('.jackieTut').click(function(){
+            alert('this game will be hard for you');
+        });
+        $('.notjackieTut').click(function(){
+            alert('nice one');
+        });
+        if(localStorage.getItem('levelsUnlocked') == 2){
+             $('.hardMode').prop("disabled", false);
+            $('.hardMode').click(function(){
+                    level = 2;
+                    init()
+                 });
+        }
+
+        $('.start').click(function(){
+                    level = 1;
+                    init();
+                 });
+
+    }
+    setUp();
+
+    function getNotJackieImage(roundNum, level){
+        if(level === 1){
+            switch(roundNum){
+                case 0:
+                    return 'resources/jackiePhotos/kelsey.jpg';
+                case 1:
+                    return 'resources/jackiePhotos/poe.jpg';
+                case 2:
+                    return 'resources/jackiePhotos/toothpaste.jpg';
+                case 3:
+                    return 'resources/jackiePhotos/pizza.jpg';
+                case 4:
+                    return 'resources/jackiePhotos/lamp.jpg';
+            }
+        }
+        if(level === 2){
+            switch(roundNum){
+                case 0:
+                    return 'resources/jackiePhotos/xi.jpg';
+                case 1:
+                    return 'resources/jackiePhotos/yao.jpg';
+                case 2:
+                    return 'resources/jackiePhotos/ken.jpg';
+                case 3:
+                    return 'resources/jackiePhotos/john.jpg';
+                case 4:
+                    return 'resources/jackiePhotos/bruce.jpg';
+            }
+        }
+    }
+
+    function makePieces(roundNum, level){
         var notJackie = Math.floor(Math.random()*16);
         var oldRand = 0;
         var urls = ['resources/jackiePhotos/jackie.png',
@@ -82,24 +164,7 @@
             $(d).addClass('piece').addClass('piece' + (i+1)).appendTo($('.board')).css('top', (Math.floor(i/4) * 120  )).css('left', (i%4 * 120));
 
             if(i == notJackie){
-                var url;
-                switch(roundNum){
-                    case 0:
-                        url = 'resources/jackiePhotos/kelsey.jpg';
-                        break;
-                    case 1:
-                        url = 'resources/jackiePhotos/poe.jpg';
-                        break;
-                    case 2:
-                        url = 'resources/jackiePhotos/toothpaste.jpg';
-                        break;
-                    case 3:
-                        url = 'resources/jackiePhotos/pizza.jpg';
-                        break;
-                    case 4:
-                        url = 'resources/jackiePhotos/lamp.jpg';
-                        break;
-                }
+                var url = getNotJackieImage(roundNum, level);
                 $(d).css('background-image', 'url(' + url + ')').addClass('notJackie');
             }
             else{
@@ -119,6 +184,11 @@
         preloadImage('resources/jackiePhotos/toothpaste.jpg');
         preloadImage('resources/jackiePhotos/pizza.jpg');
         preloadImage('resources/jackiePhotos/lamp.jpg');
+        preloadImage('resources/jackiePhotos/bruce.jpg');
+        preloadImage('resources/jackiePhotos/john.jpg');
+        preloadImage('resources/jackiePhotos/ken.jpg');
+        preloadImage('resources/jackiePhotos/xi.jpg');
+        preloadImage('resources/jackiePhotos/yao.jpg');
         var urls = ['resources/jackiePhotos/jackie.png',
                     'resources/jackiePhotos/jackie2.jpg',
                     'resources/jackiePhotos/jackie3.jpg',
@@ -135,18 +205,31 @@
                     'resources/jackiePhotos/jackie14.jpg',
                     'resources/jackiePhotos/jackie15.jpg'
         ];
-        for(var url in urls){
-            preloadImage(url);
+        for(var i = 0; i < urls.length; i++){
+            preloadImage(urls[i]);
         }
-        var buzzed = new Audio('resources/audio/buzz.mp3');
-        buzzed.load();
         var start, time;
         var turn = 0;
-        $('.start').click(init);
+        var level = 1;
+
         function init(){
+            $('.timerBar').css('visibility', 'visible');
+
             if(turn == 5){
                 $('.piece').remove();
-                 $('#timer').html("You have bested Jackie");
+                $('.titleContainer').hide();
+                $('.winContainer').show();
+                $('.refresh').click(function(){
+                    location.reload();
+                });
+                if(level == 1){
+
+                    $('#timer').html("You have bested Jackie. <h5>Congratulations, you have unlocked hard mode!</h5>");
+                }
+                if(level === 2){
+                    $('#timer').html("WOW");
+                }
+                 localStorage.setItem('levelsUnlocked', '2');
                  $('.endImage').height("300px");
                  $('.endImage').width("400px");
                  $('.endImage').css('background-image', 'url("resources/jackiePhotos/win.jpg")');
@@ -156,10 +239,10 @@
                 instance();
                  return;
             }
-            $('.start').hide();
+            $('.titleContainer').hide();
             start = new Date().getTime();
             time = 0;
-            makePieces(turn);
+            makePieces(turn, level);
 
             $('.piece').click(pieceClick);
             instance();
@@ -170,6 +253,9 @@
 
 
         function pieceClick(){
+            if(gameOver){
+                return;
+            }
             if($(this).hasClass('notJackie')){
                 init();
             }
@@ -183,9 +269,9 @@
             if(turn == 6){
                 return;
             }
-            var timePer = 4000 - 500 * turn;
+            var timePer = 4200 - 420 * turn;
             time = new Date().getTime() - start;
-            $('.timerBar').width(240 - time/timePer * 240);
+            $('.timerBar').width(460 - time/timePer * 460);
             if(timePer - time < 0){
 
                 $('#timer').html(0);
@@ -198,12 +284,11 @@
 
 
         function gameOverMan(){
+            gameOver = true;
             turn = 6;
             $('.timerBar').css('visibility', 'hidden');
             instance();
-            buzzed.currentTime = 33;
-            buzzed.play();
-            $('.piece').fadeOut(1000);
+            $('.piece').fadeOut(300);
             $('.endImage').css('display', 'block');
             $('#timer').css('visibility', 'hidden');
             $('.endImage').animate({

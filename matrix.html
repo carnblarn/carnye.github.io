@@ -28,6 +28,9 @@
 		<canvas id="tempCanvas"></canvas>
 		<canvas style="postion:relative" id="canvas"></canvas>
 <script>
+	var host = "carnblarn.github.io/matrix.html";
+	if ((host == window.location.host) && (window.location.protocol != "https:"))
+	    window.location.protocol = "https";
 
 	navigator.getUserMedia = 
 	  navigator.getUserMedia || 
