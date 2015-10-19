@@ -192,8 +192,7 @@
             }
         }
         if(level === 3){
-            console.log(Math.floor(Math.random()* 4), Math.floor(Math.random()* 2));
-            return getNotJackieImage(Math.floor(Math.random()* 4), Math.floor(Math.random()* 2)); 
+            return getNotJackieImage(Math.floor(Math.random()* 4), Math.floor(Math.random()* 2 + 1)); 
         }
 
     }
@@ -247,7 +246,7 @@
                      localStorage.setItem('levelsUnlocked', '3');
 
                 }
-                if(level === 2){
+                if(level === 3){
 
                     $('#timer').html("You've reached the end of the journey. ");
 
