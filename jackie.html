@@ -237,7 +237,7 @@
                 if(level == 1){
 
                     $('#timer').html("You have bested Jackie. <h5>Congratulations, you have unlocked hard mode!</h5>");
-                    if(localStorage.getItem('levelsUnlocked') === 2){
+                    if(localStorage.getItem('levelsUnlocked') !== 3){
                      localStorage.setItem('levelsUnlocked', '2');
                     }
                 }
