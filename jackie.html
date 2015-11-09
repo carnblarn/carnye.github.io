@@ -227,8 +227,8 @@
 
         function init(){
             $('.timerBar').css('visibility', 'visible');
-
-            if(turn == 5){
+            var winCondition = (turn == 5 && (level == 1 || level == 2)) || (turn == 7 && level == 3);
+            if(winCondition){
                 $('.piece').remove();
                 $('.titleContainer').hide();
                 $('.winContainer').show();
@@ -257,7 +257,6 @@
                  $('.endImage').fadeIn();
                  $('.timerBar').css('visibility', 'hidden');
                  turn++;
-                instance();
                  return;
             }
             $('.titleContainer').hide();
@@ -287,12 +286,9 @@
 
         function instance()
         {
-            if(turn == 6){
-                return;
-            }
             var timePer = 4200 - 420 * turn;
             if(level === 3){
-                timePer = 5600 - 420*turn;
+                timePer = 5780 - 420 * turn;
             }
             time = new Date().getTime() - start;
             $('.timerBar').width(460 - time/timePer * 460);
