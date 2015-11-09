@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DnD Soundboard</title>
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+     <script src="resources/jquery-2.1.1.min.js"></script>
+     <style>
+     .container{
+     	width:400px;
+     }
+     </style>
+</head>
+<body>
+	<div class="container">
+	<div class="row">
+		<h1 class="lead">DnD Soundboard</h1>
+		<button type="button" id="loot" class="btn btn-primary btn-lg btn-block">Gimme the Loot</button>
+		<button type="button" id="chaoticNeutrel" class="btn btn-primary btn-lg btn-block">You want mercy?</button>
+		<button type="button" id="roll" class="btn btn-primary btn-lg btn-block">Gimme your roll</button>
+		<button type="button" id="fire" class="btn btn-primary btn-lg btn-block">I wouldn't care if she caught fire</button>
+	</div>
+
+	</div>
+	<script>
+	var fileNames = [
+		"loot",
+		"chaoticNeutrel",
+		"roll",
+		"fire"
+	]
+	for(var i = 0; i < fileNames.length; i++){
+		var name = fileNames[i];
+		window[name] = new Audio('resources/dndSounds/' + name + '.mp3');
+		window[name].load();
+			console.log(window[name]);
+		$('#' + name).click(function(event){
+			window[event.target.id].play();
+		});
+	}
+	</script>
+</body>
+</html>
