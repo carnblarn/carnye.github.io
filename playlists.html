@@ -48,9 +48,7 @@ var PlaylistTable = React.createClass({
 		};
 	},
 	render: function(){
-		var rows = this.state.data.map(function(playlist, i){
-			return <Playlist data = {playlist} reactKey={i} key={i}/>
-		})
+		 
 		return <div>{rows}</div>
 	}
 })
