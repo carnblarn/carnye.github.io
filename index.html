@@ -1,13 +1,180 @@
 <html>
 <head>
     <title>Carntech</title>
-    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            margin-top: 60px;
+        }
+        .container {
+            width:960px;
+            margin: 0 auto;
+        }
+        .title-section {
+            float:left;
+            position:relative;
+            margin-top: 0;
+        }
+        .title {
+            margin-bottom: 6px;
+            margin-top:0;
+        }
+        .sub-title {
+            margin-top: 0;
+            font-weight:400;
+            font-size:.7rem;
+            letter-spacing:1px;
+            color:#AAA  ;
+        }
+        .nav {
+            margin-top: 0;
+            float:right;
+        }
+        .nav > li {
+            list-style-type:none;
+            display:inline-block;
+            padding-left:30px;
+            font-size:.9rem;
+            color:#999;
+
+        }
+        a {
+            text-transform:lowercase;
+            letter-spacing:2px;
+            padding-bottom:10px;
+            color:#999;
+            text-decoration:none;
+        }
+         a:hover {
+            color:#000;
+            text-decoration:none;
+        }
+        .clearfix:after {
+           content: " "; /* Older browser do not support empty content */
+           visibility: hidden;
+           display: block;
+           height: 0;
+           clear: both;
+        }
+        .main-container {
+            text-align:center;
+        }
+        .main {
+            text-align:right;
+            padding-top: 200px;
+            padding-bottom: 240px;
+            font-weight:100;
+            font-size:3.6rem;
+            display:inline-block;
+            margin:0 auto;
+        }
+        .item-left {
+            width:30%;
+            float:left;
+        }
+        .item h1,h2,h3,h4,h5,h6, p {
+            margin-top:4px;
+            margin-bottom:4px;
+        }
+        .item-project {
+            font-size:1.5rem;
+
+        }
+        .item-right {
+            width:70%;
+            float:left;
+        }
+        .item-descrip {
+            margin-top:12px;
+            color:#666;
+            line-height:24px;
+            font-size:.9rem;
+            letter-spacing:1px;
+        }
+        .code {
+            font-family: "Courier New: ;", monospace ;
+            color:#999;
+        }
+        .work-header {
+            font-weight:100;
+            font-size:1rem;
+            color:#777;
+
+            margin-top: 80px;
+            margin-bottom: 80px;
+            font-style:italic;
+        }
+        hr {
+            margin-top:60px;
+            width:32%;
+            margin-bottom:60px;
+            border-color: #FFF;
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
-    <h1>Carntech</h1>
-    <img height="500" src="images/profpic.jpg" alt="">
+    <header class="header">
+        <div class="title-section">
+            <h3 class="title">CARNTECH</h4>
+            <h5 class="sub-title">WEB DEVELOPMENT</h6>
+        </div>
+        <ul class='nav'>
+            <li><a href="resume.pdf">resume</a>.pdf</li>
+            <li><a href="/contact.html">contact</a></li>
+        </ul>
+    </header>
+    <div class="clearfix"></div>
+    <div class="main-container">
+        <h1 class="main">I<br> make<br> websites</h1>
+    </div>
+    <h5 class="work-header">> Things People Paid Me For</h5>
+        <div class="item">
+            <div class="item-left">
+                <h6 class="item-project"><a href="https://pilot.flipgrid.com/v4">flipgrid</a></h6>
+                <p class=" item-tech code">React, Django</p>
+            </div>
+            <div class="item-right">
+                <p class="item-descrip">An edtech product for teachers and students to communicate asynchronously by recording videos. Students respond to prompts by recording videos with the new MediaRecorder API (no Flash needed).</p>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <h5 class="work-header"> >Things I Did on My Own</h5>
+            <div class="item">
+                <div class="item-left">
+                    <h6 class="item-project"><a href="jackie.html">It's not Jackie Chan!</a></h6>
+                    <p class=" item-tech code">Vanilla Javascript</p>
+                </div>
+                <div class="item-right">
+                    <p class="item-descrip">A YouTube video for context: <a href="https://www.youtube.com/watch?v=d8u4CEBVq7s">https://www.youtube.com/watch?v=d8u4CEBVq7s</a></p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr>
+            <div class="item">
+                <div class="item-left">
+                    <h6 class="item-project"><a href="jackie.html">Matrix Webcam</a></h6>
+                    <p class=" item-tech code">Vanilla Javascript</p>
+                </div>
+                <div class="item-right">
+                    <p class="item-descrip">Transform your webcam to a matrix effect simulator.</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr>
+            <div class="item">
+                <div class="item-left">
+                    <h6 class="item-project"><a href="chicago.html">The Chicago Skyline</a></h6>
+                    <p class=" item-tech code">WalkwayJS</p>
+                </div>
+                <div class="item-right">
+                    <p class="item-descrip"></p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <hr>
+    <!-- <img height="500" src="images/profpic.jpg" alt=""> -->
     </div> 
 </body>
 </html>
