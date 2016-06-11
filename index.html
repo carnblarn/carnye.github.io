@@ -1,13 +1,18 @@
 <html>
 <head>
     <title>Carntech</title>
+        <script src="resources/walkway.js"></script>
     <style>
     @font-face {
         font-family: 'Aller';
         src: url(fonts/Aller_Rg.ttf);
     }
+    @font-face {
+        font-family: 'Aller2';
+        src: url(fonts/Aller_Lt.ttf);
+    }
         body {
-            font-family: 'Aller', Helvetica, sans-serif;
+            font-family: 'Aller2', Helvetica, sans-serif;
             margin-top: 60px;
         }
         .container {
@@ -40,15 +45,15 @@
             list-style-type:none;
             display:inline-block;
             padding-left:30px;
-            font-size:.9rem;
-            color:#999;
+            font-size:1rem;
+            color:#888;
 
         }
         a {
             text-transform:lowercase;
             letter-spacing:2px;
             padding-bottom:10px;
-            color:#999;
+            color:#888;
             text-decoration:none;
         }
          a:hover {
@@ -64,11 +69,11 @@
         }
         .main-container {
             text-align:center;
+            padding-top: 180px;
+            padding-bottom: 140px;
         }
         .main {
             text-align:right;
-            padding-top: 200px;
-            padding-bottom: 240px;
             font-weight:100;
             font-size:3.6rem;
             display:inline-block;
@@ -102,7 +107,8 @@
             color:#999;
         }
         .work-header {
-            font-weight:100;
+
+            font-family: 'Aller';
             font-size:1rem;
 
             margin-top: 80px;
@@ -115,7 +121,32 @@
             margin-bottom:60px;
             border-color: #FFF;
         }
+        .art {
+            position:relative;
+        }
+        .art > svg {
+            margin-left:-100px;
+            margin-top:-60px;
+        }
+        .art > .tagline {
+            color:white;
+            font-size:4rem;
+            top:-20px;
+            left:36%;
+            position:absolute;
+        }
+        .noselect {
+                cursor: default;
+              -webkit-touch-callout: none; /* iOS Safari */
+              -webkit-user-select: none;   /* Chrome/Safari/Opera */
+              -khtml-user-select: none;    /* Konqueror */
+              -moz-user-select: none;      /* Firefox */
+              -ms-user-select: none;       /* Internet Explorer/Edge */
+              user-select: none;           /* Non-prefixed version, currently
+                      
+        }
     </style>
+    <link rel="icon" href="images/cropped-C-icon-32x32.png" sizes="32x32" />
 </head>
 
 <body>
@@ -133,6 +164,13 @@
     <div class="clearfix"></div>
     <div class="main-container">
         <h1 class="main">I<br> make<br> websites</h1>
+        <!-- Since text will never work why not have the text there and draw a path over it to reveal
+        think white text black marker which colors in a background -->
+<div class="art">
+    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 801.4 316.91"><defs><style>.cls-1{fill:#be1e2d;}.cls-2{fill:none;stroke:#231f20;stroke-miterlimit:2;stroke-width:46px;}</style></defs><title>test</title><path class="cls-1" d="M-179.91-17.47s0-5,0-5,0,5,0,5h0Z" transform="translate(179.94 22.47)"/><path class="cls-2" d="M21.07,127.92A454.73,454.73,0,0,1,94.34,48.45c3.2,2.48,2.33,7.44,1.15,11.31L69.56,145a960.73,960.73,0,0,1,105.6-93.61c-8.29,38-23.44,74-38.51,109.82a498.35,498.35,0,0,1,127.16-130c1.64,41.63-12.47,82.09-26.39,121.36A459.76,459.76,0,0,1,355.72,35a515.66,515.66,0,0,1-35.2,134c38.72-52.51,78-105.64,128.71-146.72-4.06,47.71-16.83,94.2-29.55,140.37A1374.35,1374.35,0,0,1,542,48.79c6-5,12.6-10.08,20.38-10.68,4.64,43.13-12.64,85.27-29.57,125.22a814.8,814.8,0,0,1,69.13-126.2A92.05,92.05,0,0,1,600.87,80" transform="translate(179.94 22.47)"/></svg>
+    <h1 class="tagline noselect" id="tagline">that work</h1>
+</div>
+
     </div>
     <h5 class="work-header">> Things People Paid Me For</h5>
         <div class="item">
@@ -180,6 +218,19 @@
             <div class="clearfix"></div>
             <hr>
     <!-- <img height="500" src="images/profpic.jpg" alt=""> -->
+    <script>
+var svg = new Walkway({
+  selector: 'svg',
+  duration: '3000',
+  easing: 'linear'
+});
+setTimeout(function() {
+    svg.draw(function() {
+        
+    });
+}, 1000);
+        
+    </script>
     </div> 
 </body>
 </html>
