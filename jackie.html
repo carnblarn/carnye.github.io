@@ -63,12 +63,12 @@
              <div class="titleContainer">
                  <div><h1>It's not Jackie Chan!</h1></div>
                 
-                 <h5>Win by picking the one piece that isn't Jackie</h5>
                  <h5>Pick a difficulty below:</h5>
                  <button  type="button" class="startButton start btn btn-success">Regular</button>
-                 <button  type="button" class="hardMode btn btn-warning " disabled>Hard</button>
-                 <button  type="button" class="extremeMode btn btn-danger" disabled>Extreme</button>
+                 <button  type="button" class="hardMode btn btn-warning " style="display:none">Hard</button>
+                 <button  type="button" class="extremeMode btn btn-danger" style="display:none">Extreme</button>
                 <div class="row">
+                 <h5>A variety of pictures will be shown. Move to the next level by clicking on the one that isn't Jackie Chan before the time runs out</h5>
                  <div class="isJackie col-md-6">
                      <h6>Jackie </h6>
                      <img  class="jackieTut" src="resources/jackiePhotos/jackieStart.jpg" />
@@ -119,14 +119,14 @@
             alert('nice one');
         });
         if(localStorage.getItem('levelsUnlocked') == 3){
-             $('.extremeMode').prop("disabled", false);
+             $('.extremeMode').css("display", 'inline-block');
             $('.extremeMode').click(function(){
                     level = 3;
                     init();
                  });
         }
         if(localStorage.getItem('levelsUnlocked') >= 2){
-             $('.hardMode').prop("disabled", false);
+             $('.hardMode').css("display", 'inline-block');
             $('.hardMode').click(function(){
                     level = 2;
                     init()
