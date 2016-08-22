@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>a beautiful day for wind</title>
+	<link href="https://fonts.googleapis.com/css?family=Baloo+Da" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+	<style type="text/css">
+		body {
+			color: white;
+			background-color: #00ccff;
+			font-family: sans-serif;
+			font-size: 14px;
+			text-align:center;
+			overflow-x:hidden;
+			overflow-y:hidden;
+		}
+		.line {
+			overflow:hidden;
+		}
+		.word {
+			font-family: 'Helvetica', sans-serif;
+			margin-right:16px;
+		}
+		.q {
+			font-size:4rem !important;
+			margin-top:160px;
+		}
+		.q > h4 {
+			font-weight:900;
+			margin-top:0px;
+			margin-bottom:0px;
+			font-family: 'Baloo Da', sans-serif;
+		}
+		.a {
+			font-family: 'Amatic SC', sans-serif;
+			font-size:12rem;
+			margin-top:160px;
+			letter-spacing: 8px;
+		}
+	</style>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+	var ROWS = 20;
+	var WORDS_IN_ROW = 30;
+	var TEXT_MIN = 12;
+	var TEXT_MAX = 20;
+	var TEXT_RANGE = TEXT_MAX - TEXT_MIN;
+
+	function windify(rows, delta) {
+		var delta = typeof delta !== 'undefined' ? delta : 0;
+		for (var i = 0; i < ROWS; i ++) {
+			for (var j = 0; j < WORDS_IN_ROW; j ++ ) {
+				var num = i + '-' + j;
+				$('#' + num).css('fontSize', Math.round((Math.sin(-i/3 - j/3 + delta/3) + 1) * (TEXT_RANGE/2) + TEXT_MIN) + 'px');
+			}
+		}
+	}
+	function alright() {
+		$('.a').hide();
+		for (var i = 0; i < ROWS; i ++) {
+			var words = "<p>"
+			for (var j = 0; j < WORDS_IN_ROW; j++) {
+				var num = i + '-' + j;
+				words += "<span class='word' id='" + num + "'>alright</span>";
+			}
+			words += "</p>";
+			$('body').append(words);
+		}
+		var d = 0;
+		windify(words, d++);
+		setInterval(function() {
+			windify(words, d++);
+		}, 100);
+	}
+	function question() {
+		$('body').append("<div class='q'><h4>I SAY WHAT'S,</h4></div>");
+		setTimeout(function(){$('.q').append("<h4>WHAT'S <em>COOLER</em> THAN BEING <span class='weight'>COOL</span>?</h4>")}, 1500);
+	}
+	function answer() {
+		$('.q').hide();
+		$('body').append('<h4 class="a">ice cold!</h4>');
+	}
+	setTimeout(question, 500);
+	setTimeout(answer, 3800);
+	setTimeout(alright, 5500);
+
+
+
+</script>
+</body>
+</html>
