@@ -19,7 +19,10 @@
 		}
 		.word {
 			font-family: 'Helvetica', sans-serif;
-			margin-right:16px;
+			margin-right:20px;
+		} 
+		p {
+			margin-bottom:20px;
 		}
 		.q {
 			font-size:4rem !important;
@@ -46,7 +49,7 @@
 	var ROWS = 20;
 	var WORDS_IN_ROW = 30;
 	var TEXT_MIN = 12;
-	var TEXT_MAX = 20;
+	var TEXT_MAX = 18;
 	var TEXT_RANGE = TEXT_MAX - TEXT_MIN;
 
 	function windify(rows, delta) {
@@ -54,7 +57,17 @@
 		for (var i = 0; i < ROWS; i ++) {
 			for (var j = 0; j < WORDS_IN_ROW; j ++ ) {
 				var num = i + '-' + j;
-				$('#' + num).css('fontSize', Math.round((Math.sin(-i/3 - j/3 + delta/3) + 1) * (TEXT_RANGE/2) + TEXT_MIN) + 'px');
+				var fontSize = Math.round((Math.sin(-i/3 - j/3 + delta/3) + 1) * (TEXT_RANGE/2) + TEXT_MIN);
+				$('#' + num).css('fontSize', fontSize + 'px');
+				if (fontSize > TEXT_MAX - 2) {
+					$('#' + num).css('fontWeight', 900);
+				}
+				else if (fontSize < TEXT_MIN + 2 ) {
+					$('#' + num).css('fontWeight', 100);
+				}
+				else {
+					$('#' + num).css('fontWeight', 400);
+				}
 			}
 		}
 	}
