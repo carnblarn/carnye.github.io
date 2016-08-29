@@ -4,6 +4,9 @@
 	<title>a beautiful day for wind</title>
 	<link href="https://fonts.googleapis.com/css?family=Baloo+Da" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+	<script   src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"   integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="   crossorigin="anonymous"></script>
 	<style type="text/css">
 		body {
 			color: white;
@@ -44,7 +47,6 @@
 
 </head>
 <body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
 	var ROWS = 20;
 	var WORDS_IN_ROW = 30;
@@ -94,7 +96,11 @@
 	}
 	function answer() {
 		$('.q').hide();
-		$('body').append('<h4 class="a">ice cold!</h4>');
+		$('body').append('<h4 id="a" class="a">ice cold!</h4>');
+		setTimeout(function() {
+			$(".a").effect( "shake", { direction: "left", times: 6, distance: 10}, 800 );
+		}, 300);
+		   
 	}
 	setTimeout(question, 500);
 	setTimeout(answer, 3800);
