@@ -1,296 +1,410 @@
+<!DOCTYPE html>
 <html>
 <head>
     <title>Carntech</title>
-        <script src="resources/walkway.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:400,500,600,700,800,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cabin+Condensed" rel="stylesheet">
     <style>
-    @font-face {
-        font-family: 'Aller';
-        src: url(fonts/Aller_Rg.ttf);
-    }
-    @font-face {
-        font-family: 'Aller2';
-        src: url(fonts/Aller_Lt.ttf);
-    }
         body {
-            font-family: 'Aller2', Helvetica, sans-serif;
-            margin-top: 24px;
+            font-family: 'Libre Franklin', Helvetica, sans-serf;
+            margin: 0;
         }
         .container {
-            width:100%;
-            max-width:960px;
+            width: 100%;
+            max-width: 800px;
             margin: 0 auto;
         }
-        .title-section {
-            float:left;
-            position:relative;
-            margin-top: 0;
+        .container2 {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .super-container {
+            width:100%;
+            background-color: #3498DB;
+           /* background-image: -webkit-gradient(
+              linear,
+              left top,
+              left bottom,
+              color-stop(0, #3498DB),
+              color-stop(0.9, #2FEB9D)
+            );
+            background-image: -o-linear-gradient(bottom, #3498DB 0%, #2FEB9D 95%);
+            background-image: -moz-linear-gradient(bottom, #3498DB 0%, #2FEB9D 95%);
+            background-image: -webkit-linear-gradient(bottom, #3498DB 0%, #2FEB9D 95%);
+            background-image: -ms-linear-gradient(bottom, #3498DB 0%, #2FEB9D 95%);
+            background-image: linear-gradient(to bottom, #3498DB 0%, #2FEB9D 95%);*/
+        }
+        svg {
+            display:block;
+            margin: 0 auto;
+        }
+        .subtitle{
+            color: #AAA;
+            font-weight:500;
+            margin-top:0;
+            font-size:12px;
+            margin-bottom:2px;
+        }
+        .titles h2 {
+            margin-bottom:0;
+            font-weight:800;
+            font-size:16px;
+            color:#333;
         }
         .title {
-            letter-spacing:2px;
-            font-size:1.6rem;
-            margin-bottom: 6px;
-            margin-top:0;
-            font-family:'Aller';
+            float:left;
         }
-        .sub-title {
-            margin-top: 0;
-            font-weight:400;
-            font-size:.7rem;
-            letter-spacing:1px;
-            color:#AAA  ;
+        .right {
+            float: right;
+            color: #AAA;
+            font-weight:700;
+            font-size:16px;
+            font-family: 'Cabin Condensed';
         }
-        .nav {
-            margin-top: 0;
-            float:right;
+        h1 {
+            font-family: 'Cabin Condensed';
+            text-align:center;
         }
-        .nav > li {
-            list-style-type:none;
-            display:inline-block;
-            padding-left:30px;
-            font-size:1rem;
-            color:#888;
-
+        .right:hover {
+            color: #333;
         }
         a {
-            text-transform:lowercase;
-            letter-spacing:2px;
-            padding-bottom:10px;
-            color:#888;
-            text-decoration:none;
-            font-family:'Aller';
-        }
-         a:hover {
-            color:#000;
-            text-decoration:none;
+            text-decoration: none;
+            color: inherit;
         }
         .clearfix:after {
-           content: " "; /* Older browser do not support empty content */
-           visibility: hidden;
-           display: block;
-           height: 0;
-           clear: both;
+          content: "";
+          display: table;
+          clear: both;
         }
-        .main-container {
-            text-align:center;
-            padding-top: 180px;
-            padding-bottom: 140px;
-        }
-        .main {
-            text-align:right;
-            font-weight:100;
-            font-size:3.6rem;
-            display:inline-block;
-            margin:0 auto;
-        }
-        .item-left {
-            width:30%;
-            float:left;
-        }
-        .item h1,h2,h3,h4,h5,h6, p {
-            margin-top:4px;
-            margin-bottom:4px;
-        }
-        .item-project a{
-            font-size:1.5rem;
-            color:black;
-        }
-        .item-project a:hover {
-            text-decoration:underline;
-        }
-        .item-right {
-            width:70%;
-            float:left;
-        }
-        .item-descrip {
+        .tabs{
+            display: flex;
+            flex-direction:column;
+            justify-content: space-around;
             margin-top:12px;
-            color:#666;
-            line-height:24px;
-            font-size:.9rem;
         }
-        .code {
-            font-family: "Courier New: ;", monospace ;
-            color:#999;
+        .tabs h6 {
+            font-weight:700;
+            font-size:16px ;
+            color: #555;
+            margin-top:12px;
+            margin-bottom:12px;
+            cursor: pointer;
+            font-family: 'Cabin Condensed';
+            text-transform:uppercase;
         }
-        .work-header {
-            color: #777;
-            font-family: 'Aller';
-            font-size:1rem;
+        h1 {
+            font-size:30px;
+            color: #444;
+        }
+@keyframes draw {
+  0% {
+    stroke-width: 5px;
+  }
+  100% {
+        stroke-width: 3px;
+  }
+}
+.item {
+    border-left: 4px solid #666;
+    padding-left: 12px;
+    border-radius: 2px;
+    margin-top: 36px;
+}
 
-            margin-top: 80px;
-            margin-bottom: 80px;
-            font-style:italic;
-        }
-        hr {
-            margin-top:60px;
-            width:32%;
-            margin-bottom:60px;
-            border-color: #FFF;
-        }
-        .art {
-            position:relative;
-        }
-        .art > svg {
-            margin-left:-100px;
-            margin-top:-60px;
+.item-title {
+    font-family: 'Cabin Condensed';
+    font-weight: 700;
+    font-size:22px;
+}
+.item-subtitle {
+    color: #888;
+    font-size:14px;
+    margin-bottom: 8px;
+}
+.item-body {
 
-        }
-        .cls-1 {
-            stroke-width: 50px;
-    
-        }
-        .art > .tagline {
-            font-weight:100;
-            color:white;
-            font-size:4rem;
-            top:-20px;
-            width:100%;
-            text-align:center;
-            position:absolute;
-        }
-        .noselect {
-                cursor: default;
-              -webkit-touch-callout: none; /* iOS Safari */
-              -webkit-user-select: none;   /* Chrome/Safari/Opera */
-              -khtml-user-select: none;    /* Konqueror */
-              -moz-user-select: none;      /* Firefox */
-              -ms-user-select: none;       /* Internet Explorer/Edge */
-              user-select: none;           /* Non-prefixed version, currently
-                      
-        }
+}
+
+svg line,path,polyline {
+  -webkit-animation: 7.0s draw ease-out forwards;
+  animation: 7.0s draw ease-out forwards;
+}
     </style>
-    <link rel="icon" href="images/cropped-C-icon-32x32.png" sizes="32x32" />
+    <script src="static/walkway.js"></script>
 </head>
 
 <body>
-    <div class="container">
-    <header class="header">
-        <div class="title-section">
-            <h3 class="title">CARNTECH</h4>
-            <h5 class="sub-title">WEB DEVELOPMENT</h6>
+    <div class="container titles">
+        <div class="title">
+        <h2>SEAN CARNEY</h2>
+        <h5 class="subtitle">Web Development</h5>
         </div>
-        <ul class='nav'>
-            <li><a href="resume.pdf">resume</a>.pdf</li>
-        </ul>
-    </header>
-    <div class="clearfix"></div>
-    <div class="main-container">
-        <h1 class="main">I<br> make<br> websites</h1>
-        <!-- Since text will never work why not have the text there and draw a path over it to reveal
-        think white text black marker which colors in a background -->
-        <!-- Cool idea, but what if instead you just draw random squares in different colors -->
-        <!--  -->
-<div class="art">
-    <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 801.4 316.91"><defs><style>.cls-2{fill:none;stroke:#FFF;stroke-miterlimit:2;stroke-width:46px;}</style></defs><title>test</title><path class="cls-2" d="M21.07,127.92A454.73,454.73,0,0,1,94.34,48.45c3.2,2.48,2.33,7.44,1.15,11.31L69.56,145a960.73,960.73,0,0,1,105.6-93.61c-8.29,38-23.44,74-38.51,109.82a498.35,498.35,0,0,1,127.16-130c1.64,41.63-12.47,82.09-26.39,121.36A459.76,459.76,0,0,1,355.72,35a515.66,515.66,0,0,1-35.2,134c38.72-52.51,78-105.64,128.71-146.72-4.06,47.71-16.83,94.2-29.55,140.37A1374.35,1374.35,0,0,1,542,48.79c" transform="translate(179.94 22.47)"/></svg>
-    <h1 class="tagline noselect" id="tagline">that rock</h1>
-</div>
-
+        <h5 class="right"><a href="resume.pdf">resume.pdf</a></h5>
     </div>
-    <h5 class="work-header">> Things people paid me for</h5>
-        <div class="item">
-            <div class="item-left">
-                <h6 class="item-project"><a href="https://flipgrid.com/">flipgrid</a></h6>
-                <p class=" item-tech code">React, Django</p>
-            </div>
-            <div class="item-right">
-                <p class="item-descrip">An edtech product for teachers and students to communicate asynchronously by recording videos. Students respond to prompts by recording videos with the new MediaRecorder API (no Flash needed).</p>
-            </div>
+    <div class="clearfix"></div>
+<div class="super-container">
+<div class="container2">
+<svg style="visibility:hidden" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    viewBox="0 300 2560 800"  xml:space="preserve">
+   <defs>
+    <filter id="f1" x="0" y="0">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+    </filter>
+  </defs>
+
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="0" y1="906" x2="2560" y2="906"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="0,816.333 30.335,805 30.335,906 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="30.335,807.667 77.001,807.667 77.001,906
+  "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="41.001,807.667 41.001,764.333
+  104.335,758.333 104.335,813.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="104.335,758.333 123.001,758.333
+  123.001,815 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="77.001,816.333 112.335,816.333
+  112.335,904.333 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="112.335,816.333 152.335,816.333
+  152.335,906.333 "/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M75.001,761v-22h12.667v-66l2.667-2.667v-8h6
+  c0,0-0.667-14,14.667-14s16.667,13.333,16,14c-0.667-0.667,6.667,0,6.667,0l0.667,5.333h5.333V743h6.667v74"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="153.001,855 190.335,855 190.335,905.667
+  "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="153.668,843.667 166.335,843.667
+  166.335,829 170.335,829 170.335,813.667 197.668,813.667 197.668,693 215.001,693 215.001,597.668 225.668,597.668
+  225.668,529.001 233.668,529.001 236.335,490.335 237.001,529.001 237.668,519.668 240.335,522.334 245.001,445.001
+  247.001,521.668 253.001,521.668 257.668,445.001 261.001,519.668 265.001,519.668 265.001,528.335 267.668,489.001
+  268.335,527.668 274.335,527.668 274.335,597.668 285.001,599.668 285.001,605.001 292.335,605.001 292.335,694.335
+  303.668,694.335 303.668,777.001 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="191.001,863.001 212.335,863.001
+  212.335,843.001 255.001,843.001 255.001,849.668 268.335,849.001 305.668,851.001 305.668,905.001 "/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M387.001,822.335"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="268.335,849.001 268.335,874.335
+  268.335,894.335 267.001,906.335 266.335,891.668 261.001,891.668 261.001,871.001 244.335,871.001 244.335,882.335
+  236.335,882.335 236.335,871.001 228.335,871.001 228.335,883.668 190.335,883.668 "/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M255.001,849.668v-57.333h6.667v-8h4.667v-6.667
+  l15.333-14c0,0,0.666-16,3.333-15.333s6.667,17.333,4.667,17.333s10.667,7.333,10.667,7.333v10.667h4v9.333h4.667v114"/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M309.668,821.668h40.667v-10
+  c0,0,7.333-11.333,13.333-12s37.333-3.333,48,10.667"/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M335.001,822.335v-60c0,0,52.667-10,66,0
+  c0-0.667,0,13.333,0,13.333h4v29.333"/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="310.335" y1="887.668" x2="333.001" y2="887.668"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="333.001,906.335 333.001,863.668
+  429.668,863.668 429.668,905.001 "/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M524.335,804.335"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="333.001,863.668 333.001,829.001
+  440.335,829.001 440.335,906.335 "/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M583.001,817.668"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="411.001,815.001 411.001,765.001
+  415.668,765.001 415.668,707.668 427.001,707.668 427.001,698.334 432.335,698.334 434.335,666.334 437.001,695.001
+  438.335,665.668 441.668,695.668 446.335,695.668 446.335,706.334 457.001,706.334 457.001,695.001 459.668,695.001
+  461.001,668.334 462.335,694.334 465.001,668.334 466.335,694.334 471.001,694.334 471.001,707.668 480.335,707.668
+  480.335,763.668 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="441.001,882.334 498.335,882.334
+  498.335,905.667 "/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="451.001" y1="882.334" x2="451.001" y2="906.334"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="440.335,847.667 475.001,847.667
+  475.001,870.334 475.001,882.334 "/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="459.668" y1="883.667" x2="459.668" y2="848.334"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="499.001,889.667 589.668,889.667
+  589.668,907.001 "/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="524.335" y1="889.667" x2="524.335" y2="907.001"/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M451.001,847.667V799h5.333
+  c0-11.333,0-11.333,0-11.333h6"/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M456.335,787.667"/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M462.335,847.667v-82h24.667v-8h9.333
+  c0,0,48-9.333,58-7.333v13.333h4.667v126"/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="496.335" y1="757.667" x2="496.335" y2="883.001"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="558.335,778.334 569.668,778.334
+  569.668,784.334 575.668,784.334 575.668,794.334 581.668,794.334 581.668,801.667 596.335,801.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="559.001,832.334 565.001,832.334
+  565.001,823.001 597.668,823.001 597.668,834.334 617.668,834.334 617.668,886.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="589.668,887.001 635.001,887.001
+  635.001,906.334 "/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M597.668,823.001V707.667l27.997-2
+  c0,0,26.667-6.667,55.333,4.667c0.667,0,25.333,2.667,25.333,2.667v127.333h-60.667V905"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="706.332,840.334 754.332,840.334
+  754.332,905.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="706.999,761.667 732.332,763.667
+  732.332,770.333 744.332,771 744.332,797.667 752.999,799 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="730.332,839.667 730.332,834.334
+  760.332,834.334 760.332,797 767.665,797 778.665,786 778.999,781 782.332,781 782.332,769 789.665,769 789.665,780.333
+  792.665,783.334 792.665,787.667 803.832,798.834 803.832,812.334 803.832,836.334 814.999,836.334 819.665,846.334 819.665,907 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="754.332,834.334 754.332,701.667
+  815.665,693.667 815.665,841.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="836.332,851.667 836.332,699
+  815.665,693.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="820.332,859 839.665,853 868.999,853
+  886.999,863 886.999,906.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="836.332,728.333 844.332,728.333
+  844.332,733.667 853.665,733.667 853.665,737.667 858.999,737.667 858.999,743.667 861.665,743.667 861.665,749 868.999,749
+  868.999,755 871.665,757.667 871.665,778.333 844.332,775 844.332,851.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="871.665,772.333 877.665,772.333
+  877.665,855.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="877.665,772.333 877.665,749.667
+  909.665,747 917.665,747 917.665,741.667 956.332,745.667 956.332,753 995.665,756.333 1002.332,751.667 1016.999,755
+  1016.999,737.667 1023.665,737.667 1023.665,679 1032.999,679 1032.332,673.667 1062.999,672.334 1062.999,686.334
+  1072.332,686.334 1072.332,771.667 "/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="995.665" y1="756.333" x2="995.665" y2="846.334"/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M994.999,842.334"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="886.999,863 909.665,857.001 909.665,747
+  "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="909.665,849.667 1014.332,849.667
+  1014.332,905.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="909.665,857.001 948.999,857.001
+  948.999,906.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1016.999,755 1016.999,871.667
+  1026.332,871.667 1026.332,903.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1026.332,871.667 1042.332,871.667
+  1042.332,888.334 1042.332,907.001 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1042.332,888.334 1053.998,876.667
+  1065.998,888.667 1065.998,907.001 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1056.332,878.334 1084.999,878.334
+  1084.999,905.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1070.996,879 1070.329,771 1123.663,771
+  1123.663,780.333 1140.996,780.333 1150.663,790 1150.663,806.334 1156.996,806.334 1156.996,817.667 1159.663,817.667
+  1159.663,859 1145.329,863 1145.329,900.667 1134.329,900.667 1134.329,895 1118.329,895 1095.329,895 1095.329,906.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1070.995,863.334 1101.995,863.334
+  1101.995,895 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1098.662,864 1098.662,786.667
+  1112.995,779.333 1123.329,779.333 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1150.662,804 1137.995,804 1137.995,815
+  1133.662,815 1133.662,894 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1159.663,859 1165.661,859
+  1165.661,870.334 1168.661,870.334 1168.661,904.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1158.327,807 1163.994,807 1163.994,797
+  1186.327,797 1186.327,807.667 1190.994,807.667 1190.994,857.667 1180.655,857.667 1180.655,866.667 1176.989,866.667
+  1176.989,884.333 1169.655,884.333 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1190.994,857.667 1198.989,857.667
+  1198.989,885.333 1204.322,885.333 1204.322,906.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1166.655,796.667 1166.655,780.667
+  1229.322,780.667 1229.322,862.333 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1199.322,861 1249.989,861
+  1249.989,906.333 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1233.322,861 1233.322,770 1245.989,770
+  1245.989,760.333 1252.655,760.333 1252.655,756.333 1280.322,756.333 1280.322,905.667 "/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M1280.65,804.333h16.333h5v6
+  c0,0,12.334-0.999,12.334,5.334c0,0.333,0,90.333,0,90.333"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1319.317,906.667 1319.317,815.333
+  1341.983,781 1341.983,806.667 1347.65,806.667 1347.65,780.667 1377.65,817.667 1377.65,906 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1320.317,813.333 1351.317,847.667
+  1351.317,906.667 "/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="1351.65" y1="849" x2="1374.983" y2="814.667"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1376.313,815.667 1376.313,779.667
+  1390.98,780 1390.98,775 1403.98,775 1403.98,779.333 1434.313,784 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1398.313,905.667 1398.313,834.333
+  1433.646,834.333 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1434.646,906 1434.646,790.333
+  1435.313,772 1484.313,772 1484.313,787.999 1497.313,787.999 1497.313,904.999 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1497.313,787.999 1508.646,787.999
+  1508.646,905.999 "/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M1454.309,772.668V660.335
+  c0,0-0.333-2.333,2.667-2.333s16.666,0,16.666,0v-7.667h10V603.67h2.334v47h8.333v16h2v113.667l14.667,1v5h2"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1512.309,906.333 1512.309,722.667
+  1537.642,674.002 1539.642,649.668 1541.976,674.335 1567.309,724.002 1567.309,906.333 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1527.976,696 1548.309,722.333
+  1548.309,906.333 "/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M1548.309,722.333"/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="1548.309" y1="722.333" x2="1556.642" y2="703.333"/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="1567.306" y1="829.333" x2="1583.306" y2="829.333"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1583.973,906 1583.973,593.671
+  1630.973,589.004 1658.306,596.671 1658.306,905.667 "/>
+<path fill="none" stroke="#FFF"  stroke-miterlimit="10" d="M1633.64,906.334l-2.667-317.33
+  c0,0-19.334-12.667-32.667,2.667"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1669.319,907 1669.319,707.667
+  1676.319,707.667 1676.319,690 1752.986,687 1767.986,693.333 1767.986,703 1778.325,716 1778.325,906.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1676.319,707.667 1762.992,703.333
+  1762.992,906 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1763.992,692 1822.992,690
+  1822.992,710.333 1847.658,705.667 1847.658,907 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1853.003,906 1856.337,814.333
+  1866.337,814.333 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1867.003,905.667 1867.003,809.667
+  1870.003,809.667 1870.003,793 1876.337,783 1881.67,783.333 1886.337,788.333 1886.337,796.333 1891.003,796.333 1891.003,800.333
+  1905.337,800.333 1905.337,803.333 1918.337,803.333 1918.337,905.333 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1938.349,906.332 1938.349,805.332
+  1948.016,805.332 1948.016,797.999 1952.349,797.999 1952.349,794.332 1954.682,794.332 1953.682,790.332 1957.849,786.165
+  1960.682,786.165 1964.599,790.082 1964.599,793.999 1966.682,793.999 1966.682,789.666 1969.849,786.499 1972.016,786.499
+  1975.099,789.582 1975.099,793.666 1977.682,793.666 1977.682,789.666 1980.515,786.832 1982.682,786.832 1986.599,790.749
+  1986.599,795.332 1988.016,795.332 1988.016,797.999 1991.016,797.999 1991.016,804.332 1995.682,804.332 1995.682,821.999 "/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="1918.682" y1="858.332" x2="1938.682" y2="858.332"/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="1948.016" y1="805.332" x2="1948.016" y2="906.999"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="1967.692,906.332 1967.692,826.666
+  1997.358,822.332 1997.358,819.332 2015.692,819.332 2015.692,808.332 2044.025,808.332 2044.025,820.666 2059.358,820.666
+  2059.358,824.332 2098.692,827.666 2098.692,905.666 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2021.358,807.999 2023.692,726.332
+  2030.358,726.332 2032.358,657 2034.692,726 2052.692,726 2053.358,645 2056.358,726 2063.358,726 2066.358,775.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2035.025,809.334 2035.025,776.334
+  2087.025,776.334 2087.025,805.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2065.692,824.667 2065.692,816.001
+  2080.358,816.001 2080.358,810.334 2088.358,810.334 2088.358,803.667 2103.692,803.667 2103.692,809.667 2113.358,809.667
+  2113.358,816.667 2124.692,816.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2125.025,907.334 2125.025,784
+  2128.358,784 2128.358,779.334 2138.025,779.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2137.025,906.667 2137.025,758.334
+  2145.025,758.334 2145.025,753.667 2154.358,753.667 2154.358,749 2169.025,749 2169.025,752.667 2177.025,752.667 2177.025,759
+  2168.696,759 2168.696,904.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2178.03,759 2184.03,759 2184.03,753.667
+  2192.03,753.667 2192.03,745.334 2230.03,745.334 2230.03,753.334 2249.03,753.334 2256.196,760.5 2256.196,906.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2229.372,746.667 2265.706,746.667
+  2266.372,752 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2253.706,757 2253.706,751.667
+  2284.706,751.667 2284.706,906.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2284.706,828.334 2289.706,828.334
+  2289.706,817.667 2301.706,817.667 2301.706,828.001 2310.706,828.001 2310.706,840.667 2319.706,840.667 2319.706,853.667
+  2304.706,866.667 2304.706,906.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2319.706,853.667 2352.706,853.667
+  2360.039,868.334 2360.039,907.667 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2326.706,854.334 2326.706,814.001
+  2330.039,814.001 2330.039,811.001 2335.039,811.001 2335.039,805.001 2355.706,805.001 2355.706,810.001 2361.372,810.001
+  2361.372,814.334 2367.039,814.334 2367.039,905.667 "/>
+<line fill="none" stroke="#FFF"  stroke-miterlimit="10" x1="2368.039" y1="896.334" x2="2390.039" y2="896.334"/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2391.039,906.334 2391.039,871.334
+  2397.372,866.001 2403.039,866.001 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2439.706,818.334 2439.706,787.334
+  2435.706,787.334 2435.706,783.667 2433.039,783.667 2433.039,779.334 2411.039,779.334 2411.039,785.334 2408.039,785.334
+  2408.039,789 2404.706,789 2404.706,905.334 "/>
+<polyline fill="none" stroke="#FFF"  stroke-miterlimit="10" points="2467.039,906.001 2467.039,817.334
+  2437.372,817.334 2437.372,906.001 "/>
+
+</svg>
+</div>
+</div>
+<div class="container">
+        <h1>things I've worked on</h1>
+    <div class="item">
+        <div class="item-title">
+            <a href="/jackie.html">It's not Jackie Chan!</a>
         </div>
-        <div class="clearfix"></div>
-        <h5 class="work-header">> Things I did on my own (but will accept payment)</h5>
-            <div class="item">
-                <div class="item-left">
-                    <h6 class="item-project"><a href="playlistify.html">Playlistify</a></h6>
-                    <p class=" item-tech code">Python, Node, React</p>
-                </div>
-                <div class="item-right">
-                    <p class="item-descrip">My favorite project, a way of looking up Spotify playlists by the tracks they contain. It's much better than just looking up by name,
-                    I'm honestly not sure why this feature hasn't been added to Spotify yet.</a></p>
-                </div>
-            </div>
+        <div class="item-subtitle">
+            React
+        </div>
+        <div class="item-body">
+            Inspired by a Tim and Eric sketch, this simple web game tests facial recognition skills
+        </div>
+    </div>
 
-            <div class="clearfix"></div>
-            <hr>
-            <div class="item">
-                <div class="item-left">
-                    <h6 class="item-project"><a href="jackie.html">It's not Jackie Chan!</a></h6>
-                    <p class=" item-tech code">Vanilla Javascript</p>
-                </div>
-                <div class="item-right">
-                    <p class="item-descrip">A YouTube video for context: <a href="https://www.youtube.com/watch?v=d8u4CEBVq7s">https://www.youtube.com/watch?v=d8u4CEBVq7s</a></p>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-
-            <hr>
-            <div class="item">
-                <div class="item-left">
-                    <h6 class="item-project"><a href="https://github.com/carnye/shutter">shutter</a></h6>
-                    <p class=" item-tech code">Vanilla Javascript</p>
-                </div>
-                <div class="item-right">
-                    <p class="item-descrip">A small library for using the new webcam recording features added to Chrome and Firefox.</p>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-
-            <hr>
-            <div class="item">
-                <div class="item-left">
-                    <h6 class="item-project"><a href="matrix.html">Matrix Webcam</a></h6>
-                    <p class=" item-tech code">Vanilla Javascript</p>
-                </div>
-                <div class="item-right">
-                    <p class="item-descrip">Transform your webcam to a matrix effect simulator.</p>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <hr>
-            <div class="item">
-                <div class="item-left">
-                    <h6 class="item-project"><a href="wind.html">alright now fellas....</a></h6>
-                    <p class=" item-tech code">Jquery</p> </div>
-                <div class="item-right">
-                    <p class="item-descrip">A HTML music video (~5 seconds long)</p>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <hr>
-            <div class="item">
-                <div class="item-left">
-                    <h6 class="item-project"><a href="chicago2.html">The Chicago Skyline</a></h6>
-                    <p class=" item-tech code">WalkwayJS</p>
-                </div>
-                <div class="item-right">
-                    <p class="item-descrip">It's just like those fancy polygon reviews...</p>
-                </div>
-            </div>
-            <div class="clearfix"></div>
-            <hr>
-    <!-- <img height="500" src="images/profpic.jpg" alt=""> -->
-    <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-56283145-1', 'auto');
-ga('send', 'pageview');
-</script>
-    <script>
-
+    <div class="item">
+        <div class="item-title">
+            <a href="/playlistify.html">Playlistify</a>
+        </div>
+        <div class="item-subtitle">
+            React, Node, Python, Spotify API
+        </div>
+        <div class="item-body">
+            Finding it difficult to find good playlists on Spotify, I wrote an app
+            that looks up Spotify playlists by the tracks they contain-- a feature sorely lacking from the official search.
+        </div>
+    </div>
+</div>
+<script>
+document.getElementById('Layer_1').style.visibility = 'visible';
 var svg = new Walkway({
-  selector: 'svg',
-  duration: '2000',
-  easing: 'linear'
-});
-document.getElementsByClassName('cls-2')[0].style.stroke = '#231f20';
-setTimeout(function() {
-    svg.draw(function() {
-        
+    selector:"#Layer_1",
+    duration:'7000',
     });
-}, 1000);
-        
-    </script>
-    </div> 
+
+svg.draw();
+</script>
 </body>
 </html>
