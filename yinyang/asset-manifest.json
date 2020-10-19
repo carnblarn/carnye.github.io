@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/yinyang/static/css/main.82d78e7b.chunk.css",
-    "main.js": "/yinyang/static/js/main.b2a9182e.chunk.js",
+    "main.css": "/yinyang/static/css/main.98626be5.chunk.css",
+    "main.js": "/yinyang/static/js/main.2916a05e.chunk.js",
     "runtime-main.js": "/yinyang/static/js/runtime-main.cc4ab8b6.js",
     "static/js/2.be4b5680.chunk.js": "/yinyang/static/js/2.be4b5680.chunk.js",
     "index.html": "/yinyang/index.html",
-    "precache-manifest.593d07b3135203877f7ddc597feea927.js": "/yinyang/precache-manifest.593d07b3135203877f7ddc597feea927.js",
+    "precache-manifest.87ae84097fe438d2775f536f13b0325a.js": "/yinyang/precache-manifest.87ae84097fe438d2775f536f13b0325a.js",
     "service-worker.js": "/yinyang/service-worker.js",
     "static/js/2.be4b5680.chunk.js.LICENSE.txt": "/yinyang/static/js/2.be4b5680.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.cc4ab8b6.js",
     "static/js/2.be4b5680.chunk.js",
-    "static/css/main.82d78e7b.chunk.css",
-    "static/js/main.b2a9182e.chunk.js"
+    "static/css/main.98626be5.chunk.css",
+    "static/js/main.2916a05e.chunk.js"
   ]
 }
