@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/suggestabook/static/css/main.c9b96610.chunk.css",
+    "main.js": "/suggestabook/static/js/main.ae08a238.chunk.js",
+    "runtime-main.js": "/suggestabook/static/js/runtime-main.70accec8.js",
+    "static/js/2.5e9fd48f.chunk.js": "/suggestabook/static/js/2.5e9fd48f.chunk.js",
+    "index.html": "/suggestabook/index.html",
+    "precache-manifest.0e7f65eac6125eb2a75651fbc36aac2a.js": "/suggestabook/precache-manifest.0e7f65eac6125eb2a75651fbc36aac2a.js",
+    "service-worker.js": "/suggestabook/service-worker.js",
+    "static/js/2.5e9fd48f.chunk.js.LICENSE.txt": "/suggestabook/static/js/2.5e9fd48f.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.70accec8.js",
+    "static/js/2.5e9fd48f.chunk.js",
+    "static/css/main.c9b96610.chunk.css",
+    "static/js/main.ae08a238.chunk.js"
+  ]
+}
